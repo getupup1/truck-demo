@@ -1,0 +1,31 @@
+{
+  "month": "2026-03",
+  "simulate_time_seconds": 1953.49,
+  "simulation_duration_days": 1,
+  "completed_steps": 39,
+  "remaining_cargo_count": 490046,
+  "driver_completed_steps": {
+    "D001": 4,
+    "D002": 4,
+    "D003": 3,
+    "D004": 4,
+    "D005": 3,
+    "D006": 4,
+    "D007": 3,
+    "D008": 5,
+    "D009": 5,
+    "D010": 4
+  },
+  "driver_result_files": {
+    "D001": "D:\\Desktop\\demo_docs_release_20260508\\demo\\results\\actions_202603_D001_20260510_225650.jsonl",
+    "D002": "D:\\Desktop\\demo_docs_release_20260508\\demo\\results\\actions_202603_D002_20260510_225650.jsonl",
+    "D003": "D:\\Desktop\\demo_docs_release_20260508\\demo\\results\\actions_202603_D003_20260510_225650.jsonl",
+    "D004": "D:\\Desktop\\demo_docs_release_20260508\\demo\\results\\actions_202603_D004_20260510_225650.jsonl",
+    "D005": "D:\\Desktop\\demo_docs_release_20260508\\demo\\results\\actions_202603_D005_20260510_225650.jsonl",
+    "D006": "D:\\Desktop\\demo_docs_release_20260508\\demo\\results\\actions_202603_D006_20260510_225650.jsonl",
+    "D007": "D:\\Desktop\\demo_docs_release_20260508\\demo\\results\\actions_202603_D007_20260510_225650.jsonl",
+    "D008": "D:\\Desktop\\demo_docs_release_20260508\\demo\\results\\actions_202603_D008_20260510_225650.jsonl",
+    "D009": "D:\\Desktop\\demo_docs_release_20260508\\demo\\results\\actions_202603_D009_20260510_225650.jsonl",
+    "D010": "D:\\Desktop\\demo_docs_release_20260508\\demo\\results\\actions_202603_D010_20260510_225650.jsonl"
+  }
+}

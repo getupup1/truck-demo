@@ -1,0 +1,218 @@
+[
+  {
+    "driver_id": "D001",
+    "driver_name": "张三",
+    "step": 1,
+    "simulation_progress_minutes": 0,
+    "simulation_wall_time": "2026-03-01 00:00:00",
+    "active_preferences": [
+      {
+        "content": "我这人熬不住连轴转，每天至少连续停车熄火休息满8小时。",
+        "start_time": "2026-03-01 00:00:00",
+        "end_time": "2026-03-31 23:59:59",
+        "penalty_amount": 300,
+        "penalty_cap": 3000
+      },
+      {
+        "content": "不接货源品类为「化工塑料」或「煤炭矿产」的订单。",
+        "start_time": "2026-03-01 00:00:00",
+        "end_time": "2026-03-31 23:59:59",
+        "penalty_amount": 500,
+        "penalty_cap": 5000
+      },
+      {
+        "content": "我就在深圳干活，不出市。从 22.54,114.06 这一带出车；跑车或停车时，车辆位置须始终在深圳市范围内（北纬22.42至22.89，东经113.74至114.66）。",
+        "start_time": "2026-03-01 00:00:00",
+        "end_time": "2026-03-31 23:59:59",
+        "penalty_amount": 2000,
+        "penalty_cap": 2000
+      }
+    ],
+    "classification_output": {
+      "forbidden_cargo_names": [
+        {
+          "source_text": "不接货源品类为「化工塑料」或「煤炭矿产」的订单。",
+          "constraint_value": "不接「化工塑料」或「煤炭矿产」",
+          "start_time": "2026-03-01 00:00:00",
+          "end_time": "2026-03-31 23:59:59",
+          "penalty_amount": 500,
+          "penalty_cap": 5000,
+          "preference_action": "take_order 时不要选择 cargo_name 为「化工塑料」或「煤炭矿产」的货源"
+        }
+      ],
+      "distance_limits": [],
+      "fixed_rest_windows": [],
+      "daily_rest_duration_constraints": [
+        {
+          "source_text": "我这人熬不住连轴转，每天至少连续停车熄火休息满8小时。",
+          "constraint_value": "每天至少连续停车熄火休息满 8 小时",
+          "start_time": "2026-03-01 00:00:00",
+          "end_time": "2026-03-31 23:59:59",
+          "penalty_amount": 300,
+          "penalty_cap": 3000,
+          "preference_action": "每天需要连续 wait 达到 480 分钟，take_order 和 reposition 会打断连续休息"
+        }
+      ],
+      "region_limits": [
+        {
+          "source_text": "我就在深圳干活，不出市。从 22.54,114.06 这一带出车；跑车或停车时，车辆位置须始终在深圳市范围内（北纬 22.42 至 22.89，东经 113.74 至 114.66）。",
+          "constraint_value": "车辆位置须始终在深圳市范围内（北纬 22.42 至 22.89，东经 113.74 至 114.66）",
+          "start_time": "2026-03-01 00:00:00",
+          "end_time": "2026-03-31 23:59:59",
+          "penalty_amount": 2000,
+          "penalty_cap": 2000,
+          "preference_action": "take_order 或 reposition 后车辆位置须始终在北纬 22.42 至 22.89，东经 113.74 至 114.66 范围内"
+        }
+      ],
+      "deadline_location_constraints": [],
+      "history_constraints": [],
+      "urgent_tasks": [],
+      "unknown_preferences": []
+    }
+  },
+  {
+    "driver_id": "D009",
+    "driver_name": "郑一",
+    "step": 1,
+    "simulation_progress_minutes": 0,
+    "simulation_wall_time": "2026-03-01 00:00:00",
+    "active_preferences": [
+      {
+        "content": "每天23点前车辆须在自家位置（23.12，113.28）一公里内；当天23点至次日8点不接单、不空跑。",
+        "start_time": "2026-03-01 00:00:00",
+        "end_time": "2026-03-31 23:59:59",
+        "penalty_amount": 900,
+        "penalty_cap": 27000
+      },
+      {
+        "content": "不接货源品类为「快递快运搬家」的订单。",
+        "start_time": "2026-03-01 00:00:00",
+        "end_time": "2026-03-31 23:59:59",
+        "penalty_amount": 350,
+        "penalty_cap": 3500
+      }
+    ],
+    "classification_output": {
+      "forbidden_cargo_names": [
+        {
+          "source_text": "不接货源品类为「快递快运搬家」的订单。",
+          "constraint_value": "不接快递快运搬家",
+          "start_time": "2026-03-01 00:00:00",
+          "end_time": "2026-03-31 23:59:59",
+          "penalty_amount": 350,
+          "penalty_cap": 3500,
+          "preference_action": "take_order 时不要选择 cargo_name 为「快递快运搬家」的货源"
+        }
+      ],
+      "distance_limits": [],
+      "fixed_rest_windows": [
+        {
+          "source_text": "每天 23 点前车辆须在自家位置（23.12，113.28）一公里内；当天 23 点至次日 8 点不接单、不空跑。",
+          "constraint_value": "23:00-08:00 禁接单不空跑",
+          "start_time": "2026-03-01 00:00:00",
+          "end_time": "2026-03-31 23:59:59",
+          "penalty_amount": 900,
+          "penalty_cap": 27000,
+          "preference_action": "23:00 至次日 08:00 应 wait，不要 take_order 或 reposition"
+        }
+      ],
+      "daily_rest_duration_constraints": [],
+      "region_limits": [],
+      "deadline_location_constraints": [
+        {
+          "source_text": "每天 23 点前车辆须在自家位置（23.12，113.28）一公里内；当天 23 点至次日 8 点不接单、不空跑。",
+          "constraint_value": "23 点前在坐标（23.12，113.28）1 公里内",
+          "start_time": "2026-03-01 00:00:00",
+          "end_time": "2026-03-31 23:59:59",
+          "penalty_amount": 900,
+          "penalty_cap": 27000,
+          "preference_action": "每日 23:00 前需要 reposition 到指定坐标附近"
+        }
+      ],
+      "history_constraints": [],
+      "urgent_tasks": [],
+      "unknown_preferences": []
+    }
+  },
+  {
+    "driver_id": "D009",
+    "driver_name": "郑一",
+    "step": 15,
+    "simulation_progress_minutes": 1238,
+    "simulation_wall_time": "2026-03-01 20:38:00",
+    "active_preferences": [
+      {
+        "content": "【临时约定·熟货】指定熟货源编号240646（品类「服饰纺织皮革」）：装货地：韶关市浈江区（24.81，113.58）；上架时间：2026-03-03 14:43:36；不接则丧失该老客户信任，经济损失10000元。",
+        "start_time": "2026-03-01 14:43:36",
+        "end_time": "2026-03-03 16:08:24",
+        "penalty_amount": 10000,
+        "penalty_cap": 10000
+      },
+      {
+        "content": "每天23点前车辆须在自家位置（23.12，113.28）一公里内；当天23点至次日8点不接单、不空跑。",
+        "start_time": "2026-03-01 00:00:00",
+        "end_time": "2026-03-31 23:59:59",
+        "penalty_amount": 900,
+        "penalty_cap": 27000
+      },
+      {
+        "content": "不接货源品类为「快递快运搬家」的订单。",
+        "start_time": "2026-03-01 00:00:00",
+        "end_time": "2026-03-31 23:59:59",
+        "penalty_amount": 350,
+        "penalty_cap": 3500
+      }
+    ],
+    "classification_output": {
+      "forbidden_cargo_names": [
+        {
+          "source_text": "不接货源品类为「快递快运搬家」的订单。",
+          "constraint_value": "不接品类为「快递快运搬家」的订单",
+          "start_time": "2026-03-01 00:00:00",
+          "end_time": "2026-03-31 23:59:59",
+          "penalty_amount": 350,
+          "penalty_cap": 3500,
+          "preference_action": "take_order时不要选择cargo_name为「快递快运搬家」的货源"
+        }
+      ],
+      "distance_limits": [],
+      "fixed_rest_windows": [
+        {
+          "source_text": "每天23点前车辆须在自家位置（23.12，113.28）一公里内；当天23点至次日8点不接单、不空跑。",
+          "constraint_value": "每天23点至次日8点禁接单和空跑",
+          "start_time": "2026-03-01 00:00:00",
+          "end_time": "2026-03-31 23:59:59",
+          "penalty_amount": 900,
+          "penalty_cap": 27000,
+          "preference_action": "每天23:00至次日08:00应wait，不要take_order或reposition"
+        }
+      ],
+      "daily_rest_duration_constraints": [],
+      "region_limits": [],
+      "deadline_location_constraints": [
+        {
+          "source_text": "每天23点前车辆须在自家位置（23.12，113.28）一公里内；当天23点至次日8点不接单、不空跑。",
+          "constraint_value": "每天23点前车辆须位于（23.12，113.28）1公里范围内",
+          "start_time": "2026-03-01 00:00:00",
+          "end_time": "2026-03-31 23:59:59",
+          "penalty_amount": 900,
+          "penalty_cap": 27000,
+          "preference_action": "23点前需要reposition到坐标（23.12，113.28）附近"
+        }
+      ],
+      "history_constraints": [],
+      "urgent_tasks": [
+        {
+          "source_text": "【临时约定·熟货】指定熟货源编号240646（品类「服饰纺织皮革」）：装货地：韶关市浈江区（24.81，113.58）；上架时间：2026-03-03 14:43:36；不接则丧失该老客户信任，经济损失10000元。",
+          "constraint_value": "指定熟货编号240646，装货地韶关市浈江区",
+          "start_time": "2026-03-01 14:43:36",
+          "end_time": "2026-03-03 16:08:24",
+          "penalty_amount": 10000,
+          "penalty_cap": 10000,
+          "preference_action": "优先take_order cargo_id为240646的订单"
+        }
+      ],
+      "unknown_preferences": []
+    }
+  }
+]

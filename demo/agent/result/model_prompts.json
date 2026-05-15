@@ -1,0 +1,5283 @@
+[
+  {
+    "driver_id": "D001",
+    "driver_name": "张三",
+    "step": 2,
+    "simulation_progress_minutes": 31,
+    "simulation_wall_time": "2026-03-01 00:31:00",
+    "prompt": {
+      "driver_id": "D001",
+      "simulation_progress_minutes": 31,
+      "simulation_wall_time": "2026-03-01 00:31:00",
+      "driver_status": {
+        "current_lat": 22.54,
+        "current_lng": 114.06,
+        "truck_length": "4.2米",
+        "completed_order_count": 0
+      },
+      "active_preferences": [
+        {
+          "content": "我这人熬不住连轴转，每天至少连续停车熄火休息满8小时。",
+          "start_time": "2026-03-01 00:00:00",
+          "end_time": "2026-03-31 23:59:59",
+          "penalty_amount": 300,
+          "penalty_cap": 3000
+        },
+        {
+          "content": "不接货源品类为「化工塑料」或「煤炭矿产」的订单。",
+          "start_time": "2026-03-01 00:00:00",
+          "end_time": "2026-03-31 23:59:59",
+          "penalty_amount": 500,
+          "penalty_cap": 5000
+        },
+        {
+          "content": "我就在深圳干活，不出市。从 22.54,114.06 这一带出车；跑车或停车时，车辆位置须始终在深圳市范围内（北纬22.42至22.89，东经113.74至114.66）。",
+          "start_time": "2026-03-01 00:00:00",
+          "end_time": "2026-03-31 23:59:59",
+          "penalty_amount": 2000,
+          "penalty_cap": 2000
+        }
+      ],
+      "parsed_preferences": {
+        "forbidden_cargo_names": [
+          {
+            "source_text": "不接货源品类为「化工塑料」或「煤炭矿产」的订单。",
+            "constraint_value": "不接「化工塑料」或「煤炭矿产」",
+            "start_time": "2026-03-01 00:00:00",
+            "end_time": "2026-03-31 23:59:59",
+            "penalty_amount": 500,
+            "penalty_cap": 5000,
+            "preference_action": "take_order 时不要选择 cargo_name 为「化工塑料」或「煤炭矿产」的货源"
+          }
+        ],
+        "distance_limits": [],
+        "fixed_rest_windows": [],
+        "daily_rest_duration_constraints": [
+          {
+            "source_text": "我这人熬不住连轴转，每天至少连续停车熄火休息满8小时。",
+            "constraint_value": "每天至少连续停车熄火休息满 8 小时",
+            "start_time": "2026-03-01 00:00:00",
+            "end_time": "2026-03-31 23:59:59",
+            "penalty_amount": 300,
+            "penalty_cap": 3000,
+            "preference_action": "每天需要连续 wait 达到 480 分钟，take_order 和 reposition 会打断连续休息"
+          }
+        ],
+        "rest_windows": [],
+        "region_limits": [
+          {
+            "source_text": "我就在深圳干活，不出市。从 22.54,114.06 这一带出车；跑车或停车时，车辆位置须始终在深圳市范围内（北纬 22.42 至 22.89，东经 113.74 至 114.66）。",
+            "constraint_value": "车辆位置须始终在深圳市范围内（北纬 22.42 至 22.89，东经 113.74 至 114.66）",
+            "start_time": "2026-03-01 00:00:00",
+            "end_time": "2026-03-31 23:59:59",
+            "penalty_amount": 2000,
+            "penalty_cap": 2000,
+            "preference_action": "take_order 或 reposition 后车辆位置须始终在北纬 22.42 至 22.89，东经 113.74 至 114.66 范围内"
+          }
+        ],
+        "deadline_location_constraints": [],
+        "history_constraints": [],
+        "urgent_tasks": [],
+        "unknown_preferences": [],
+        "unclassified_preferences": []
+      },
+      "history_summary": {
+        "total_steps": 1,
+        "returned_count": 1,
+        "today": {
+          "day_index": 0,
+          "successful_take_order_count": 0,
+          "failed_take_order_count": 0,
+          "first_successful_order_start_minutes": null,
+          "first_successful_order_start_time": null,
+          "longest_wait_minutes": 30,
+          "active_minutes": 0,
+          "deadhead_km": 0.0,
+          "failed_take_order_deadhead_km": 0.0
+        },
+        "month": {
+          "successful_take_order_count": 0,
+          "failed_take_order_count": 0,
+          "failure_reasons": {},
+          "completed_day_count": 0,
+          "no_order_days": 0,
+          "fully_idle_days": 0,
+          "longest_wait_minutes": 30,
+          "longest_wait_hours": 0.5,
+          "deadhead_km": 0.0,
+          "failed_take_order_deadhead_km": 0.0
+        },
+        "recent": [
+          {
+            "step": 1,
+            "action": "wait",
+            "action_start_minutes": 0,
+            "action_start_time": "2026-03-01 00:00:00",
+            "action_end_minutes": 30,
+            "action_end_time": "2026-03-01 00:30:00",
+            "accepted": null,
+            "detail": null,
+            "cargo_id": null,
+            "pickup_deadhead_km": null,
+            "haul_distance_km": null,
+            "distance_km": null
+          }
+        ]
+      },
+      "filtered_summary": {
+        "input_count": 2,
+        "expired_after_scan": 0,
+        "load_time_missed": 0,
+        "invalid_estimated_total_minutes": 0,
+        "kept_after_deterministic_filter": 2,
+        "negative_estimated_net_income": 0,
+        "kept_after_scoring": 2
+      },
+      "cargo_candidates": [
+        {
+          "cargo_id": "10",
+          "cargo_name": "建材",
+          "price": 1069.61,
+          "cost_time_minutes": 542,
+          "remove_time": "2026-03-01 15:37:34",
+          "remove_minutes": 937,
+          "load_time": [
+            "2026-03-02 08:00:00",
+            "2026-03-02 10:00:00"
+          ],
+          "start": {
+            "city": "广东省韶关市新丰县",
+            "lat": 24.23,
+            "lng": 113.84
+          },
+          "end": {
+            "city": "广东省深圳市龙华区",
+            "lat": 22.72,
+            "lng": 114.15
+          },
+          "pickup_deadhead_km": 189.26,
+          "pickup_minutes": 190,
+          "haul_distance_km": 170.86,
+          "arrival_minutes": 221,
+          "arrival_time": "2026-03-01 03:41:00",
+          "waiting_minutes": 1699,
+          "finish_minutes": 2462,
+          "finish_time": "2026-03-02 17:02:00",
+          "estimated_total_minutes": 2431,
+          "load_time_missed": false,
+          "expired_after_scan": false,
+          "income_eligible": null,
+          "estimated_preference_penalty": 0.0,
+          "penalty_summary": "无明显偏好罚分",
+          "distance_cost_proxy": 540.18,
+          "estimated_net_income": 529.43,
+          "score_per_hour": 13.067
+        },
+        {
+          "cargo_id": "13",
+          "cargo_name": "建材",
+          "price": 183.46,
+          "cost_time_minutes": 382,
+          "remove_time": "2026-03-01 00:44:15",
+          "remove_minutes": 44,
+          "load_time": [
+            "2026-03-01 11:00:00",
+            "2026-03-01 12:00:00"
+          ],
+          "start": {
+            "city": "广东省东莞市桥头镇",
+            "lat": 23.04,
+            "lng": 114.24
+          },
+          "end": {
+            "city": "广东省深圳市龙岗区",
+            "lat": 22.58,
+            "lng": 113.95
+          },
+          "pickup_deadhead_km": 58.58,
+          "pickup_minutes": 59,
+          "haul_distance_km": 59.16,
+          "arrival_minutes": 90,
+          "arrival_time": "2026-03-01 01:30:00",
+          "waiting_minutes": 570,
+          "finish_minutes": 1042,
+          "finish_time": "2026-03-01 17:22:00",
+          "estimated_total_minutes": 1011,
+          "load_time_missed": false,
+          "expired_after_scan": false,
+          "income_eligible": null,
+          "estimated_preference_penalty": 0.0,
+          "penalty_summary": "无明显偏好罚分",
+          "distance_cost_proxy": 176.61,
+          "estimated_net_income": 6.85,
+          "score_per_hour": 0.4065
+        }
+      ]
+    },
+    "action": {
+      "action": "wait",
+      "params": {
+        "duration_minutes": 60
+      }
+    },
+    "usage": {
+      "prompt_tokens": 2561,
+      "completion_tokens": 2739,
+      "total_tokens": 5300
+    }
+  },
+  {
+    "driver_id": "D001",
+    "driver_name": "张三",
+    "step": 3,
+    "simulation_progress_minutes": 92,
+    "simulation_wall_time": "2026-03-01 01:32:00",
+    "prompt": {
+      "driver_id": "D001",
+      "simulation_progress_minutes": 92,
+      "simulation_wall_time": "2026-03-01 01:32:00",
+      "driver_status": {
+        "current_lat": 22.54,
+        "current_lng": 114.06,
+        "truck_length": "4.2米",
+        "completed_order_count": 0
+      },
+      "active_preferences": [
+        {
+          "content": "我这人熬不住连轴转，每天至少连续停车熄火休息满8小时。",
+          "start_time": "2026-03-01 00:00:00",
+          "end_time": "2026-03-31 23:59:59",
+          "penalty_amount": 300,
+          "penalty_cap": 3000
+        },
+        {
+          "content": "不接货源品类为「化工塑料」或「煤炭矿产」的订单。",
+          "start_time": "2026-03-01 00:00:00",
+          "end_time": "2026-03-31 23:59:59",
+          "penalty_amount": 500,
+          "penalty_cap": 5000
+        },
+        {
+          "content": "我就在深圳干活，不出市。从 22.54,114.06 这一带出车；跑车或停车时，车辆位置须始终在深圳市范围内（北纬22.42至22.89，东经113.74至114.66）。",
+          "start_time": "2026-03-01 00:00:00",
+          "end_time": "2026-03-31 23:59:59",
+          "penalty_amount": 2000,
+          "penalty_cap": 2000
+        }
+      ],
+      "parsed_preferences": {
+        "forbidden_cargo_names": [
+          {
+            "source_text": "不接货源品类为「化工塑料」或「煤炭矿产」的订单。",
+            "constraint_value": "不接「化工塑料」或「煤炭矿产」",
+            "start_time": "2026-03-01 00:00:00",
+            "end_time": "2026-03-31 23:59:59",
+            "penalty_amount": 500,
+            "penalty_cap": 5000,
+            "preference_action": "take_order 时不要选择 cargo_name 为「化工塑料」或「煤炭矿产」的货源"
+          }
+        ],
+        "distance_limits": [],
+        "fixed_rest_windows": [],
+        "daily_rest_duration_constraints": [
+          {
+            "source_text": "我这人熬不住连轴转，每天至少连续停车熄火休息满8小时。",
+            "constraint_value": "每天至少连续停车熄火休息满 8 小时",
+            "start_time": "2026-03-01 00:00:00",
+            "end_time": "2026-03-31 23:59:59",
+            "penalty_amount": 300,
+            "penalty_cap": 3000,
+            "preference_action": "每天需要连续 wait 达到 480 分钟，take_order 和 reposition 会打断连续休息"
+          }
+        ],
+        "rest_windows": [],
+        "region_limits": [
+          {
+            "source_text": "我就在深圳干活，不出市。从 22.54,114.06 这一带出车；跑车或停车时，车辆位置须始终在深圳市范围内（北纬 22.42 至 22.89，东经 113.74 至 114.66）。",
+            "constraint_value": "车辆位置须始终在深圳市范围内（北纬 22.42 至 22.89，东经 113.74 至 114.66）",
+            "start_time": "2026-03-01 00:00:00",
+            "end_time": "2026-03-31 23:59:59",
+            "penalty_amount": 2000,
+            "penalty_cap": 2000,
+            "preference_action": "take_order 或 reposition 后车辆位置须始终在北纬 22.42 至 22.89，东经 113.74 至 114.66 范围内"
+          }
+        ],
+        "deadline_location_constraints": [],
+        "history_constraints": [],
+        "urgent_tasks": [],
+        "unknown_preferences": [],
+        "unclassified_preferences": []
+      },
+      "history_summary": {
+        "total_steps": 2,
+        "returned_count": 2,
+        "today": {
+          "day_index": 0,
+          "successful_take_order_count": 0,
+          "failed_take_order_count": 0,
+          "first_successful_order_start_minutes": null,
+          "first_successful_order_start_time": null,
+          "longest_wait_minutes": 60,
+          "active_minutes": 0,
+          "deadhead_km": 0.0,
+          "failed_take_order_deadhead_km": 0.0
+        },
+        "month": {
+          "successful_take_order_count": 0,
+          "failed_take_order_count": 0,
+          "failure_reasons": {},
+          "completed_day_count": 0,
+          "no_order_days": 0,
+          "fully_idle_days": 0,
+          "longest_wait_minutes": 60,
+          "longest_wait_hours": 1.0,
+          "deadhead_km": 0.0,
+          "failed_take_order_deadhead_km": 0.0
+        },
+        "recent": [
+          {
+            "step": 1,
+            "action": "wait",
+            "action_start_minutes": 0,
+            "action_start_time": "2026-03-01 00:00:00",
+            "action_end_minutes": 30,
+            "action_end_time": "2026-03-01 00:30:00",
+            "accepted": null,
+            "detail": null,
+            "cargo_id": null,
+            "pickup_deadhead_km": null,
+            "haul_distance_km": null,
+            "distance_km": null
+          },
+          {
+            "step": 2,
+            "action": "wait",
+            "action_start_minutes": 31,
+            "action_start_time": "2026-03-01 00:31:00",
+            "action_end_minutes": 91,
+            "action_end_time": "2026-03-01 01:31:00",
+            "accepted": null,
+            "detail": null,
+            "cargo_id": null,
+            "pickup_deadhead_km": null,
+            "haul_distance_km": null,
+            "distance_km": null
+          }
+        ]
+      },
+      "filtered_summary": {
+        "input_count": 6,
+        "expired_after_scan": 0,
+        "load_time_missed": 0,
+        "invalid_estimated_total_minutes": 0,
+        "kept_after_deterministic_filter": 6,
+        "negative_estimated_net_income": 1,
+        "kept_after_scoring": 5
+      },
+      "cargo_candidates": [
+        {
+          "cargo_id": "20",
+          "cargo_name": "木材苗圃",
+          "price": 486.63,
+          "cost_time_minutes": 621,
+          "remove_time": "2026-03-02 00:30:42",
+          "remove_minutes": 1470,
+          "load_time": [
+            "2026-03-01 07:00:00",
+            "2026-03-01 08:00:00"
+          ],
+          "start": {
+            "city": "广东省深圳市福田区",
+            "lat": 22.61,
+            "lng": 114.09
+          },
+          "end": {
+            "city": "广东省佛山市顺德区",
+            "lat": 22.93,
+            "lng": 113.15
+          },
+          "pickup_deadhead_km": 8.37,
+          "pickup_minutes": 9,
+          "haul_distance_km": 102.74,
+          "arrival_minutes": 101,
+          "arrival_time": "2026-03-01 01:41:00",
+          "waiting_minutes": 319,
+          "finish_minutes": 1041,
+          "finish_time": "2026-03-01 17:21:00",
+          "estimated_total_minutes": 949,
+          "load_time_missed": false,
+          "expired_after_scan": false,
+          "income_eligible": null,
+          "estimated_preference_penalty": 0.0,
+          "penalty_summary": "无明显偏好罚分",
+          "distance_cost_proxy": 166.66,
+          "estimated_net_income": 319.97,
+          "score_per_hour": 20.2296
+        },
+        {
+          "cargo_id": "10",
+          "cargo_name": "建材",
+          "price": 1069.61,
+          "cost_time_minutes": 542,
+          "remove_time": "2026-03-01 15:37:34",
+          "remove_minutes": 937,
+          "load_time": [
+            "2026-03-02 08:00:00",
+            "2026-03-02 10:00:00"
+          ],
+          "start": {
+            "city": "广东省韶关市新丰县",
+            "lat": 24.23,
+            "lng": 113.84
+          },
+          "end": {
+            "city": "广东省深圳市龙华区",
+            "lat": 22.72,
+            "lng": 114.15
+          },
+          "pickup_deadhead_km": 189.26,
+          "pickup_minutes": 190,
+          "haul_distance_km": 170.86,
+          "arrival_minutes": 282,
+          "arrival_time": "2026-03-01 04:42:00",
+          "waiting_minutes": 1638,
+          "finish_minutes": 2462,
+          "finish_time": "2026-03-02 17:02:00",
+          "estimated_total_minutes": 2370,
+          "load_time_missed": false,
+          "expired_after_scan": false,
+          "income_eligible": null,
+          "estimated_preference_penalty": 0.0,
+          "penalty_summary": "无明显偏好罚分",
+          "distance_cost_proxy": 540.18,
+          "estimated_net_income": 529.43,
+          "score_per_hour": 13.4033
+        },
+        {
+          "cargo_id": "5",
+          "cargo_name": "农用物资",
+          "price": 1010.68,
+          "cost_time_minutes": 569,
+          "remove_time": "2026-03-02 00:49:12",
+          "remove_minutes": 1489,
+          "load_time": [
+            "2026-03-02 08:00:00",
+            "2026-03-02 17:00:00"
+          ],
+          "start": {
+            "city": "广东省云浮市新兴县",
+            "lat": 22.67,
+            "lng": 112.17
+          },
+          "end": {
+            "city": "广东省清远市英德市",
+            "lat": 24.27,
+            "lng": 113.34
+          },
+          "pickup_deadhead_km": 194.55,
+          "pickup_minutes": 195,
+          "haul_distance_km": 214.22,
+          "arrival_minutes": 287,
+          "arrival_time": "2026-03-01 04:47:00",
+          "waiting_minutes": 1633,
+          "finish_minutes": 2489,
+          "finish_time": "2026-03-02 17:29:00",
+          "estimated_total_minutes": 2397,
+          "load_time_missed": false,
+          "expired_after_scan": false,
+          "income_eligible": null,
+          "estimated_preference_penalty": 0.0,
+          "penalty_summary": "无明显偏好罚分",
+          "distance_cost_proxy": 613.15,
+          "estimated_net_income": 397.52,
+          "score_per_hour": 9.9506
+        },
+        {
+          "cargo_id": "18",
+          "cargo_name": "空包装",
+          "price": 588.52,
+          "cost_time_minutes": 622,
+          "remove_time": "2026-03-01 02:44:11",
+          "remove_minutes": 164,
+          "load_time": [
+            "2026-03-01 10:00:00",
+            "2026-03-01 12:00:00"
+          ],
+          "start": {
+            "city": "广东省清远市清城区",
+            "lat": 23.58,
+            "lng": 112.98
+          },
+          "end": {
+            "city": "广东省深圳市宝安区",
+            "lat": 22.54,
+            "lng": 113.83
+          },
+          "pickup_deadhead_km": 159.94,
+          "pickup_minutes": 160,
+          "haul_distance_km": 144.69,
+          "arrival_minutes": 252,
+          "arrival_time": "2026-03-01 04:12:00",
+          "waiting_minutes": 348,
+          "finish_minutes": 1222,
+          "finish_time": "2026-03-01 20:22:00",
+          "estimated_total_minutes": 1130,
+          "load_time_missed": false,
+          "expired_after_scan": false,
+          "income_eligible": null,
+          "estimated_preference_penalty": 0.0,
+          "penalty_summary": "无明显偏好罚分",
+          "distance_cost_proxy": 456.94,
+          "estimated_net_income": 131.57,
+          "score_per_hour": 6.9863
+        },
+        {
+          "cargo_id": "4",
+          "cargo_name": "数码家电",
+          "price": 229.63,
+          "cost_time_minutes": 408,
+          "remove_time": "2026-03-01 02:10:52",
+          "remove_minutes": 130,
+          "load_time": [
+            "2026-03-01 07:00:00",
+            "2026-03-01 12:00:00"
+          ],
+          "start": {
+            "city": "广东省广州市天河区",
+            "lat": 23.21,
+            "lng": 113.35
+          },
+          "end": {
+            "city": "广东省佛山市南海区",
+            "lat": 23.1,
+            "lng": 113.12
+          },
+          "pickup_deadhead_km": 104.12,
+          "pickup_minutes": 105,
+          "haul_distance_km": 26.51,
+          "arrival_minutes": 197,
+          "arrival_time": "2026-03-01 03:17:00",
+          "waiting_minutes": 223,
+          "finish_minutes": 828,
+          "finish_time": "2026-03-01 13:48:00",
+          "estimated_total_minutes": 736,
+          "load_time_missed": false,
+          "expired_after_scan": false,
+          "income_eligible": null,
+          "estimated_preference_penalty": 0.0,
+          "penalty_summary": "无明显偏好罚分",
+          "distance_cost_proxy": 195.94,
+          "estimated_net_income": 33.69,
+          "score_per_hour": 2.7461
+        }
+      ]
+    },
+    "action": {
+      "action": "wait",
+      "params": {
+        "duration_minutes": 120
+      }
+    },
+    "usage": {
+      "prompt_tokens": 3854,
+      "completion_tokens": 3422,
+      "total_tokens": 7276
+    }
+  },
+  {
+    "driver_id": "D001",
+    "driver_name": "张三",
+    "step": 4,
+    "simulation_progress_minutes": 213,
+    "simulation_wall_time": "2026-03-01 03:33:00",
+    "prompt": {
+      "driver_id": "D001",
+      "simulation_progress_minutes": 213,
+      "simulation_wall_time": "2026-03-01 03:33:00",
+      "driver_status": {
+        "current_lat": 22.54,
+        "current_lng": 114.06,
+        "truck_length": "4.2米",
+        "completed_order_count": 0
+      },
+      "active_preferences": [
+        {
+          "content": "我这人熬不住连轴转，每天至少连续停车熄火休息满8小时。",
+          "start_time": "2026-03-01 00:00:00",
+          "end_time": "2026-03-31 23:59:59",
+          "penalty_amount": 300,
+          "penalty_cap": 3000
+        },
+        {
+          "content": "不接货源品类为「化工塑料」或「煤炭矿产」的订单。",
+          "start_time": "2026-03-01 00:00:00",
+          "end_time": "2026-03-31 23:59:59",
+          "penalty_amount": 500,
+          "penalty_cap": 5000
+        },
+        {
+          "content": "我就在深圳干活，不出市。从 22.54,114.06 这一带出车；跑车或停车时，车辆位置须始终在深圳市范围内（北纬22.42至22.89，东经113.74至114.66）。",
+          "start_time": "2026-03-01 00:00:00",
+          "end_time": "2026-03-31 23:59:59",
+          "penalty_amount": 2000,
+          "penalty_cap": 2000
+        }
+      ],
+      "parsed_preferences": {
+        "forbidden_cargo_names": [
+          {
+            "source_text": "不接货源品类为「化工塑料」或「煤炭矿产」的订单。",
+            "constraint_value": "不接「化工塑料」或「煤炭矿产」",
+            "start_time": "2026-03-01 00:00:00",
+            "end_time": "2026-03-31 23:59:59",
+            "penalty_amount": 500,
+            "penalty_cap": 5000,
+            "preference_action": "take_order 时不要选择 cargo_name 为「化工塑料」或「煤炭矿产」的货源"
+          }
+        ],
+        "distance_limits": [],
+        "fixed_rest_windows": [],
+        "daily_rest_duration_constraints": [
+          {
+            "source_text": "我这人熬不住连轴转，每天至少连续停车熄火休息满8小时。",
+            "constraint_value": "每天至少连续停车熄火休息满 8 小时",
+            "start_time": "2026-03-01 00:00:00",
+            "end_time": "2026-03-31 23:59:59",
+            "penalty_amount": 300,
+            "penalty_cap": 3000,
+            "preference_action": "每天需要连续 wait 达到 480 分钟，take_order 和 reposition 会打断连续休息"
+          }
+        ],
+        "rest_windows": [],
+        "region_limits": [
+          {
+            "source_text": "我就在深圳干活，不出市。从 22.54,114.06 这一带出车；跑车或停车时，车辆位置须始终在深圳市范围内（北纬 22.42 至 22.89，东经 113.74 至 114.66）。",
+            "constraint_value": "车辆位置须始终在深圳市范围内（北纬 22.42 至 22.89，东经 113.74 至 114.66）",
+            "start_time": "2026-03-01 00:00:00",
+            "end_time": "2026-03-31 23:59:59",
+            "penalty_amount": 2000,
+            "penalty_cap": 2000,
+            "preference_action": "take_order 或 reposition 后车辆位置须始终在北纬 22.42 至 22.89，东经 113.74 至 114.66 范围内"
+          }
+        ],
+        "deadline_location_constraints": [],
+        "history_constraints": [],
+        "urgent_tasks": [],
+        "unknown_preferences": [],
+        "unclassified_preferences": []
+      },
+      "history_summary": {
+        "total_steps": 3,
+        "returned_count": 3,
+        "today": {
+          "day_index": 0,
+          "successful_take_order_count": 0,
+          "failed_take_order_count": 0,
+          "first_successful_order_start_minutes": null,
+          "first_successful_order_start_time": null,
+          "longest_wait_minutes": 120,
+          "active_minutes": 0,
+          "deadhead_km": 0.0,
+          "failed_take_order_deadhead_km": 0.0
+        },
+        "month": {
+          "successful_take_order_count": 0,
+          "failed_take_order_count": 0,
+          "failure_reasons": {},
+          "completed_day_count": 0,
+          "no_order_days": 0,
+          "fully_idle_days": 0,
+          "longest_wait_minutes": 120,
+          "longest_wait_hours": 2.0,
+          "deadhead_km": 0.0,
+          "failed_take_order_deadhead_km": 0.0
+        },
+        "recent": [
+          {
+            "step": 1,
+            "action": "wait",
+            "action_start_minutes": 0,
+            "action_start_time": "2026-03-01 00:00:00",
+            "action_end_minutes": 30,
+            "action_end_time": "2026-03-01 00:30:00",
+            "accepted": null,
+            "detail": null,
+            "cargo_id": null,
+            "pickup_deadhead_km": null,
+            "haul_distance_km": null,
+            "distance_km": null
+          },
+          {
+            "step": 2,
+            "action": "wait",
+            "action_start_minutes": 31,
+            "action_start_time": "2026-03-01 00:31:00",
+            "action_end_minutes": 91,
+            "action_end_time": "2026-03-01 01:31:00",
+            "accepted": null,
+            "detail": null,
+            "cargo_id": null,
+            "pickup_deadhead_km": null,
+            "haul_distance_km": null,
+            "distance_km": null
+          },
+          {
+            "step": 3,
+            "action": "wait",
+            "action_start_minutes": 92,
+            "action_start_time": "2026-03-01 01:32:00",
+            "action_end_minutes": 212,
+            "action_end_time": "2026-03-01 03:32:00",
+            "accepted": null,
+            "detail": null,
+            "cargo_id": null,
+            "pickup_deadhead_km": null,
+            "haul_distance_km": null,
+            "distance_km": null
+          }
+        ]
+      },
+      "filtered_summary": {
+        "input_count": 8,
+        "expired_after_scan": 0,
+        "load_time_missed": 0,
+        "invalid_estimated_total_minutes": 0,
+        "kept_after_deterministic_filter": 8,
+        "negative_estimated_net_income": 2,
+        "kept_after_scoring": 6
+      },
+      "cargo_candidates": [
+        {
+          "cargo_id": "21",
+          "cargo_name": "鲜活水产品",
+          "price": 2145.03,
+          "cost_time_minutes": 1205,
+          "remove_time": "2026-03-01 07:49:46",
+          "remove_minutes": 469,
+          "load_time": [
+            "2026-03-01 06:00:00",
+            "2026-03-01 08:00:00"
+          ],
+          "start": {
+            "city": "广东省阳江市阳东区",
+            "lat": 21.76,
+            "lng": 112.23
+          },
+          "end": {
+            "city": "广东省汕头市潮阳区",
+            "lat": 23.2,
+            "lng": 116.53
+          },
+          "pickup_deadhead_km": 207.47,
+          "pickup_minutes": 208,
+          "haul_distance_km": 469.9,
+          "arrival_minutes": 421,
+          "arrival_time": "2026-03-01 07:01:00",
+          "waiting_minutes": 0,
+          "finish_minutes": 1626,
+          "finish_time": "2026-03-02 03:06:00",
+          "estimated_total_minutes": 1413,
+          "load_time_missed": false,
+          "expired_after_scan": false,
+          "income_eligible": null,
+          "estimated_preference_penalty": 0.0,
+          "penalty_summary": "无明显偏好罚分",
+          "distance_cost_proxy": 1016.06,
+          "estimated_net_income": 1128.98,
+          "score_per_hour": 47.9395
+        },
+        {
+          "cargo_id": "20",
+          "cargo_name": "木材苗圃",
+          "price": 486.63,
+          "cost_time_minutes": 621,
+          "remove_time": "2026-03-02 00:30:42",
+          "remove_minutes": 1470,
+          "load_time": [
+            "2026-03-01 07:00:00",
+            "2026-03-01 08:00:00"
+          ],
+          "start": {
+            "city": "广东省深圳市福田区",
+            "lat": 22.61,
+            "lng": 114.09
+          },
+          "end": {
+            "city": "广东省佛山市顺德区",
+            "lat": 22.93,
+            "lng": 113.15
+          },
+          "pickup_deadhead_km": 8.37,
+          "pickup_minutes": 9,
+          "haul_distance_km": 102.74,
+          "arrival_minutes": 222,
+          "arrival_time": "2026-03-01 03:42:00",
+          "waiting_minutes": 198,
+          "finish_minutes": 1041,
+          "finish_time": "2026-03-01 17:21:00",
+          "estimated_total_minutes": 828,
+          "load_time_missed": false,
+          "expired_after_scan": false,
+          "income_eligible": null,
+          "estimated_preference_penalty": 0.0,
+          "penalty_summary": "无明显偏好罚分",
+          "distance_cost_proxy": 166.66,
+          "estimated_net_income": 319.97,
+          "score_per_hour": 23.1859
+        },
+        {
+          "cargo_id": "10",
+          "cargo_name": "建材",
+          "price": 1069.61,
+          "cost_time_minutes": 542,
+          "remove_time": "2026-03-01 15:37:34",
+          "remove_minutes": 937,
+          "load_time": [
+            "2026-03-02 08:00:00",
+            "2026-03-02 10:00:00"
+          ],
+          "start": {
+            "city": "广东省韶关市新丰县",
+            "lat": 24.23,
+            "lng": 113.84
+          },
+          "end": {
+            "city": "广东省深圳市龙华区",
+            "lat": 22.72,
+            "lng": 114.15
+          },
+          "pickup_deadhead_km": 189.26,
+          "pickup_minutes": 190,
+          "haul_distance_km": 170.86,
+          "arrival_minutes": 403,
+          "arrival_time": "2026-03-01 06:43:00",
+          "waiting_minutes": 1517,
+          "finish_minutes": 2462,
+          "finish_time": "2026-03-02 17:02:00",
+          "estimated_total_minutes": 2249,
+          "load_time_missed": false,
+          "expired_after_scan": false,
+          "income_eligible": null,
+          "estimated_preference_penalty": 0.0,
+          "penalty_summary": "无明显偏好罚分",
+          "distance_cost_proxy": 540.18,
+          "estimated_net_income": 529.43,
+          "score_per_hour": 14.1244
+        },
+        {
+          "cargo_id": "5",
+          "cargo_name": "农用物资",
+          "price": 1010.68,
+          "cost_time_minutes": 569,
+          "remove_time": "2026-03-02 00:49:12",
+          "remove_minutes": 1489,
+          "load_time": [
+            "2026-03-02 08:00:00",
+            "2026-03-02 17:00:00"
+          ],
+          "start": {
+            "city": "广东省云浮市新兴县",
+            "lat": 22.67,
+            "lng": 112.17
+          },
+          "end": {
+            "city": "广东省清远市英德市",
+            "lat": 24.27,
+            "lng": 113.34
+          },
+          "pickup_deadhead_km": 194.55,
+          "pickup_minutes": 195,
+          "haul_distance_km": 214.22,
+          "arrival_minutes": 408,
+          "arrival_time": "2026-03-01 06:48:00",
+          "waiting_minutes": 1512,
+          "finish_minutes": 2489,
+          "finish_time": "2026-03-02 17:29:00",
+          "estimated_total_minutes": 2276,
+          "load_time_missed": false,
+          "expired_after_scan": false,
+          "income_eligible": null,
+          "estimated_preference_penalty": 0.0,
+          "penalty_summary": "无明显偏好罚分",
+          "distance_cost_proxy": 613.15,
+          "estimated_net_income": 397.52,
+          "score_per_hour": 10.4796
+        },
+        {
+          "cargo_id": "28",
+          "cargo_name": "车辆",
+          "price": 98.66,
+          "cost_time_minutes": 247,
+          "remove_time": "2026-03-01 08:12:21",
+          "remove_minutes": 492,
+          "load_time": [
+            "2026-03-01 03:24:09",
+            "2026-03-01 04:24:09"
+          ],
+          "start": {
+            "city": "广东省深圳市坪山区",
+            "lat": 22.59,
+            "lng": 114.31
+          },
+          "end": {
+            "city": "广东省深圳市坪山区",
+            "lat": 22.68,
+            "lng": 114.3
+          },
+          "pickup_deadhead_km": 26.27,
+          "pickup_minutes": 27,
+          "haul_distance_km": 10.06,
+          "arrival_minutes": 240,
+          "arrival_time": "2026-03-01 04:00:00",
+          "waiting_minutes": 0,
+          "finish_minutes": 487,
+          "finish_time": "2026-03-01 08:07:00",
+          "estimated_total_minutes": 274,
+          "load_time_missed": false,
+          "expired_after_scan": false,
+          "income_eligible": null,
+          "estimated_preference_penalty": 0.0,
+          "penalty_summary": "无明显偏好罚分",
+          "distance_cost_proxy": 54.49,
+          "estimated_net_income": 44.16,
+          "score_per_hour": 9.6712
+        },
+        {
+          "cargo_id": "17",
+          "cargo_name": "办公文教体育",
+          "price": 218.3,
+          "cost_time_minutes": 420,
+          "remove_time": "2026-03-01 03:43:40",
+          "remove_minutes": 223,
+          "load_time": [
+            "2026-03-01 09:00:00",
+            "2026-03-01 12:00:00"
+          ],
+          "start": {
+            "city": "广东省东莞市麻涌镇",
+            "lat": 23.12,
+            "lng": 113.65
+          },
+          "end": {
+            "city": "广东省中山市东凤镇",
+            "lat": 22.76,
+            "lng": 113.19
+          },
+          "pickup_deadhead_km": 76.97,
+          "pickup_minutes": 77,
+          "haul_distance_km": 61.82,
+          "arrival_minutes": 290,
+          "arrival_time": "2026-03-01 04:50:00",
+          "waiting_minutes": 250,
+          "finish_minutes": 960,
+          "finish_time": "2026-03-01 16:00:00",
+          "estimated_total_minutes": 747,
+          "load_time_missed": false,
+          "expired_after_scan": false,
+          "income_eligible": null,
+          "estimated_preference_penalty": 0.0,
+          "penalty_summary": "无明显偏好罚分",
+          "distance_cost_proxy": 208.19,
+          "estimated_net_income": 10.12,
+          "score_per_hour": 0.8124
+        }
+      ]
+    },
+    "action": {
+      "action": "take_order",
+      "params": {
+        "cargo_id": "28"
+      }
+    },
+    "usage": {
+      "prompt_tokens": 4364,
+      "completion_tokens": 6133,
+      "total_tokens": 10497
+    }
+  },
+  {
+    "driver_id": "D001",
+    "driver_name": "张三",
+    "step": 5,
+    "simulation_progress_minutes": 490,
+    "simulation_wall_time": "2026-03-01 08:10:00",
+    "prompt": {
+      "driver_id": "D001",
+      "simulation_progress_minutes": 490,
+      "simulation_wall_time": "2026-03-01 08:10:00",
+      "driver_status": {
+        "current_lat": 22.68,
+        "current_lng": 114.3,
+        "truck_length": "4.2米",
+        "completed_order_count": 1
+      },
+      "active_preferences": [
+        {
+          "content": "我这人熬不住连轴转，每天至少连续停车熄火休息满8小时。",
+          "start_time": "2026-03-01 00:00:00",
+          "end_time": "2026-03-31 23:59:59",
+          "penalty_amount": 300,
+          "penalty_cap": 3000
+        },
+        {
+          "content": "不接货源品类为「化工塑料」或「煤炭矿产」的订单。",
+          "start_time": "2026-03-01 00:00:00",
+          "end_time": "2026-03-31 23:59:59",
+          "penalty_amount": 500,
+          "penalty_cap": 5000
+        },
+        {
+          "content": "我就在深圳干活，不出市。从 22.54,114.06 这一带出车；跑车或停车时，车辆位置须始终在深圳市范围内（北纬22.42至22.89，东经113.74至114.66）。",
+          "start_time": "2026-03-01 00:00:00",
+          "end_time": "2026-03-31 23:59:59",
+          "penalty_amount": 2000,
+          "penalty_cap": 2000
+        }
+      ],
+      "parsed_preferences": {
+        "forbidden_cargo_names": [
+          {
+            "source_text": "不接货源品类为「化工塑料」或「煤炭矿产」的订单。",
+            "constraint_value": "不接「化工塑料」或「煤炭矿产」",
+            "start_time": "2026-03-01 00:00:00",
+            "end_time": "2026-03-31 23:59:59",
+            "penalty_amount": 500,
+            "penalty_cap": 5000,
+            "preference_action": "take_order 时不要选择 cargo_name 为「化工塑料」或「煤炭矿产」的货源"
+          }
+        ],
+        "distance_limits": [],
+        "fixed_rest_windows": [],
+        "daily_rest_duration_constraints": [
+          {
+            "source_text": "我这人熬不住连轴转，每天至少连续停车熄火休息满8小时。",
+            "constraint_value": "每天至少连续停车熄火休息满 8 小时",
+            "start_time": "2026-03-01 00:00:00",
+            "end_time": "2026-03-31 23:59:59",
+            "penalty_amount": 300,
+            "penalty_cap": 3000,
+            "preference_action": "每天需要连续 wait 达到 480 分钟，take_order 和 reposition 会打断连续休息"
+          }
+        ],
+        "rest_windows": [],
+        "region_limits": [
+          {
+            "source_text": "我就在深圳干活，不出市。从 22.54,114.06 这一带出车；跑车或停车时，车辆位置须始终在深圳市范围内（北纬 22.42 至 22.89，东经 113.74 至 114.66）。",
+            "constraint_value": "车辆位置须始终在深圳市范围内（北纬 22.42 至 22.89，东经 113.74 至 114.66）",
+            "start_time": "2026-03-01 00:00:00",
+            "end_time": "2026-03-31 23:59:59",
+            "penalty_amount": 2000,
+            "penalty_cap": 2000,
+            "preference_action": "take_order 或 reposition 后车辆位置须始终在北纬 22.42 至 22.89，东经 113.74 至 114.66 范围内"
+          }
+        ],
+        "deadline_location_constraints": [],
+        "history_constraints": [],
+        "urgent_tasks": [],
+        "unknown_preferences": [],
+        "unclassified_preferences": []
+      },
+      "history_summary": {
+        "total_steps": 4,
+        "returned_count": 4,
+        "today": {
+          "day_index": 0,
+          "successful_take_order_count": 1,
+          "failed_take_order_count": 0,
+          "first_successful_order_start_minutes": 213,
+          "first_successful_order_start_time": "2026-03-01 03:33:00",
+          "longest_wait_minutes": 120,
+          "active_minutes": 274,
+          "deadhead_km": 26.27,
+          "failed_take_order_deadhead_km": 0.0
+        },
+        "month": {
+          "successful_take_order_count": 1,
+          "failed_take_order_count": 0,
+          "failure_reasons": {},
+          "completed_day_count": 0,
+          "no_order_days": 0,
+          "fully_idle_days": 0,
+          "longest_wait_minutes": 120,
+          "longest_wait_hours": 2.0,
+          "deadhead_km": 26.27,
+          "failed_take_order_deadhead_km": 0.0
+        },
+        "recent": [
+          {
+            "step": 1,
+            "action": "wait",
+            "action_start_minutes": 0,
+            "action_start_time": "2026-03-01 00:00:00",
+            "action_end_minutes": 30,
+            "action_end_time": "2026-03-01 00:30:00",
+            "accepted": null,
+            "detail": null,
+            "cargo_id": null,
+            "pickup_deadhead_km": null,
+            "haul_distance_km": null,
+            "distance_km": null
+          },
+          {
+            "step": 2,
+            "action": "wait",
+            "action_start_minutes": 31,
+            "action_start_time": "2026-03-01 00:31:00",
+            "action_end_minutes": 91,
+            "action_end_time": "2026-03-01 01:31:00",
+            "accepted": null,
+            "detail": null,
+            "cargo_id": null,
+            "pickup_deadhead_km": null,
+            "haul_distance_km": null,
+            "distance_km": null
+          },
+          {
+            "step": 3,
+            "action": "wait",
+            "action_start_minutes": 92,
+            "action_start_time": "2026-03-01 01:32:00",
+            "action_end_minutes": 212,
+            "action_end_time": "2026-03-01 03:32:00",
+            "accepted": null,
+            "detail": null,
+            "cargo_id": null,
+            "pickup_deadhead_km": null,
+            "haul_distance_km": null,
+            "distance_km": null
+          },
+          {
+            "step": 4,
+            "action": "take_order",
+            "action_start_minutes": 213,
+            "action_start_time": "2026-03-01 03:33:00",
+            "action_end_minutes": 487,
+            "action_end_time": "2026-03-01 08:07:00",
+            "accepted": true,
+            "detail": "trace_env_take_order_completed",
+            "cargo_id": "28",
+            "pickup_deadhead_km": 26.27,
+            "haul_distance_km": 10.06,
+            "distance_km": null
+          }
+        ]
+      },
+      "filtered_summary": {
+        "input_count": 28,
+        "expired_after_scan": 3,
+        "load_time_missed": 10,
+        "invalid_estimated_total_minutes": 0,
+        "kept_after_deterministic_filter": 15,
+        "negative_estimated_net_income": 3,
+        "kept_after_scoring": 10
+      },
+      "cargo_candidates": [
+        {
+          "cargo_id": "49",
+          "cargo_name": "家具家居",
+          "price": 1473.38,
+          "cost_time_minutes": 891,
+          "remove_time": "2026-03-02 07:47:45",
+          "remove_minutes": 1907,
+          "load_time": [
+            "2026-03-01 00:00:00",
+            "2026-03-02 00:00:00"
+          ],
+          "start": {
+            "city": "广东省中山市大涌镇",
+            "lat": 22.47,
+            "lng": 113.25
+          },
+          "end": {
+            "city": "广东省梅州市梅县区",
+            "lat": 24.35,
+            "lng": 116.24
+          },
+          "pickup_deadhead_km": 110.31,
+          "pickup_minutes": 111,
+          "haul_distance_km": 369.83,
+          "arrival_minutes": 601,
+          "arrival_time": "2026-03-01 10:01:00",
+          "waiting_minutes": 0,
+          "finish_minutes": 1492,
+          "finish_time": "2026-03-02 00:52:00",
+          "estimated_total_minutes": 1002,
+          "load_time_missed": false,
+          "expired_after_scan": false,
+          "income_eligible": null,
+          "estimated_preference_penalty": 0.0,
+          "penalty_summary": "无明显偏好罚分",
+          "distance_cost_proxy": 720.21,
+          "estimated_net_income": 753.17,
+          "score_per_hour": 45.1
+        },
+        {
+          "cargo_id": "56",
+          "cargo_name": "数码家电",
+          "price": 281.16,
+          "cost_time_minutes": 337,
+          "remove_time": "2026-03-01 08:12:56",
+          "remove_minutes": 492,
+          "load_time": [
+            "2026-03-01 06:00:00",
+            "2026-03-01 12:00:00"
+          ],
+          "start": {
+            "city": "广东省东莞市常平镇",
+            "lat": 22.93,
+            "lng": 114.07
+          },
+          "end": {
+            "city": "广东省深圳市南山区",
+            "lat": 22.55,
+            "lng": 114.04
+          },
+          "pickup_deadhead_km": 36.45,
+          "pickup_minutes": 37,
+          "haul_distance_km": 42.37,
+          "arrival_minutes": 527,
+          "arrival_time": "2026-03-01 08:47:00",
+          "waiting_minutes": 0,
+          "finish_minutes": 864,
+          "finish_time": "2026-03-01 14:24:00",
+          "estimated_total_minutes": 374,
+          "load_time_missed": false,
+          "expired_after_scan": false,
+          "income_eligible": null,
+          "estimated_preference_penalty": 0.0,
+          "penalty_summary": "无明显偏好罚分",
+          "distance_cost_proxy": 118.23,
+          "estimated_net_income": 162.93,
+          "score_per_hour": 26.1385
+        },
+        {
+          "cargo_id": "73",
+          "cargo_name": "食品饮料",
+          "price": 1063.32,
+          "cost_time_minutes": 868,
+          "remove_time": "2026-03-01 08:23:51",
+          "remove_minutes": 503,
+          "load_time": [
+            "2026-03-01 12:00:00",
+            "2026-03-01 18:00:00"
+          ],
+          "start": {
+            "city": "广东省广州市黄埔区",
+            "lat": 23.11,
+            "lng": 113.53
+          },
+          "end": {
+            "city": "广东省茂名市化州市",
+            "lat": 21.71,
+            "lng": 110.69
+          },
+          "pickup_deadhead_km": 92.24,
+          "pickup_minutes": 93,
+          "haul_distance_km": 330.84,
+          "arrival_minutes": 583,
+          "arrival_time": "2026-03-01 09:43:00",
+          "waiting_minutes": 137,
+          "finish_minutes": 1588,
+          "finish_time": "2026-03-02 02:28:00",
+          "estimated_total_minutes": 1098,
+          "load_time_missed": false,
+          "expired_after_scan": false,
+          "income_eligible": null,
+          "estimated_preference_penalty": 0.0,
+          "penalty_summary": "无明显偏好罚分",
+          "distance_cost_proxy": 634.62,
+          "estimated_net_income": 428.7,
+          "score_per_hour": 23.4262
+        },
+        {
+          "cargo_id": "32",
+          "cargo_name": "家具家居",
+          "price": 463.89,
+          "cost_time_minutes": 353,
+          "remove_time": "2026-03-02 04:11:02",
+          "remove_minutes": 1691,
+          "load_time": [
+            "2026-03-01 09:00:00",
+            "2026-03-01 11:00:00"
+          ],
+          "start": {
+            "city": "广东省佛山市南海区",
+            "lat": 23.0,
+            "lng": 113.2
+          },
+          "end": {
+            "city": "广东省深圳市南山区",
+            "lat": 22.49,
+            "lng": 113.98
+          },
+          "pickup_deadhead_km": 118.21,
+          "pickup_minutes": 119,
+          "haul_distance_km": 98.05,
+          "arrival_minutes": 609,
+          "arrival_time": "2026-03-01 10:09:00",
+          "waiting_minutes": 0,
+          "finish_minutes": 962,
+          "finish_time": "2026-03-01 16:02:00",
+          "estimated_total_minutes": 472,
+          "load_time_missed": false,
+          "expired_after_scan": false,
+          "income_eligible": null,
+          "estimated_preference_penalty": 0.0,
+          "penalty_summary": "无明显偏好罚分",
+          "distance_cost_proxy": 324.39,
+          "estimated_net_income": 139.5,
+          "score_per_hour": 17.7331
+        },
+        {
+          "cargo_id": "10",
+          "cargo_name": "建材",
+          "price": 1069.61,
+          "cost_time_minutes": 542,
+          "remove_time": "2026-03-01 15:37:34",
+          "remove_minutes": 937,
+          "load_time": [
+            "2026-03-02 08:00:00",
+            "2026-03-02 10:00:00"
+          ],
+          "start": {
+            "city": "广东省韶关市新丰县",
+            "lat": 24.23,
+            "lng": 113.84
+          },
+          "end": {
+            "city": "广东省深圳市龙华区",
+            "lat": 22.72,
+            "lng": 114.15
+          },
+          "pickup_deadhead_km": 178.62,
+          "pickup_minutes": 179,
+          "haul_distance_km": 170.86,
+          "arrival_minutes": 669,
+          "arrival_time": "2026-03-01 11:09:00",
+          "waiting_minutes": 1251,
+          "finish_minutes": 2462,
+          "finish_time": "2026-03-02 17:02:00",
+          "estimated_total_minutes": 1972,
+          "load_time_missed": false,
+          "expired_after_scan": false,
+          "income_eligible": null,
+          "estimated_preference_penalty": 0.0,
+          "penalty_summary": "无明显偏好罚分",
+          "distance_cost_proxy": 524.22,
+          "estimated_net_income": 545.39,
+          "score_per_hour": 16.594
+        },
+        {
+          "cargo_id": "86",
+          "cargo_name": "食品饮料",
+          "price": 1136.79,
+          "cost_time_minutes": 983,
+          "remove_time": "2026-03-01 09:09:32",
+          "remove_minutes": 549,
+          "load_time": [
+            "2026-03-01 20:00:00",
+            "2026-03-01 21:00:00"
+          ],
+          "start": {
+            "city": "广东省佛山市顺德区",
+            "lat": 23.04,
+            "lng": 113.2
+          },
+          "end": {
+            "city": "广东省湛江市遂溪县",
+            "lat": 21.31,
+            "lng": 110.24
+          },
+          "pickup_deadhead_km": 119.6,
+          "pickup_minutes": 120,
+          "haul_distance_km": 360.4,
+          "arrival_minutes": 610,
+          "arrival_time": "2026-03-01 10:10:00",
+          "waiting_minutes": 590,
+          "finish_minutes": 2183,
+          "finish_time": "2026-03-02 12:23:00",
+          "estimated_total_minutes": 1693,
+          "load_time_missed": false,
+          "expired_after_scan": false,
+          "income_eligible": null,
+          "estimated_preference_penalty": 0.0,
+          "penalty_summary": "无明显偏好罚分",
+          "distance_cost_proxy": 720.0,
+          "estimated_net_income": 416.79,
+          "score_per_hour": 14.7711
+        },
+        {
+          "cargo_id": "75",
+          "cargo_name": "蔬菜",
+          "price": 1028.67,
+          "cost_time_minutes": 782,
+          "remove_time": "2026-03-01 09:04:35",
+          "remove_minutes": 544,
+          "load_time": [
+            "2026-03-01 15:00:00",
+            "2026-03-01 17:00:00"
+          ],
+          "start": {
+            "city": "广东省韶关市仁化县",
+            "lat": 25.12,
+            "lng": 113.57
+          },
+          "end": {
+            "city": "广东省东莞市常平镇",
+            "lat": 23.04,
+            "lng": 113.95
+          },
+          "pickup_deadhead_km": 281.28,
+          "pickup_minutes": 282,
+          "haul_distance_km": 234.48,
+          "arrival_minutes": 772,
+          "arrival_time": "2026-03-01 12:52:00",
+          "waiting_minutes": 128,
+          "finish_minutes": 1682,
+          "finish_time": "2026-03-02 04:02:00",
+          "estimated_total_minutes": 1192,
+          "load_time_missed": false,
+          "expired_after_scan": false,
+          "income_eligible": null,
+          "estimated_preference_penalty": 0.0,
+          "penalty_summary": "无明显偏好罚分",
+          "distance_cost_proxy": 773.64,
+          "estimated_net_income": 255.03,
+          "score_per_hour": 12.8371
+        },
+        {
+          "cargo_id": "5",
+          "cargo_name": "农用物资",
+          "price": 1010.68,
+          "cost_time_minutes": 569,
+          "remove_time": "2026-03-02 00:49:12",
+          "remove_minutes": 1489,
+          "load_time": [
+            "2026-03-02 08:00:00",
+            "2026-03-02 17:00:00"
+          ],
+          "start": {
+            "city": "广东省云浮市新兴县",
+            "lat": 22.67,
+            "lng": 112.17
+          },
+          "end": {
+            "city": "广东省清远市英德市",
+            "lat": 24.27,
+            "lng": 113.34
+          },
+          "pickup_deadhead_km": 218.54,
+          "pickup_minutes": 219,
+          "haul_distance_km": 214.22,
+          "arrival_minutes": 709,
+          "arrival_time": "2026-03-01 11:49:00",
+          "waiting_minutes": 1211,
+          "finish_minutes": 2489,
+          "finish_time": "2026-03-02 17:29:00",
+          "estimated_total_minutes": 1999,
+          "load_time_missed": false,
+          "expired_after_scan": false,
+          "income_eligible": null,
+          "estimated_preference_penalty": 0.0,
+          "penalty_summary": "无明显偏好罚分",
+          "distance_cost_proxy": 649.14,
+          "estimated_net_income": 361.54,
+          "score_per_hour": 10.8516
+        },
+        {
+          "cargo_id": "53",
+          "cargo_name": "数码家电",
+          "price": 142.23,
+          "cost_time_minutes": 307,
+          "remove_time": "2026-03-01 08:17:08",
+          "remove_minutes": 497,
+          "load_time": [
+            "2026-03-01 07:00:00",
+            "2026-03-01 12:00:00"
+          ],
+          "start": {
+            "city": "广东省东莞市常平镇",
+            "lat": 22.95,
+            "lng": 114.02
+          },
+          "end": {
+            "city": "广东省深圳市龙岗区",
+            "lat": 22.73,
+            "lng": 114.14
+          },
+          "pickup_deadhead_km": 41.53,
+          "pickup_minutes": 42,
+          "haul_distance_km": 27.38,
+          "arrival_minutes": 532,
+          "arrival_time": "2026-03-01 08:52:00",
+          "waiting_minutes": 0,
+          "finish_minutes": 839,
+          "finish_time": "2026-03-01 13:59:00",
+          "estimated_total_minutes": 349,
+          "load_time_missed": false,
+          "expired_after_scan": false,
+          "income_eligible": null,
+          "estimated_preference_penalty": 0.0,
+          "penalty_summary": "无明显偏好罚分",
+          "distance_cost_proxy": 103.36,
+          "estimated_net_income": 38.86,
+          "score_per_hour": 6.6817
+        },
+        {
+          "cargo_id": "58",
+          "cargo_name": "食品饮料",
+          "price": 323.96,
+          "cost_time_minutes": 413,
+          "remove_time": "2026-03-01 14:02:50",
+          "remove_minutes": 842,
+          "load_time": [
+            "2026-03-02 07:00:00",
+            "2026-03-02 08:00:00"
+          ],
+          "start": {
+            "city": "广东省东莞市大岭山镇",
+            "lat": 22.96,
+            "lng": 113.85
+          },
+          "end": {
+            "city": "广东省佛山市顺德区",
+            "lat": 23.07,
+            "lng": 113.25
+          },
+          "pickup_deadhead_km": 55.65,
+          "pickup_minutes": 56,
+          "haul_distance_km": 62.61,
+          "arrival_minutes": 546,
+          "arrival_time": "2026-03-01 09:06:00",
+          "waiting_minutes": 1314,
+          "finish_minutes": 2273,
+          "finish_time": "2026-03-02 13:53:00",
+          "estimated_total_minutes": 1783,
+          "load_time_missed": false,
+          "expired_after_scan": false,
+          "income_eligible": null,
+          "estimated_preference_penalty": 0.0,
+          "penalty_summary": "无明显偏好罚分",
+          "distance_cost_proxy": 177.39,
+          "estimated_net_income": 146.57,
+          "score_per_hour": 4.9322
+        }
+      ]
+    },
+    "action": {
+      "action": "wait",
+      "params": {
+        "duration_minutes": 60
+      }
+    },
+    "usage": {
+      "prompt_tokens": 6090,
+      "completion_tokens": 5288,
+      "total_tokens": 11378
+    }
+  },
+  {
+    "driver_id": "D001",
+    "driver_name": "张三",
+    "step": 6,
+    "simulation_progress_minutes": 556,
+    "simulation_wall_time": "2026-03-01 09:16:00",
+    "prompt": {
+      "driver_id": "D001",
+      "simulation_progress_minutes": 556,
+      "simulation_wall_time": "2026-03-01 09:16:00",
+      "driver_status": {
+        "current_lat": 22.68,
+        "current_lng": 114.3,
+        "truck_length": "4.2米",
+        "completed_order_count": 1
+      },
+      "active_preferences": [
+        {
+          "content": "我这人熬不住连轴转，每天至少连续停车熄火休息满8小时。",
+          "start_time": "2026-03-01 00:00:00",
+          "end_time": "2026-03-31 23:59:59",
+          "penalty_amount": 300,
+          "penalty_cap": 3000
+        },
+        {
+          "content": "不接货源品类为「化工塑料」或「煤炭矿产」的订单。",
+          "start_time": "2026-03-01 00:00:00",
+          "end_time": "2026-03-31 23:59:59",
+          "penalty_amount": 500,
+          "penalty_cap": 5000
+        },
+        {
+          "content": "我就在深圳干活，不出市。从 22.54,114.06 这一带出车；跑车或停车时，车辆位置须始终在深圳市范围内（北纬22.42至22.89，东经113.74至114.66）。",
+          "start_time": "2026-03-01 00:00:00",
+          "end_time": "2026-03-31 23:59:59",
+          "penalty_amount": 2000,
+          "penalty_cap": 2000
+        }
+      ],
+      "parsed_preferences": {
+        "forbidden_cargo_names": [
+          {
+            "source_text": "不接货源品类为「化工塑料」或「煤炭矿产」的订单。",
+            "constraint_value": "不接「化工塑料」或「煤炭矿产」",
+            "start_time": "2026-03-01 00:00:00",
+            "end_time": "2026-03-31 23:59:59",
+            "penalty_amount": 500,
+            "penalty_cap": 5000,
+            "preference_action": "take_order 时不要选择 cargo_name 为「化工塑料」或「煤炭矿产」的货源"
+          }
+        ],
+        "distance_limits": [],
+        "fixed_rest_windows": [],
+        "daily_rest_duration_constraints": [
+          {
+            "source_text": "我这人熬不住连轴转，每天至少连续停车熄火休息满8小时。",
+            "constraint_value": "每天至少连续停车熄火休息满 8 小时",
+            "start_time": "2026-03-01 00:00:00",
+            "end_time": "2026-03-31 23:59:59",
+            "penalty_amount": 300,
+            "penalty_cap": 3000,
+            "preference_action": "每天需要连续 wait 达到 480 分钟，take_order 和 reposition 会打断连续休息"
+          }
+        ],
+        "rest_windows": [],
+        "region_limits": [
+          {
+            "source_text": "我就在深圳干活，不出市。从 22.54,114.06 这一带出车；跑车或停车时，车辆位置须始终在深圳市范围内（北纬 22.42 至 22.89，东经 113.74 至 114.66）。",
+            "constraint_value": "车辆位置须始终在深圳市范围内（北纬 22.42 至 22.89，东经 113.74 至 114.66）",
+            "start_time": "2026-03-01 00:00:00",
+            "end_time": "2026-03-31 23:59:59",
+            "penalty_amount": 2000,
+            "penalty_cap": 2000,
+            "preference_action": "take_order 或 reposition 后车辆位置须始终在北纬 22.42 至 22.89，东经 113.74 至 114.66 范围内"
+          }
+        ],
+        "deadline_location_constraints": [],
+        "history_constraints": [],
+        "urgent_tasks": [],
+        "unknown_preferences": [],
+        "unclassified_preferences": []
+      },
+      "history_summary": {
+        "total_steps": 5,
+        "returned_count": 5,
+        "today": {
+          "day_index": 0,
+          "successful_take_order_count": 1,
+          "failed_take_order_count": 0,
+          "first_successful_order_start_minutes": 213,
+          "first_successful_order_start_time": "2026-03-01 03:33:00",
+          "longest_wait_minutes": 120,
+          "active_minutes": 274,
+          "deadhead_km": 26.27,
+          "failed_take_order_deadhead_km": 0.0
+        },
+        "month": {
+          "successful_take_order_count": 1,
+          "failed_take_order_count": 0,
+          "failure_reasons": {},
+          "completed_day_count": 0,
+          "no_order_days": 0,
+          "fully_idle_days": 0,
+          "longest_wait_minutes": 120,
+          "longest_wait_hours": 2.0,
+          "deadhead_km": 26.27,
+          "failed_take_order_deadhead_km": 0.0
+        },
+        "recent": [
+          {
+            "step": 1,
+            "action": "wait",
+            "action_start_minutes": 0,
+            "action_start_time": "2026-03-01 00:00:00",
+            "action_end_minutes": 30,
+            "action_end_time": "2026-03-01 00:30:00",
+            "accepted": null,
+            "detail": null,
+            "cargo_id": null,
+            "pickup_deadhead_km": null,
+            "haul_distance_km": null,
+            "distance_km": null
+          },
+          {
+            "step": 2,
+            "action": "wait",
+            "action_start_minutes": 31,
+            "action_start_time": "2026-03-01 00:31:00",
+            "action_end_minutes": 91,
+            "action_end_time": "2026-03-01 01:31:00",
+            "accepted": null,
+            "detail": null,
+            "cargo_id": null,
+            "pickup_deadhead_km": null,
+            "haul_distance_km": null,
+            "distance_km": null
+          },
+          {
+            "step": 3,
+            "action": "wait",
+            "action_start_minutes": 92,
+            "action_start_time": "2026-03-01 01:32:00",
+            "action_end_minutes": 212,
+            "action_end_time": "2026-03-01 03:32:00",
+            "accepted": null,
+            "detail": null,
+            "cargo_id": null,
+            "pickup_deadhead_km": null,
+            "haul_distance_km": null,
+            "distance_km": null
+          },
+          {
+            "step": 4,
+            "action": "take_order",
+            "action_start_minutes": 213,
+            "action_start_time": "2026-03-01 03:33:00",
+            "action_end_minutes": 487,
+            "action_end_time": "2026-03-01 08:07:00",
+            "accepted": true,
+            "detail": "trace_env_take_order_completed",
+            "cargo_id": "28",
+            "pickup_deadhead_km": 26.27,
+            "haul_distance_km": 10.06,
+            "distance_km": null
+          },
+          {
+            "step": 5,
+            "action": "wait",
+            "action_start_minutes": 490,
+            "action_start_time": "2026-03-01 08:10:00",
+            "action_end_minutes": 550,
+            "action_end_time": "2026-03-01 09:10:00",
+            "accepted": null,
+            "detail": null,
+            "cargo_id": null,
+            "pickup_deadhead_km": null,
+            "haul_distance_km": null,
+            "distance_km": null
+          }
+        ]
+      },
+      "filtered_summary": {
+        "input_count": 30,
+        "expired_after_scan": 4,
+        "load_time_missed": 11,
+        "invalid_estimated_total_minutes": 0,
+        "kept_after_deterministic_filter": 15,
+        "negative_estimated_net_income": 4,
+        "kept_after_scoring": 10
+      },
+      "cargo_candidates": [
+        {
+          "cargo_id": "49",
+          "cargo_name": "家具家居",
+          "price": 1473.38,
+          "cost_time_minutes": 891,
+          "remove_time": "2026-03-02 07:47:45",
+          "remove_minutes": 1907,
+          "load_time": [
+            "2026-03-01 00:00:00",
+            "2026-03-02 00:00:00"
+          ],
+          "start": {
+            "city": "广东省中山市大涌镇",
+            "lat": 22.47,
+            "lng": 113.25
+          },
+          "end": {
+            "city": "广东省梅州市梅县区",
+            "lat": 24.35,
+            "lng": 116.24
+          },
+          "pickup_deadhead_km": 110.31,
+          "pickup_minutes": 111,
+          "haul_distance_km": 369.83,
+          "arrival_minutes": 667,
+          "arrival_time": "2026-03-01 11:07:00",
+          "waiting_minutes": 0,
+          "finish_minutes": 1558,
+          "finish_time": "2026-03-02 01:58:00",
+          "estimated_total_minutes": 1002,
+          "load_time_missed": false,
+          "expired_after_scan": false,
+          "income_eligible": null,
+          "estimated_preference_penalty": 0.0,
+          "penalty_summary": "无明显偏好罚分",
+          "distance_cost_proxy": 720.21,
+          "estimated_net_income": 753.17,
+          "score_per_hour": 45.1
+        },
+        {
+          "cargo_id": "221",
+          "cargo_name": "家具家居",
+          "price": 742.79,
+          "cost_time_minutes": 453,
+          "remove_time": "2026-03-01 09:50:33",
+          "remove_minutes": 590,
+          "load_time": [
+            "2026-03-01 12:00:00",
+            "2026-03-01 18:00:00"
+          ],
+          "start": {
+            "city": "广东省佛山市南海区",
+            "lat": 23.21,
+            "lng": 113.2
+          },
+          "end": {
+            "city": "广东省深圳市宝安区",
+            "lat": 22.74,
+            "lng": 113.9
+          },
+          "pickup_deadhead_km": 127.12,
+          "pickup_minutes": 128,
+          "haul_distance_km": 88.69,
+          "arrival_minutes": 684,
+          "arrival_time": "2026-03-01 11:24:00",
+          "waiting_minutes": 36,
+          "finish_minutes": 1173,
+          "finish_time": "2026-03-01 19:33:00",
+          "estimated_total_minutes": 617,
+          "load_time_missed": false,
+          "expired_after_scan": false,
+          "income_eligible": null,
+          "estimated_preference_penalty": 0.0,
+          "penalty_summary": "无明显偏好罚分",
+          "distance_cost_proxy": 323.72,
+          "estimated_net_income": 419.07,
+          "score_per_hour": 40.7528
+        },
+        {
+          "cargo_id": "126",
+          "cargo_name": "食品饮料",
+          "price": 867.92,
+          "cost_time_minutes": 589,
+          "remove_time": "2026-03-01 09:34:45",
+          "remove_minutes": 574,
+          "load_time": [
+            "2026-03-01 10:00:00",
+            "2026-03-01 16:00:00"
+          ],
+          "start": {
+            "city": "广东省东莞市麻涌镇",
+            "lat": 22.99,
+            "lng": 113.49
+          },
+          "end": {
+            "city": "广东省韶关市浈江区",
+            "lat": 24.8,
+            "lng": 113.68
+          },
+          "pickup_deadhead_km": 89.88,
+          "pickup_minutes": 90,
+          "haul_distance_km": 202.19,
+          "arrival_minutes": 646,
+          "arrival_time": "2026-03-01 10:46:00",
+          "waiting_minutes": 0,
+          "finish_minutes": 1235,
+          "finish_time": "2026-03-01 20:35:00",
+          "estimated_total_minutes": 679,
+          "load_time_missed": false,
+          "expired_after_scan": false,
+          "income_eligible": null,
+          "estimated_preference_penalty": 0.0,
+          "penalty_summary": "无明显偏好罚分",
+          "distance_cost_proxy": 438.11,
+          "estimated_net_income": 429.81,
+          "score_per_hour": 37.9807
+        },
+        {
+          "cargo_id": "117",
+          "cargo_name": "配件零件",
+          "price": 1341.2,
+          "cost_time_minutes": 1028,
+          "remove_time": "2026-03-01 12:12:40",
+          "remove_minutes": 732,
+          "load_time": [
+            "2026-03-01 11:00:00",
+            "2026-03-01 12:00:00"
+          ],
+          "start": {
+            "city": "广东省广州市白云区",
+            "lat": 23.26,
+            "lng": 113.38
+          },
+          "end": {
+            "city": "广东省潮州市饶平县",
+            "lat": 23.63,
+            "lng": 116.97
+          },
+          "pickup_deadhead_km": 114.15,
+          "pickup_minutes": 115,
+          "haul_distance_km": 368.53,
+          "arrival_minutes": 671,
+          "arrival_time": "2026-03-01 11:11:00",
+          "waiting_minutes": 0,
+          "finish_minutes": 1699,
+          "finish_time": "2026-03-02 04:19:00",
+          "estimated_total_minutes": 1143,
+          "load_time_missed": false,
+          "expired_after_scan": false,
+          "income_eligible": null,
+          "estimated_preference_penalty": 0.0,
+          "penalty_summary": "无明显偏好罚分",
+          "distance_cost_proxy": 724.02,
+          "estimated_net_income": 617.18,
+          "score_per_hour": 32.3979
+        },
+        {
+          "cargo_id": "152",
+          "cargo_name": "木材苗圃",
+          "price": 872.26,
+          "cost_time_minutes": 684,
+          "remove_time": "2026-03-01 10:23:35",
+          "remove_minutes": 623,
+          "load_time": [
+            "2026-03-01 15:00:00",
+            "2026-03-01 16:00:00"
+          ],
+          "start": {
+            "city": "广东省河源市紫金县",
+            "lat": 23.34,
+            "lng": 114.94
+          },
+          "end": {
+            "city": "广东省梅州市丰顺县",
+            "lat": 23.74,
+            "lng": 116.2
+          },
+          "pickup_deadhead_km": 98.37,
+          "pickup_minutes": 99,
+          "haul_distance_km": 135.93,
+          "arrival_minutes": 655,
+          "arrival_time": "2026-03-01 10:55:00",
+          "waiting_minutes": 245,
+          "finish_minutes": 1584,
+          "finish_time": "2026-03-02 02:24:00",
+          "estimated_total_minutes": 1028,
+          "load_time_missed": false,
+          "expired_after_scan": false,
+          "income_eligible": null,
+          "estimated_preference_penalty": 0.0,
+          "penalty_summary": "无明显偏好罚分",
+          "distance_cost_proxy": 351.45,
+          "estimated_net_income": 520.81,
+          "score_per_hour": 30.3975
+        },
+        {
+          "cargo_id": "149",
+          "cargo_name": "食品饮料",
+          "price": 460.62,
+          "cost_time_minutes": 368,
+          "remove_time": "2026-03-01 14:08:24",
+          "remove_minutes": 848,
+          "load_time": [
+            "2026-03-01 14:00:00",
+            "2026-03-01 18:00:00"
+          ],
+          "start": {
+            "city": "广东省东莞市沙田镇",
+            "lat": 22.75,
+            "lng": 113.68
+          },
+          "end": {
+            "city": "广东省东莞市塘厦镇",
+            "lat": 22.92,
+            "lng": 114.16
+          },
+          "pickup_deadhead_km": 64.07,
+          "pickup_minutes": 65,
+          "haul_distance_km": 52.7,
+          "arrival_minutes": 621,
+          "arrival_time": "2026-03-01 10:21:00",
+          "waiting_minutes": 219,
+          "finish_minutes": 1208,
+          "finish_time": "2026-03-01 20:08:00",
+          "estimated_total_minutes": 652,
+          "load_time_missed": false,
+          "expired_after_scan": false,
+          "income_eligible": null,
+          "estimated_preference_penalty": 0.0,
+          "penalty_summary": "无明显偏好罚分",
+          "distance_cost_proxy": 175.16,
+          "estimated_net_income": 285.47,
+          "score_per_hour": 26.2698
+        },
+        {
+          "cargo_id": "106",
+          "cargo_name": "食品饮料",
+          "price": 619.09,
+          "cost_time_minutes": 709,
+          "remove_time": "2026-03-02 08:52:59",
+          "remove_minutes": 1972,
+          "load_time": [
+            "2026-03-01 06:00:00",
+            "2026-03-01 12:00:00"
+          ],
+          "start": {
+            "city": "广东省东莞市常平镇",
+            "lat": 23.03,
+            "lng": 114.06
+          },
+          "end": {
+            "city": "广东省河源市连平县",
+            "lat": 24.4,
+            "lng": 114.61
+          },
+          "pickup_deadhead_km": 46.04,
+          "pickup_minutes": 47,
+          "haul_distance_km": 162.3,
+          "arrival_minutes": 603,
+          "arrival_time": "2026-03-01 10:03:00",
+          "waiting_minutes": 0,
+          "finish_minutes": 1312,
+          "finish_time": "2026-03-01 21:52:00",
+          "estimated_total_minutes": 756,
+          "load_time_missed": false,
+          "expired_after_scan": false,
+          "income_eligible": null,
+          "estimated_preference_penalty": 0.0,
+          "penalty_summary": "无明显偏好罚分",
+          "distance_cost_proxy": 312.51,
+          "estimated_net_income": 306.58,
+          "score_per_hour": 24.3317
+        },
+        {
+          "cargo_id": "136",
+          "cargo_name": "食品饮料",
+          "price": 455.39,
+          "cost_time_minutes": 362,
+          "remove_time": "2026-03-01 09:43:41",
+          "remove_minutes": 583,
+          "load_time": [
+            "2026-03-01 06:00:00",
+            "2026-03-01 12:00:00"
+          ],
+          "start": {
+            "city": "广东省佛山市南海区",
+            "lat": 23.25,
+            "lng": 113.17
+          },
+          "end": {
+            "city": "广东省东莞市沙田镇",
+            "lat": 22.84,
+            "lng": 113.57
+          },
+          "pickup_deadhead_km": 131.91,
+          "pickup_minutes": 132,
+          "haul_distance_km": 61.27,
+          "arrival_minutes": 688,
+          "arrival_time": "2026-03-01 11:28:00",
+          "waiting_minutes": 0,
+          "finish_minutes": 1050,
+          "finish_time": "2026-03-01 17:30:00",
+          "estimated_total_minutes": 494,
+          "load_time_missed": false,
+          "expired_after_scan": false,
+          "income_eligible": null,
+          "estimated_preference_penalty": 0.0,
+          "penalty_summary": "无明显偏好罚分",
+          "distance_cost_proxy": 289.77,
+          "estimated_net_income": 165.62,
+          "score_per_hour": 20.1158
+        },
+        {
+          "cargo_id": "139",
+          "cargo_name": "数码家电",
+          "price": 479.51,
+          "cost_time_minutes": 524,
+          "remove_time": "2026-03-02 08:24:54",
+          "remove_minutes": 1944,
+          "load_time": [
+            "2026-03-01 09:00:00",
+            "2026-03-01 12:00:00"
+          ],
+          "start": {
+            "city": "广东省东莞市石碣镇",
+            "lat": 23.13,
+            "lng": 113.68
+          },
+          "end": {
+            "city": "广东省清远市英德市",
+            "lat": 24.26,
+            "lng": 113.45
+          },
+          "pickup_deadhead_km": 80.85,
+          "pickup_minutes": 81,
+          "haul_distance_km": 127.81,
+          "arrival_minutes": 637,
+          "arrival_time": "2026-03-01 10:37:00",
+          "waiting_minutes": 0,
+          "finish_minutes": 1161,
+          "finish_time": "2026-03-01 19:21:00",
+          "estimated_total_minutes": 605,
+          "load_time_missed": false,
+          "expired_after_scan": false,
+          "income_eligible": null,
+          "estimated_preference_penalty": 0.0,
+          "penalty_summary": "无明显偏好罚分",
+          "distance_cost_proxy": 312.99,
+          "estimated_net_income": 166.52,
+          "score_per_hour": 16.5144
+        },
+        {
+          "cargo_id": "58",
+          "cargo_name": "食品饮料",
+          "price": 323.96,
+          "cost_time_minutes": 413,
+          "remove_time": "2026-03-01 14:02:50",
+          "remove_minutes": 842,
+          "load_time": [
+            "2026-03-02 07:00:00",
+            "2026-03-02 08:00:00"
+          ],
+          "start": {
+            "city": "广东省东莞市大岭山镇",
+            "lat": 22.96,
+            "lng": 113.85
+          },
+          "end": {
+            "city": "广东省佛山市顺德区",
+            "lat": 23.07,
+            "lng": 113.25
+          },
+          "pickup_deadhead_km": 55.65,
+          "pickup_minutes": 56,
+          "haul_distance_km": 62.61,
+          "arrival_minutes": 612,
+          "arrival_time": "2026-03-01 10:12:00",
+          "waiting_minutes": 1248,
+          "finish_minutes": 2273,
+          "finish_time": "2026-03-02 13:53:00",
+          "estimated_total_minutes": 1717,
+          "load_time_missed": false,
+          "expired_after_scan": false,
+          "income_eligible": null,
+          "estimated_preference_penalty": 0.0,
+          "penalty_summary": "无明显偏好罚分",
+          "distance_cost_proxy": 177.39,
+          "estimated_net_income": 146.57,
+          "score_per_hour": 5.1218
+        }
+      ]
+    },
+    "action": {
+      "action": "wait",
+      "params": {
+        "duration_minutes": 480
+      }
+    },
+    "usage": {
+      "prompt_tokens": 6217,
+      "completion_tokens": 5888,
+      "total_tokens": 12105
+    }
+  },
+  {
+    "driver_id": "D001",
+    "driver_name": "张三",
+    "step": 7,
+    "simulation_progress_minutes": 1046,
+    "simulation_wall_time": "2026-03-01 17:26:00",
+    "prompt": {
+      "driver_id": "D001",
+      "simulation_progress_minutes": 1046,
+      "simulation_wall_time": "2026-03-01 17:26:00",
+      "driver_status": {
+        "current_lat": 22.68,
+        "current_lng": 114.3,
+        "truck_length": "4.2米",
+        "completed_order_count": 1
+      },
+      "active_preferences": [
+        {
+          "content": "我这人熬不住连轴转，每天至少连续停车熄火休息满8小时。",
+          "start_time": "2026-03-01 00:00:00",
+          "end_time": "2026-03-31 23:59:59",
+          "penalty_amount": 300,
+          "penalty_cap": 3000
+        },
+        {
+          "content": "不接货源品类为「化工塑料」或「煤炭矿产」的订单。",
+          "start_time": "2026-03-01 00:00:00",
+          "end_time": "2026-03-31 23:59:59",
+          "penalty_amount": 500,
+          "penalty_cap": 5000
+        },
+        {
+          "content": "我就在深圳干活，不出市。从 22.54,114.06 这一带出车；跑车或停车时，车辆位置须始终在深圳市范围内（北纬22.42至22.89，东经113.74至114.66）。",
+          "start_time": "2026-03-01 00:00:00",
+          "end_time": "2026-03-31 23:59:59",
+          "penalty_amount": 2000,
+          "penalty_cap": 2000
+        }
+      ],
+      "parsed_preferences": {
+        "forbidden_cargo_names": [
+          {
+            "source_text": "不接货源品类为「化工塑料」或「煤炭矿产」的订单。",
+            "constraint_value": "不接「化工塑料」或「煤炭矿产」",
+            "start_time": "2026-03-01 00:00:00",
+            "end_time": "2026-03-31 23:59:59",
+            "penalty_amount": 500,
+            "penalty_cap": 5000,
+            "preference_action": "take_order 时不要选择 cargo_name 为「化工塑料」或「煤炭矿产」的货源"
+          }
+        ],
+        "distance_limits": [],
+        "fixed_rest_windows": [],
+        "daily_rest_duration_constraints": [
+          {
+            "source_text": "我这人熬不住连轴转，每天至少连续停车熄火休息满8小时。",
+            "constraint_value": "每天至少连续停车熄火休息满 8 小时",
+            "start_time": "2026-03-01 00:00:00",
+            "end_time": "2026-03-31 23:59:59",
+            "penalty_amount": 300,
+            "penalty_cap": 3000,
+            "preference_action": "每天需要连续 wait 达到 480 分钟，take_order 和 reposition 会打断连续休息"
+          }
+        ],
+        "rest_windows": [],
+        "region_limits": [
+          {
+            "source_text": "我就在深圳干活，不出市。从 22.54,114.06 这一带出车；跑车或停车时，车辆位置须始终在深圳市范围内（北纬 22.42 至 22.89，东经 113.74 至 114.66）。",
+            "constraint_value": "车辆位置须始终在深圳市范围内（北纬 22.42 至 22.89，东经 113.74 至 114.66）",
+            "start_time": "2026-03-01 00:00:00",
+            "end_time": "2026-03-31 23:59:59",
+            "penalty_amount": 2000,
+            "penalty_cap": 2000,
+            "preference_action": "take_order 或 reposition 后车辆位置须始终在北纬 22.42 至 22.89，东经 113.74 至 114.66 范围内"
+          }
+        ],
+        "deadline_location_constraints": [],
+        "history_constraints": [],
+        "urgent_tasks": [],
+        "unknown_preferences": [],
+        "unclassified_preferences": []
+      },
+      "history_summary": {
+        "total_steps": 6,
+        "returned_count": 6,
+        "today": {
+          "day_index": 0,
+          "successful_take_order_count": 1,
+          "failed_take_order_count": 0,
+          "first_successful_order_start_minutes": 213,
+          "first_successful_order_start_time": "2026-03-01 03:33:00",
+          "longest_wait_minutes": 480,
+          "active_minutes": 274,
+          "deadhead_km": 26.27,
+          "failed_take_order_deadhead_km": 0.0
+        },
+        "month": {
+          "successful_take_order_count": 1,
+          "failed_take_order_count": 0,
+          "failure_reasons": {},
+          "completed_day_count": 0,
+          "no_order_days": 0,
+          "fully_idle_days": 0,
+          "longest_wait_minutes": 480,
+          "longest_wait_hours": 8.0,
+          "deadhead_km": 26.27,
+          "failed_take_order_deadhead_km": 0.0
+        },
+        "recent": [
+          {
+            "step": 2,
+            "action": "wait",
+            "action_start_minutes": 31,
+            "action_start_time": "2026-03-01 00:31:00",
+            "action_end_minutes": 91,
+            "action_end_time": "2026-03-01 01:31:00",
+            "accepted": null,
+            "detail": null,
+            "cargo_id": null,
+            "pickup_deadhead_km": null,
+            "haul_distance_km": null,
+            "distance_km": null
+          },
+          {
+            "step": 3,
+            "action": "wait",
+            "action_start_minutes": 92,
+            "action_start_time": "2026-03-01 01:32:00",
+            "action_end_minutes": 212,
+            "action_end_time": "2026-03-01 03:32:00",
+            "accepted": null,
+            "detail": null,
+            "cargo_id": null,
+            "pickup_deadhead_km": null,
+            "haul_distance_km": null,
+            "distance_km": null
+          },
+          {
+            "step": 4,
+            "action": "take_order",
+            "action_start_minutes": 213,
+            "action_start_time": "2026-03-01 03:33:00",
+            "action_end_minutes": 487,
+            "action_end_time": "2026-03-01 08:07:00",
+            "accepted": true,
+            "detail": "trace_env_take_order_completed",
+            "cargo_id": "28",
+            "pickup_deadhead_km": 26.27,
+            "haul_distance_km": 10.06,
+            "distance_km": null
+          },
+          {
+            "step": 5,
+            "action": "wait",
+            "action_start_minutes": 490,
+            "action_start_time": "2026-03-01 08:10:00",
+            "action_end_minutes": 550,
+            "action_end_time": "2026-03-01 09:10:00",
+            "accepted": null,
+            "detail": null,
+            "cargo_id": null,
+            "pickup_deadhead_km": null,
+            "haul_distance_km": null,
+            "distance_km": null
+          },
+          {
+            "step": 6,
+            "action": "wait",
+            "action_start_minutes": 556,
+            "action_start_time": "2026-03-01 09:16:00",
+            "action_end_minutes": 1036,
+            "action_end_time": "2026-03-01 17:16:00",
+            "accepted": null,
+            "detail": null,
+            "cargo_id": null,
+            "pickup_deadhead_km": null,
+            "haul_distance_km": null,
+            "distance_km": null
+          }
+        ]
+      },
+      "filtered_summary": {
+        "input_count": 30,
+        "expired_after_scan": 3,
+        "load_time_missed": 11,
+        "invalid_estimated_total_minutes": 0,
+        "kept_after_deterministic_filter": 16,
+        "negative_estimated_net_income": 7,
+        "kept_after_scoring": 9
+      },
+      "cargo_candidates": [
+        {
+          "cargo_id": "1377",
+          "cargo_name": "食品饮料",
+          "price": 224.36,
+          "cost_time_minutes": 312,
+          "remove_time": "2026-03-02 16:10:28",
+          "remove_minutes": 2410,
+          "load_time": [
+            "2026-03-01 18:00:00",
+            "2026-03-01 19:00:00"
+          ],
+          "start": {
+            "city": "广东省深圳市龙岗区",
+            "lat": 22.65,
+            "lng": 114.2
+          },
+          "end": {
+            "city": "广东省深圳市宝安区",
+            "lat": 22.76,
+            "lng": 113.86
+          },
+          "pickup_deadhead_km": 10.79,
+          "pickup_minutes": 11,
+          "haul_distance_km": 36.96,
+          "arrival_minutes": 1057,
+          "arrival_time": "2026-03-01 17:37:00",
+          "waiting_minutes": 23,
+          "finish_minutes": 1392,
+          "finish_time": "2026-03-01 23:12:00",
+          "estimated_total_minutes": 346,
+          "load_time_missed": false,
+          "expired_after_scan": false,
+          "income_eligible": null,
+          "estimated_preference_penalty": 0.0,
+          "penalty_summary": "无明显偏好罚分",
+          "distance_cost_proxy": 71.62,
+          "estimated_net_income": 152.74,
+          "score_per_hour": 26.4858
+        },
+        {
+          "cargo_id": "1238",
+          "cargo_name": "蔬菜",
+          "price": 192.85,
+          "cost_time_minutes": 449,
+          "remove_time": "2026-03-02 15:42:57",
+          "remove_minutes": 2382,
+          "load_time": [
+            "2026-03-01 12:00:00",
+            "2026-03-01 18:00:00"
+          ],
+          "start": {
+            "city": "广东省东莞市清溪镇",
+            "lat": 22.8,
+            "lng": 114.18
+          },
+          "end": {
+            "city": "广东省东莞市大岭山镇",
+            "lat": 22.98,
+            "lng": 113.93
+          },
+          "pickup_deadhead_km": 18.15,
+          "pickup_minutes": 19,
+          "haul_distance_km": 32.5,
+          "arrival_minutes": 1065,
+          "arrival_time": "2026-03-01 17:45:00",
+          "waiting_minutes": 0,
+          "finish_minutes": 1514,
+          "finish_time": "2026-03-02 01:14:00",
+          "estimated_total_minutes": 468,
+          "load_time_missed": false,
+          "expired_after_scan": false,
+          "income_eligible": null,
+          "estimated_preference_penalty": 0.0,
+          "penalty_summary": "无明显偏好罚分",
+          "distance_cost_proxy": 75.97,
+          "estimated_net_income": 116.88,
+          "score_per_hour": 14.984
+        },
+        {
+          "cargo_id": "1460",
+          "cargo_name": "数码家电",
+          "price": 166.18,
+          "cost_time_minutes": 322,
+          "remove_time": "2026-03-01 17:32:14",
+          "remove_minutes": 1052,
+          "load_time": [
+            "2026-03-01 17:00:00",
+            "2026-03-01 18:00:00"
+          ],
+          "start": {
+            "city": "广东省东莞市樟木头镇",
+            "lat": 22.89,
+            "lng": 114.11
+          },
+          "end": {
+            "city": "广东省东莞市茶山镇",
+            "lat": 23.1,
+            "lng": 113.95
+          },
+          "pickup_deadhead_km": 30.41,
+          "pickup_minutes": 31,
+          "haul_distance_km": 28.52,
+          "arrival_minutes": 1077,
+          "arrival_time": "2026-03-01 17:57:00",
+          "waiting_minutes": 0,
+          "finish_minutes": 1399,
+          "finish_time": "2026-03-01 23:19:00",
+          "estimated_total_minutes": 353,
+          "load_time_missed": false,
+          "expired_after_scan": false,
+          "income_eligible": null,
+          "estimated_preference_penalty": 0.0,
+          "penalty_summary": "无明显偏好罚分",
+          "distance_cost_proxy": 88.39,
+          "estimated_net_income": 77.79,
+          "score_per_hour": 13.2212
+        },
+        {
+          "cargo_id": "1088",
+          "cargo_name": "数码家电",
+          "price": 431.95,
+          "cost_time_minutes": 357,
+          "remove_time": "2026-03-02 14:49:02",
+          "remove_minutes": 2329,
+          "load_time": [
+            "2026-03-02 10:00:00",
+            "2026-03-02 11:00:00"
+          ],
+          "start": {
+            "city": "广东省东莞市横沥镇",
+            "lat": 22.98,
+            "lng": 114.1
+          },
+          "end": {
+            "city": "广东省江门市蓬江区",
+            "lat": 22.58,
+            "lng": 113.06
+          },
+          "pickup_deadhead_km": 39.15,
+          "pickup_minutes": 40,
+          "haul_distance_km": 115.53,
+          "arrival_minutes": 1086,
+          "arrival_time": "2026-03-01 18:06:00",
+          "waiting_minutes": 954,
+          "finish_minutes": 2397,
+          "finish_time": "2026-03-02 15:57:00",
+          "estimated_total_minutes": 1351,
+          "load_time_missed": false,
+          "expired_after_scan": false,
+          "income_eligible": null,
+          "estimated_preference_penalty": 0.0,
+          "penalty_summary": "无明显偏好罚分",
+          "distance_cost_proxy": 232.02,
+          "estimated_net_income": 199.93,
+          "score_per_hour": 8.8792
+        },
+        {
+          "cargo_id": "1022",
+          "cargo_name": "机械设备",
+          "price": 223.65,
+          "cost_time_minutes": 544,
+          "remove_time": "2026-03-02 14:31:39",
+          "remove_minutes": 2311,
+          "load_time": [
+            "2026-03-01 12:00:00",
+            "2026-03-01 18:00:00"
+          ],
+          "start": {
+            "city": "广东省深圳市龙岗区",
+            "lat": 22.62,
+            "lng": 114.18
+          },
+          "end": {
+            "city": "广东省中山市西区街道",
+            "lat": 22.47,
+            "lng": 113.37
+          },
+          "pickup_deadhead_km": 14.01,
+          "pickup_minutes": 15,
+          "haul_distance_km": 84.84,
+          "arrival_minutes": 1061,
+          "arrival_time": "2026-03-01 17:41:00",
+          "waiting_minutes": 0,
+          "finish_minutes": 1605,
+          "finish_time": "2026-03-02 02:45:00",
+          "estimated_total_minutes": 559,
+          "load_time_missed": false,
+          "expired_after_scan": false,
+          "income_eligible": null,
+          "estimated_preference_penalty": 0.0,
+          "penalty_summary": "无明显偏好罚分",
+          "distance_cost_proxy": 148.28,
+          "estimated_net_income": 75.38,
+          "score_per_hour": 8.0903
+        },
+        {
+          "cargo_id": "876",
+          "cargo_name": "空包装",
+          "price": 316.24,
+          "cost_time_minutes": 402,
+          "remove_time": "2026-03-02 13:04:36",
+          "remove_minutes": 2224,
+          "load_time": [
+            "2026-03-02 07:00:00",
+            "2026-03-02 10:00:00"
+          ],
+          "start": {
+            "city": "广东省东莞市常平镇",
+            "lat": 22.92,
+            "lng": 114.04
+          },
+          "end": {
+            "city": "广东省中山市东凤镇",
+            "lat": 22.56,
+            "lng": 113.26
+          },
+          "pickup_deadhead_km": 37.72,
+          "pickup_minutes": 38,
+          "haul_distance_km": 89.45,
+          "arrival_minutes": 1084,
+          "arrival_time": "2026-03-01 18:04:00",
+          "waiting_minutes": 776,
+          "finish_minutes": 2262,
+          "finish_time": "2026-03-02 13:42:00",
+          "estimated_total_minutes": 1216,
+          "load_time_missed": false,
+          "expired_after_scan": false,
+          "income_eligible": null,
+          "estimated_preference_penalty": 0.0,
+          "penalty_summary": "无明显偏好罚分",
+          "distance_cost_proxy": 190.75,
+          "estimated_net_income": 125.49,
+          "score_per_hour": 6.1917
+        },
+        {
+          "cargo_id": "1129",
+          "cargo_name": "配件零件",
+          "price": 243.49,
+          "cost_time_minutes": 608,
+          "remove_time": "2026-03-02 15:23:17",
+          "remove_minutes": 2363,
+          "load_time": [
+            "2026-03-01 12:00:00",
+            "2026-03-01 18:00:00"
+          ],
+          "start": {
+            "city": "广东省深圳市龙岗区",
+            "lat": 22.63,
+            "lng": 114.11
+          },
+          "end": {
+            "city": "广东省河源市源城区",
+            "lat": 23.61,
+            "lng": 114.64
+          },
+          "pickup_deadhead_km": 20.27,
+          "pickup_minutes": 21,
+          "haul_distance_km": 121.71,
+          "arrival_minutes": 1067,
+          "arrival_time": "2026-03-01 17:47:00",
+          "waiting_minutes": 0,
+          "finish_minutes": 1675,
+          "finish_time": "2026-03-02 03:55:00",
+          "estimated_total_minutes": 629,
+          "load_time_missed": false,
+          "expired_after_scan": false,
+          "income_eligible": null,
+          "estimated_preference_penalty": 0.0,
+          "penalty_summary": "无明显偏好罚分",
+          "distance_cost_proxy": 212.97,
+          "estimated_net_income": 30.52,
+          "score_per_hour": 2.9113
+        },
+        {
+          "cargo_id": "1005",
+          "cargo_name": "配件零件",
+          "price": 160.85,
+          "cost_time_minutes": 353,
+          "remove_time": "2026-03-02 04:29:37",
+          "remove_minutes": 1709,
+          "load_time": [
+            "2026-03-02 07:00:00",
+            "2026-03-02 08:00:00"
+          ],
+          "start": {
+            "city": "广东省东莞市常平镇",
+            "lat": 23.0,
+            "lng": 114.1
+          },
+          "end": {
+            "city": "广东省惠州市惠阳区",
+            "lat": 22.88,
+            "lng": 114.43
+          },
+          "pickup_deadhead_km": 41.06,
+          "pickup_minutes": 42,
+          "haul_distance_km": 36.33,
+          "arrival_minutes": 1088,
+          "arrival_time": "2026-03-01 18:08:00",
+          "waiting_minutes": 772,
+          "finish_minutes": 2213,
+          "finish_time": "2026-03-02 12:53:00",
+          "estimated_total_minutes": 1167,
+          "load_time_missed": false,
+          "expired_after_scan": false,
+          "income_eligible": null,
+          "estimated_preference_penalty": 0.0,
+          "penalty_summary": "无明显偏好罚分",
+          "distance_cost_proxy": 116.09,
+          "estimated_net_income": 44.76,
+          "score_per_hour": 2.3015
+        },
+        {
+          "cargo_id": "1170",
+          "cargo_name": "配件零件",
+          "price": 250.39,
+          "cost_time_minutes": 496,
+          "remove_time": "2026-03-02 01:08:27",
+          "remove_minutes": 1508,
+          "load_time": [
+            "2026-03-01 18:00:00",
+            "2026-03-01 19:00:00"
+          ],
+          "start": {
+            "city": "广东省深圳市龙岗区",
+            "lat": 22.76,
+            "lng": 114.05
+          },
+          "end": {
+            "city": "广东省河源市东源县",
+            "lat": 23.82,
+            "lng": 114.71
+          },
+          "pickup_deadhead_km": 27.14,
+          "pickup_minutes": 28,
+          "haul_distance_km": 135.78,
+          "arrival_minutes": 1074,
+          "arrival_time": "2026-03-01 17:54:00",
+          "waiting_minutes": 6,
+          "finish_minutes": 1576,
+          "finish_time": "2026-03-02 02:16:00",
+          "estimated_total_minutes": 530,
+          "load_time_missed": false,
+          "expired_after_scan": false,
+          "income_eligible": null,
+          "estimated_preference_penalty": 0.0,
+          "penalty_summary": "无明显偏好罚分",
+          "distance_cost_proxy": 244.38,
+          "estimated_net_income": 6.01,
+          "score_per_hour": 0.6804
+        }
+      ]
+    },
+    "action": {
+      "action": "take_order",
+      "params": {
+        "cargo_id": "1377"
+      }
+    },
+    "usage": {
+      "prompt_tokens": 5822,
+      "completion_tokens": 3061,
+      "total_tokens": 8883
+    }
+  },
+  {
+    "driver_id": "D001",
+    "driver_name": "张三",
+    "step": 8,
+    "simulation_progress_minutes": 1402,
+    "simulation_wall_time": "2026-03-01 23:22:00",
+    "prompt": {
+      "driver_id": "D001",
+      "simulation_progress_minutes": 1402,
+      "simulation_wall_time": "2026-03-01 23:22:00",
+      "driver_status": {
+        "current_lat": 22.76,
+        "current_lng": 113.86,
+        "truck_length": "4.2米",
+        "completed_order_count": 2
+      },
+      "active_preferences": [
+        {
+          "content": "我这人熬不住连轴转，每天至少连续停车熄火休息满8小时。",
+          "start_time": "2026-03-01 00:00:00",
+          "end_time": "2026-03-31 23:59:59",
+          "penalty_amount": 300,
+          "penalty_cap": 3000
+        },
+        {
+          "content": "不接货源品类为「化工塑料」或「煤炭矿产」的订单。",
+          "start_time": "2026-03-01 00:00:00",
+          "end_time": "2026-03-31 23:59:59",
+          "penalty_amount": 500,
+          "penalty_cap": 5000
+        },
+        {
+          "content": "我就在深圳干活，不出市。从 22.54,114.06 这一带出车；跑车或停车时，车辆位置须始终在深圳市范围内（北纬22.42至22.89，东经113.74至114.66）。",
+          "start_time": "2026-03-01 00:00:00",
+          "end_time": "2026-03-31 23:59:59",
+          "penalty_amount": 2000,
+          "penalty_cap": 2000
+        }
+      ],
+      "parsed_preferences": {
+        "forbidden_cargo_names": [
+          {
+            "source_text": "不接货源品类为「化工塑料」或「煤炭矿产」的订单。",
+            "constraint_value": "不接「化工塑料」或「煤炭矿产」",
+            "start_time": "2026-03-01 00:00:00",
+            "end_time": "2026-03-31 23:59:59",
+            "penalty_amount": 500,
+            "penalty_cap": 5000,
+            "preference_action": "take_order 时不要选择 cargo_name 为「化工塑料」或「煤炭矿产」的货源"
+          }
+        ],
+        "distance_limits": [],
+        "fixed_rest_windows": [],
+        "daily_rest_duration_constraints": [
+          {
+            "source_text": "我这人熬不住连轴转，每天至少连续停车熄火休息满8小时。",
+            "constraint_value": "每天至少连续停车熄火休息满 8 小时",
+            "start_time": "2026-03-01 00:00:00",
+            "end_time": "2026-03-31 23:59:59",
+            "penalty_amount": 300,
+            "penalty_cap": 3000,
+            "preference_action": "每天需要连续 wait 达到 480 分钟，take_order 和 reposition 会打断连续休息"
+          }
+        ],
+        "rest_windows": [],
+        "region_limits": [
+          {
+            "source_text": "我就在深圳干活，不出市。从 22.54,114.06 这一带出车；跑车或停车时，车辆位置须始终在深圳市范围内（北纬 22.42 至 22.89，东经 113.74 至 114.66）。",
+            "constraint_value": "车辆位置须始终在深圳市范围内（北纬 22.42 至 22.89，东经 113.74 至 114.66）",
+            "start_time": "2026-03-01 00:00:00",
+            "end_time": "2026-03-31 23:59:59",
+            "penalty_amount": 2000,
+            "penalty_cap": 2000,
+            "preference_action": "take_order 或 reposition 后车辆位置须始终在北纬 22.42 至 22.89，东经 113.74 至 114.66 范围内"
+          }
+        ],
+        "deadline_location_constraints": [],
+        "history_constraints": [],
+        "urgent_tasks": [],
+        "unknown_preferences": [],
+        "unclassified_preferences": []
+      },
+      "history_summary": {
+        "total_steps": 7,
+        "returned_count": 7,
+        "today": {
+          "day_index": 0,
+          "successful_take_order_count": 2,
+          "failed_take_order_count": 0,
+          "first_successful_order_start_minutes": 213,
+          "first_successful_order_start_time": "2026-03-01 03:33:00",
+          "longest_wait_minutes": 480,
+          "active_minutes": 620,
+          "deadhead_km": 37.06,
+          "failed_take_order_deadhead_km": 0.0
+        },
+        "month": {
+          "successful_take_order_count": 2,
+          "failed_take_order_count": 0,
+          "failure_reasons": {},
+          "completed_day_count": 0,
+          "no_order_days": 0,
+          "fully_idle_days": 0,
+          "longest_wait_minutes": 480,
+          "longest_wait_hours": 8.0,
+          "deadhead_km": 37.06,
+          "failed_take_order_deadhead_km": 0.0
+        },
+        "recent": [
+          {
+            "step": 3,
+            "action": "wait",
+            "action_start_minutes": 92,
+            "action_start_time": "2026-03-01 01:32:00",
+            "action_end_minutes": 212,
+            "action_end_time": "2026-03-01 03:32:00",
+            "accepted": null,
+            "detail": null,
+            "cargo_id": null,
+            "pickup_deadhead_km": null,
+            "haul_distance_km": null,
+            "distance_km": null
+          },
+          {
+            "step": 4,
+            "action": "take_order",
+            "action_start_minutes": 213,
+            "action_start_time": "2026-03-01 03:33:00",
+            "action_end_minutes": 487,
+            "action_end_time": "2026-03-01 08:07:00",
+            "accepted": true,
+            "detail": "trace_env_take_order_completed",
+            "cargo_id": "28",
+            "pickup_deadhead_km": 26.27,
+            "haul_distance_km": 10.06,
+            "distance_km": null
+          },
+          {
+            "step": 5,
+            "action": "wait",
+            "action_start_minutes": 490,
+            "action_start_time": "2026-03-01 08:10:00",
+            "action_end_minutes": 550,
+            "action_end_time": "2026-03-01 09:10:00",
+            "accepted": null,
+            "detail": null,
+            "cargo_id": null,
+            "pickup_deadhead_km": null,
+            "haul_distance_km": null,
+            "distance_km": null
+          },
+          {
+            "step": 6,
+            "action": "wait",
+            "action_start_minutes": 556,
+            "action_start_time": "2026-03-01 09:16:00",
+            "action_end_minutes": 1036,
+            "action_end_time": "2026-03-01 17:16:00",
+            "accepted": null,
+            "detail": null,
+            "cargo_id": null,
+            "pickup_deadhead_km": null,
+            "haul_distance_km": null,
+            "distance_km": null
+          },
+          {
+            "step": 7,
+            "action": "take_order",
+            "action_start_minutes": 1046,
+            "action_start_time": "2026-03-01 17:26:00",
+            "action_end_minutes": 1392,
+            "action_end_time": "2026-03-01 23:12:00",
+            "accepted": true,
+            "detail": "trace_env_take_order_completed",
+            "cargo_id": "1377",
+            "pickup_deadhead_km": 10.79,
+            "haul_distance_km": 36.96,
+            "distance_km": null
+          }
+        ]
+      },
+      "filtered_summary": {
+        "input_count": 30,
+        "expired_after_scan": 0,
+        "load_time_missed": 15,
+        "invalid_estimated_total_minutes": 0,
+        "kept_after_deterministic_filter": 15,
+        "negative_estimated_net_income": 3,
+        "kept_after_scoring": 10
+      },
+      "cargo_candidates": [
+        {
+          "cargo_id": "1574",
+          "cargo_name": "车辆",
+          "price": 1148.22,
+          "cost_time_minutes": 828,
+          "remove_time": "2026-03-02 08:46:08",
+          "remove_minutes": 1966,
+          "load_time": [
+            "2026-03-02 00:00:00",
+            "2026-03-03 00:00:00"
+          ],
+          "start": {
+            "city": "广东省深圳市宝安区",
+            "lat": 22.68,
+            "lng": 113.73
+          },
+          "end": {
+            "city": "广东省阳江市阳东区",
+            "lat": 22.0,
+            "lng": 112.09
+          },
+          "pickup_deadhead_km": 16.03,
+          "pickup_minutes": 17,
+          "haul_distance_km": 184.84,
+          "arrival_minutes": 1419,
+          "arrival_time": "2026-03-01 23:39:00",
+          "waiting_minutes": 21,
+          "finish_minutes": 2268,
+          "finish_time": "2026-03-02 13:48:00",
+          "estimated_total_minutes": 866,
+          "load_time_missed": false,
+          "expired_after_scan": false,
+          "income_eligible": null,
+          "estimated_preference_penalty": 0.0,
+          "penalty_summary": "无明显偏好罚分",
+          "distance_cost_proxy": 301.31,
+          "estimated_net_income": 846.91,
+          "score_per_hour": 58.6777
+        },
+        {
+          "cargo_id": "995",
+          "cargo_name": "粮食谷物谷壳",
+          "price": 1319.7,
+          "cost_time_minutes": 848,
+          "remove_time": "2026-03-02 11:27:12",
+          "remove_minutes": 2127,
+          "load_time": [
+            "2026-03-02 08:00:00",
+            "2026-03-02 12:00:00"
+          ],
+          "start": {
+            "city": "广东省深圳市南山区",
+            "lat": 22.62,
+            "lng": 113.85
+          },
+          "end": {
+            "city": "广东省梅州市丰顺县",
+            "lat": 23.98,
+            "lng": 116.3
+          },
+          "pickup_deadhead_km": 15.6,
+          "pickup_minutes": 16,
+          "haul_distance_km": 292.35,
+          "arrival_minutes": 1418,
+          "arrival_time": "2026-03-01 23:38:00",
+          "waiting_minutes": 502,
+          "finish_minutes": 2768,
+          "finish_time": "2026-03-02 22:08:00",
+          "estimated_total_minutes": 1366,
+          "load_time_missed": false,
+          "expired_after_scan": false,
+          "income_eligible": null,
+          "estimated_preference_penalty": 0.0,
+          "penalty_summary": "无明显偏好罚分",
+          "distance_cost_proxy": 461.93,
+          "estimated_net_income": 857.77,
+          "score_per_hour": 37.6768
+        },
+        {
+          "cargo_id": "1119",
+          "cargo_name": "其他农产品",
+          "price": 472.02,
+          "cost_time_minutes": 269,
+          "remove_time": "2026-03-02 15:51:24",
+          "remove_minutes": 2391,
+          "load_time": [
+            "2026-03-02 07:00:00",
+            "2026-03-02 10:00:00"
+          ],
+          "start": {
+            "city": "广东省东莞市大岭山镇",
+            "lat": 23.02,
+            "lng": 113.88
+          },
+          "end": {
+            "city": "广东省惠州市博罗县",
+            "lat": 23.24,
+            "lng": 114.18
+          },
+          "pickup_deadhead_km": 28.98,
+          "pickup_minutes": 29,
+          "haul_distance_km": 39.24,
+          "arrival_minutes": 1431,
+          "arrival_time": "2026-03-01 23:51:00",
+          "waiting_minutes": 429,
+          "finish_minutes": 2129,
+          "finish_time": "2026-03-02 11:29:00",
+          "estimated_total_minutes": 727,
+          "load_time_missed": false,
+          "expired_after_scan": false,
+          "income_eligible": null,
+          "estimated_preference_penalty": 0.0,
+          "penalty_summary": "无明显偏好罚分",
+          "distance_cost_proxy": 102.33,
+          "estimated_net_income": 369.69,
+          "score_per_hour": 30.5109
+        },
+        {
+          "cargo_id": "1536",
+          "cargo_name": "设施用具",
+          "price": 243.43,
+          "cost_time_minutes": 436,
+          "remove_time": "2026-03-02 18:25:31",
+          "remove_minutes": 2545,
+          "load_time": [
+            "2026-03-01 00:00:00",
+            "2026-03-02 00:00:00"
+          ],
+          "start": {
+            "city": "广东省东莞市大岭山镇",
+            "lat": 22.88,
+            "lng": 113.78
+          },
+          "end": {
+            "city": "广东省东莞市茶山镇",
+            "lat": 22.99,
+            "lng": 113.79
+          },
+          "pickup_deadhead_km": 15.66,
+          "pickup_minutes": 16,
+          "haul_distance_km": 12.27,
+          "arrival_minutes": 1418,
+          "arrival_time": "2026-03-01 23:38:00",
+          "waiting_minutes": 0,
+          "finish_minutes": 1854,
+          "finish_time": "2026-03-02 06:54:00",
+          "estimated_total_minutes": 452,
+          "load_time_missed": false,
+          "expired_after_scan": false,
+          "income_eligible": null,
+          "estimated_preference_penalty": 0.0,
+          "penalty_summary": "无明显偏好罚分",
+          "distance_cost_proxy": 41.89,
+          "estimated_net_income": 201.54,
+          "score_per_hour": 26.7524
+        },
+        {
+          "cargo_id": "1706",
+          "cargo_name": "机械设备",
+          "price": 877.89,
+          "cost_time_minutes": 975,
+          "remove_time": "2026-03-02 08:46:13",
+          "remove_minutes": 1966,
+          "load_time": [
+            "2026-03-01 18:00:00",
+            "2026-03-02 00:00:00"
+          ],
+          "start": {
+            "city": "广东省东莞市虎门镇",
+            "lat": 22.84,
+            "lng": 113.6
+          },
+          "end": {
+            "city": "广东省揭阳市榕城区",
+            "lat": 23.54,
+            "lng": 116.31
+          },
+          "pickup_deadhead_km": 28.1,
+          "pickup_minutes": 29,
+          "haul_distance_km": 287.71,
+          "arrival_minutes": 1431,
+          "arrival_time": "2026-03-01 23:51:00",
+          "waiting_minutes": 0,
+          "finish_minutes": 2406,
+          "finish_time": "2026-03-02 16:06:00",
+          "estimated_total_minutes": 1004,
+          "load_time_missed": false,
+          "expired_after_scan": false,
+          "income_eligible": null,
+          "estimated_preference_penalty": 0.0,
+          "penalty_summary": "无明显偏好罚分",
+          "distance_cost_proxy": 473.72,
+          "estimated_net_income": 404.17,
+          "score_per_hour": 24.1539
+        },
+        {
+          "cargo_id": "1352",
+          "cargo_name": "空包装",
+          "price": 892.6,
+          "cost_time_minutes": 919,
+          "remove_time": "2026-03-02 16:05:07",
+          "remove_minutes": 2405,
+          "load_time": [
+            "2026-03-02 09:00:00",
+            "2026-03-02 11:00:00"
+          ],
+          "start": {
+            "city": "广东省东莞市东坑镇",
+            "lat": 22.98,
+            "lng": 113.91
+          },
+          "end": {
+            "city": "广东省茂名市电白区",
+            "lat": 21.66,
+            "lng": 111.04
+          },
+          "pickup_deadhead_km": 24.99,
+          "pickup_minutes": 25,
+          "haul_distance_km": 329.68,
+          "arrival_minutes": 1427,
+          "arrival_time": "2026-03-01 23:47:00",
+          "waiting_minutes": 553,
+          "finish_minutes": 2899,
+          "finish_time": "2026-03-03 00:19:00",
+          "estimated_total_minutes": 1497,
+          "load_time_missed": false,
+          "expired_after_scan": false,
+          "income_eligible": null,
+          "estimated_preference_penalty": 0.0,
+          "penalty_summary": "无明显偏好罚分",
+          "distance_cost_proxy": 532.0,
+          "estimated_net_income": 360.6,
+          "score_per_hour": 14.4527
+        },
+        {
+          "cargo_id": "1808",
+          "cargo_name": "设施用具",
+          "price": 384.37,
+          "cost_time_minutes": 474,
+          "remove_time": "2026-03-02 10:20:19",
+          "remove_minutes": 2060,
+          "load_time": [
+            "2026-03-02 13:00:00",
+            "2026-03-02 14:00:00"
+          ],
+          "start": {
+            "city": "广东省深圳市南山区",
+            "lat": 22.55,
+            "lng": 113.9
+          },
+          "end": {
+            "city": "广东省东莞市塘厦镇",
+            "lat": 22.91,
+            "lng": 114.09
+          },
+          "pickup_deadhead_km": 23.71,
+          "pickup_minutes": 24,
+          "haul_distance_km": 44.52,
+          "arrival_minutes": 1426,
+          "arrival_time": "2026-03-01 23:46:00",
+          "waiting_minutes": 794,
+          "finish_minutes": 2694,
+          "finish_time": "2026-03-02 20:54:00",
+          "estimated_total_minutes": 1292,
+          "load_time_missed": false,
+          "expired_after_scan": false,
+          "income_eligible": null,
+          "estimated_preference_penalty": 0.0,
+          "penalty_summary": "无明显偏好罚分",
+          "distance_cost_proxy": 102.34,
+          "estimated_net_income": 282.02,
+          "score_per_hour": 13.0971
+        },
+        {
+          "cargo_id": "1769",
+          "cargo_name": "配件零件",
+          "price": 137.88,
+          "cost_time_minutes": 214,
+          "remove_time": "2026-03-02 08:17:00",
+          "remove_minutes": 1937,
+          "load_time": [
+            "2026-03-02 06:00:00",
+            "2026-03-02 07:00:00"
+          ],
+          "start": {
+            "city": "广东省深圳市宝安区",
+            "lat": 22.75,
+            "lng": 113.85
+          },
+          "end": {
+            "city": "广东省深圳市宝安区",
+            "lat": 22.72,
+            "lng": 113.86
+          },
+          "pickup_deadhead_km": 1.51,
+          "pickup_minutes": 2,
+          "haul_distance_km": 3.49,
+          "arrival_minutes": 1404,
+          "arrival_time": "2026-03-01 23:24:00",
+          "waiting_minutes": 396,
+          "finish_minutes": 2014,
+          "finish_time": "2026-03-02 09:34:00",
+          "estimated_total_minutes": 612,
+          "load_time_missed": false,
+          "expired_after_scan": false,
+          "income_eligible": null,
+          "estimated_preference_penalty": 0.0,
+          "penalty_summary": "无明显偏好罚分",
+          "distance_cost_proxy": 7.5,
+          "estimated_net_income": 130.38,
+          "score_per_hour": 12.7824
+        },
+        {
+          "cargo_id": "876",
+          "cargo_name": "空包装",
+          "price": 316.24,
+          "cost_time_minutes": 402,
+          "remove_time": "2026-03-02 13:04:36",
+          "remove_minutes": 2224,
+          "load_time": [
+            "2026-03-02 07:00:00",
+            "2026-03-02 10:00:00"
+          ],
+          "start": {
+            "city": "广东省东莞市常平镇",
+            "lat": 22.92,
+            "lng": 114.04
+          },
+          "end": {
+            "city": "广东省中山市东凤镇",
+            "lat": 22.56,
+            "lng": 113.26
+          },
+          "pickup_deadhead_km": 25.63,
+          "pickup_minutes": 26,
+          "haul_distance_km": 89.45,
+          "arrival_minutes": 1428,
+          "arrival_time": "2026-03-01 23:48:00",
+          "waiting_minutes": 432,
+          "finish_minutes": 2262,
+          "finish_time": "2026-03-02 13:42:00",
+          "estimated_total_minutes": 860,
+          "load_time_missed": false,
+          "expired_after_scan": false,
+          "income_eligible": null,
+          "estimated_preference_penalty": 0.0,
+          "penalty_summary": "无明显偏好罚分",
+          "distance_cost_proxy": 172.62,
+          "estimated_net_income": 143.62,
+          "score_per_hour": 10.02
+        },
+        {
+          "cargo_id": "1798",
+          "cargo_name": "家具家居",
+          "price": 126.59,
+          "cost_time_minutes": 325,
+          "remove_time": "2026-03-02 07:08:27",
+          "remove_minutes": 1868,
+          "load_time": [
+            "2026-03-02 07:00:00",
+            "2026-03-02 08:00:00"
+          ],
+          "start": {
+            "city": "广东省东莞市黄江镇",
+            "lat": 22.82,
+            "lng": 114.0
+          },
+          "end": {
+            "city": "广东省东莞市大朗镇",
+            "lat": 22.85,
+            "lng": 114.02
+          },
+          "pickup_deadhead_km": 15.83,
+          "pickup_minutes": 16,
+          "haul_distance_km": 3.92,
+          "arrival_minutes": 1418,
+          "arrival_time": "2026-03-01 23:38:00",
+          "waiting_minutes": 442,
+          "finish_minutes": 2185,
+          "finish_time": "2026-03-02 12:25:00",
+          "estimated_total_minutes": 783,
+          "load_time_missed": false,
+          "expired_after_scan": false,
+          "income_eligible": null,
+          "estimated_preference_penalty": 0.0,
+          "penalty_summary": "无明显偏好罚分",
+          "distance_cost_proxy": 29.62,
+          "estimated_net_income": 96.97,
+          "score_per_hour": 7.4303
+        }
+      ]
+    },
+    "action": {
+      "action": "wait",
+      "params": {
+        "duration_minutes": 480
+      }
+    },
+    "usage": {
+      "prompt_tokens": 6257,
+      "completion_tokens": 7280,
+      "total_tokens": 13537
+    }
+  },
+  {
+    "driver_id": "D009",
+    "driver_name": "郑一",
+    "step": 4,
+    "simulation_progress_minutes": 93,
+    "simulation_wall_time": "2026-03-01 01:33:00",
+    "prompt": {
+      "driver_id": "D009",
+      "simulation_progress_minutes": 93,
+      "simulation_wall_time": "2026-03-01 01:33:00",
+      "driver_status": {
+        "current_lat": 23.12,
+        "current_lng": 113.28,
+        "truck_length": "4.2米",
+        "completed_order_count": 0
+      },
+      "active_preferences": [
+        {
+          "content": "每天23点前车辆须在自家位置（23.12，113.28）一公里内；当天23点至次日8点不接单、不空跑。",
+          "start_time": "2026-03-01 00:00:00",
+          "end_time": "2026-03-31 23:59:59",
+          "penalty_amount": 900,
+          "penalty_cap": 27000
+        },
+        {
+          "content": "不接货源品类为「快递快运搬家」的订单。",
+          "start_time": "2026-03-01 00:00:00",
+          "end_time": "2026-03-31 23:59:59",
+          "penalty_amount": 350,
+          "penalty_cap": 3500
+        }
+      ],
+      "parsed_preferences": {
+        "forbidden_cargo_names": [
+          {
+            "source_text": "不接货源品类为「快递快运搬家」的订单。",
+            "constraint_value": "不接快递快运搬家",
+            "start_time": "2026-03-01 00:00:00",
+            "end_time": "2026-03-31 23:59:59",
+            "penalty_amount": 350,
+            "penalty_cap": 3500,
+            "preference_action": "take_order 时不要选择 cargo_name 为「快递快运搬家」的货源"
+          }
+        ],
+        "distance_limits": [],
+        "fixed_rest_windows": [
+          {
+            "source_text": "每天 23 点前车辆须在自家位置（23.12，113.28）一公里内；当天 23 点至次日 8 点不接单、不空跑。",
+            "constraint_value": "23:00-08:00 禁接单不空跑",
+            "start_time": "2026-03-01 00:00:00",
+            "end_time": "2026-03-31 23:59:59",
+            "penalty_amount": 900,
+            "penalty_cap": 27000,
+            "preference_action": "23:00 至次日 08:00 应 wait，不要 take_order 或 reposition"
+          }
+        ],
+        "daily_rest_duration_constraints": [],
+        "rest_windows": [],
+        "region_limits": [],
+        "deadline_location_constraints": [
+          {
+            "source_text": "每天 23 点前车辆须在自家位置（23.12，113.28）一公里内；当天 23 点至次日 8 点不接单、不空跑。",
+            "constraint_value": "23 点前在坐标（23.12，113.28）1 公里内",
+            "start_time": "2026-03-01 00:00:00",
+            "end_time": "2026-03-31 23:59:59",
+            "penalty_amount": 900,
+            "penalty_cap": 27000,
+            "preference_action": "每日 23:00 前需要 reposition 到指定坐标附近"
+          }
+        ],
+        "history_constraints": [],
+        "urgent_tasks": [],
+        "unknown_preferences": [],
+        "unclassified_preferences": []
+      },
+      "history_summary": {
+        "total_steps": 3,
+        "returned_count": 3,
+        "today": {
+          "day_index": 0,
+          "successful_take_order_count": 0,
+          "failed_take_order_count": 0,
+          "first_successful_order_start_minutes": null,
+          "first_successful_order_start_time": null,
+          "longest_wait_minutes": 30,
+          "active_minutes": 0,
+          "deadhead_km": 0.0,
+          "failed_take_order_deadhead_km": 0.0
+        },
+        "month": {
+          "successful_take_order_count": 0,
+          "failed_take_order_count": 0,
+          "failure_reasons": {},
+          "completed_day_count": 0,
+          "no_order_days": 0,
+          "fully_idle_days": 0,
+          "longest_wait_minutes": 30,
+          "longest_wait_hours": 0.5,
+          "deadhead_km": 0.0,
+          "failed_take_order_deadhead_km": 0.0
+        },
+        "recent": [
+          {
+            "step": 1,
+            "action": "wait",
+            "action_start_minutes": 0,
+            "action_start_time": "2026-03-01 00:00:00",
+            "action_end_minutes": 30,
+            "action_end_time": "2026-03-01 00:30:00",
+            "accepted": null,
+            "detail": null,
+            "cargo_id": null,
+            "pickup_deadhead_km": null,
+            "haul_distance_km": null,
+            "distance_km": null
+          },
+          {
+            "step": 2,
+            "action": "wait",
+            "action_start_minutes": 31,
+            "action_start_time": "2026-03-01 00:31:00",
+            "action_end_minutes": 61,
+            "action_end_time": "2026-03-01 01:01:00",
+            "accepted": null,
+            "detail": null,
+            "cargo_id": null,
+            "pickup_deadhead_km": null,
+            "haul_distance_km": null,
+            "distance_km": null
+          },
+          {
+            "step": 3,
+            "action": "wait",
+            "action_start_minutes": 62,
+            "action_start_time": "2026-03-01 01:02:00",
+            "action_end_minutes": 92,
+            "action_end_time": "2026-03-01 01:32:00",
+            "accepted": null,
+            "detail": null,
+            "cargo_id": null,
+            "pickup_deadhead_km": null,
+            "haul_distance_km": null,
+            "distance_km": null
+          }
+        ]
+      },
+      "filtered_summary": {
+        "input_count": 7,
+        "expired_after_scan": 0,
+        "load_time_missed": 0,
+        "invalid_estimated_total_minutes": 0,
+        "kept_after_deterministic_filter": 7,
+        "negative_estimated_net_income": 6,
+        "kept_after_scoring": 1
+      },
+      "cargo_candidates": [
+        {
+          "cargo_id": "21",
+          "cargo_name": "鲜活水产品",
+          "price": 2145.03,
+          "cost_time_minutes": 1205,
+          "remove_time": "2026-03-01 07:49:46",
+          "remove_minutes": 469,
+          "load_time": [
+            "2026-03-01 06:00:00",
+            "2026-03-01 08:00:00"
+          ],
+          "start": {
+            "city": "广东省阳江市阳东区",
+            "lat": 21.76,
+            "lng": 112.23
+          },
+          "end": {
+            "city": "广东省汕头市潮阳区",
+            "lat": 23.2,
+            "lng": 116.53
+          },
+          "pickup_deadhead_km": 185.78,
+          "pickup_minutes": 186,
+          "haul_distance_km": 469.9,
+          "arrival_minutes": 279,
+          "arrival_time": "2026-03-01 04:39:00",
+          "waiting_minutes": 81,
+          "finish_minutes": 1565,
+          "finish_time": "2026-03-02 02:05:00",
+          "estimated_total_minutes": 1472,
+          "load_time_missed": false,
+          "expired_after_scan": false,
+          "income_eligible": null,
+          "estimated_preference_penalty": 900.0,
+          "penalty_summary": "预计与休息窗口重叠，预计罚900",
+          "distance_cost_proxy": 983.52,
+          "estimated_net_income": 261.51,
+          "score_per_hour": 10.6594
+        }
+      ]
+    },
+    "action": {
+      "action": "wait",
+      "params": {
+        "duration_minutes": 30
+      }
+    },
+    "usage": {
+      "prompt_tokens": 2249,
+      "completion_tokens": 6575,
+      "total_tokens": 8824
+    }
+  },
+  {
+    "driver_id": "D009",
+    "driver_name": "郑一",
+    "step": 5,
+    "simulation_progress_minutes": 124,
+    "simulation_wall_time": "2026-03-01 02:04:00",
+    "prompt": {
+      "driver_id": "D009",
+      "simulation_progress_minutes": 124,
+      "simulation_wall_time": "2026-03-01 02:04:00",
+      "driver_status": {
+        "current_lat": 23.12,
+        "current_lng": 113.28,
+        "truck_length": "4.2米",
+        "completed_order_count": 0
+      },
+      "active_preferences": [
+        {
+          "content": "每天23点前车辆须在自家位置（23.12，113.28）一公里内；当天23点至次日8点不接单、不空跑。",
+          "start_time": "2026-03-01 00:00:00",
+          "end_time": "2026-03-31 23:59:59",
+          "penalty_amount": 900,
+          "penalty_cap": 27000
+        },
+        {
+          "content": "不接货源品类为「快递快运搬家」的订单。",
+          "start_time": "2026-03-01 00:00:00",
+          "end_time": "2026-03-31 23:59:59",
+          "penalty_amount": 350,
+          "penalty_cap": 3500
+        }
+      ],
+      "parsed_preferences": {
+        "forbidden_cargo_names": [
+          {
+            "source_text": "不接货源品类为「快递快运搬家」的订单。",
+            "constraint_value": "不接快递快运搬家",
+            "start_time": "2026-03-01 00:00:00",
+            "end_time": "2026-03-31 23:59:59",
+            "penalty_amount": 350,
+            "penalty_cap": 3500,
+            "preference_action": "take_order 时不要选择 cargo_name 为「快递快运搬家」的货源"
+          }
+        ],
+        "distance_limits": [],
+        "fixed_rest_windows": [
+          {
+            "source_text": "每天 23 点前车辆须在自家位置（23.12，113.28）一公里内；当天 23 点至次日 8 点不接单、不空跑。",
+            "constraint_value": "23:00-08:00 禁接单不空跑",
+            "start_time": "2026-03-01 00:00:00",
+            "end_time": "2026-03-31 23:59:59",
+            "penalty_amount": 900,
+            "penalty_cap": 27000,
+            "preference_action": "23:00 至次日 08:00 应 wait，不要 take_order 或 reposition"
+          }
+        ],
+        "daily_rest_duration_constraints": [],
+        "rest_windows": [],
+        "region_limits": [],
+        "deadline_location_constraints": [
+          {
+            "source_text": "每天 23 点前车辆须在自家位置（23.12，113.28）一公里内；当天 23 点至次日 8 点不接单、不空跑。",
+            "constraint_value": "23 点前在坐标（23.12，113.28）1 公里内",
+            "start_time": "2026-03-01 00:00:00",
+            "end_time": "2026-03-31 23:59:59",
+            "penalty_amount": 900,
+            "penalty_cap": 27000,
+            "preference_action": "每日 23:00 前需要 reposition 到指定坐标附近"
+          }
+        ],
+        "history_constraints": [],
+        "urgent_tasks": [],
+        "unknown_preferences": [],
+        "unclassified_preferences": []
+      },
+      "history_summary": {
+        "total_steps": 4,
+        "returned_count": 4,
+        "today": {
+          "day_index": 0,
+          "successful_take_order_count": 0,
+          "failed_take_order_count": 0,
+          "first_successful_order_start_minutes": null,
+          "first_successful_order_start_time": null,
+          "longest_wait_minutes": 30,
+          "active_minutes": 0,
+          "deadhead_km": 0.0,
+          "failed_take_order_deadhead_km": 0.0
+        },
+        "month": {
+          "successful_take_order_count": 0,
+          "failed_take_order_count": 0,
+          "failure_reasons": {},
+          "completed_day_count": 0,
+          "no_order_days": 0,
+          "fully_idle_days": 0,
+          "longest_wait_minutes": 30,
+          "longest_wait_hours": 0.5,
+          "deadhead_km": 0.0,
+          "failed_take_order_deadhead_km": 0.0
+        },
+        "recent": [
+          {
+            "step": 1,
+            "action": "wait",
+            "action_start_minutes": 0,
+            "action_start_time": "2026-03-01 00:00:00",
+            "action_end_minutes": 30,
+            "action_end_time": "2026-03-01 00:30:00",
+            "accepted": null,
+            "detail": null,
+            "cargo_id": null,
+            "pickup_deadhead_km": null,
+            "haul_distance_km": null,
+            "distance_km": null
+          },
+          {
+            "step": 2,
+            "action": "wait",
+            "action_start_minutes": 31,
+            "action_start_time": "2026-03-01 00:31:00",
+            "action_end_minutes": 61,
+            "action_end_time": "2026-03-01 01:01:00",
+            "accepted": null,
+            "detail": null,
+            "cargo_id": null,
+            "pickup_deadhead_km": null,
+            "haul_distance_km": null,
+            "distance_km": null
+          },
+          {
+            "step": 3,
+            "action": "wait",
+            "action_start_minutes": 62,
+            "action_start_time": "2026-03-01 01:02:00",
+            "action_end_minutes": 92,
+            "action_end_time": "2026-03-01 01:32:00",
+            "accepted": null,
+            "detail": null,
+            "cargo_id": null,
+            "pickup_deadhead_km": null,
+            "haul_distance_km": null,
+            "distance_km": null
+          },
+          {
+            "step": 4,
+            "action": "wait",
+            "action_start_minutes": 93,
+            "action_start_time": "2026-03-01 01:33:00",
+            "action_end_minutes": 123,
+            "action_end_time": "2026-03-01 02:03:00",
+            "accepted": null,
+            "detail": null,
+            "cargo_id": null,
+            "pickup_deadhead_km": null,
+            "haul_distance_km": null,
+            "distance_km": null
+          }
+        ]
+      },
+      "filtered_summary": {
+        "input_count": 9,
+        "expired_after_scan": 0,
+        "load_time_missed": 0,
+        "invalid_estimated_total_minutes": 0,
+        "kept_after_deterministic_filter": 9,
+        "negative_estimated_net_income": 8,
+        "kept_after_scoring": 1
+      },
+      "cargo_candidates": [
+        {
+          "cargo_id": "21",
+          "cargo_name": "鲜活水产品",
+          "price": 2145.03,
+          "cost_time_minutes": 1205,
+          "remove_time": "2026-03-01 07:49:46",
+          "remove_minutes": 469,
+          "load_time": [
+            "2026-03-01 06:00:00",
+            "2026-03-01 08:00:00"
+          ],
+          "start": {
+            "city": "广东省阳江市阳东区",
+            "lat": 21.76,
+            "lng": 112.23
+          },
+          "end": {
+            "city": "广东省汕头市潮阳区",
+            "lat": 23.2,
+            "lng": 116.53
+          },
+          "pickup_deadhead_km": 185.78,
+          "pickup_minutes": 186,
+          "haul_distance_km": 469.9,
+          "arrival_minutes": 310,
+          "arrival_time": "2026-03-01 05:10:00",
+          "waiting_minutes": 50,
+          "finish_minutes": 1565,
+          "finish_time": "2026-03-02 02:05:00",
+          "estimated_total_minutes": 1441,
+          "load_time_missed": false,
+          "expired_after_scan": false,
+          "income_eligible": null,
+          "estimated_preference_penalty": 900.0,
+          "penalty_summary": "预计与休息窗口重叠，预计罚900",
+          "distance_cost_proxy": 983.52,
+          "estimated_net_income": 261.51,
+          "score_per_hour": 10.8887
+        }
+      ]
+    },
+    "action": {
+      "action": "wait",
+      "params": {
+        "duration_minutes": 30
+      }
+    },
+    "usage": {
+      "prompt_tokens": 2370,
+      "completion_tokens": 3287,
+      "total_tokens": 5657
+    }
+  },
+  {
+    "driver_id": "D009",
+    "driver_name": "郑一",
+    "step": 14,
+    "simulation_progress_minutes": 792,
+    "simulation_wall_time": "2026-03-01 13:12:00",
+    "prompt": {
+      "driver_id": "D009",
+      "simulation_progress_minutes": 792,
+      "simulation_wall_time": "2026-03-01 13:12:00",
+      "driver_status": {
+        "current_lat": 23.12,
+        "current_lng": 113.28,
+        "truck_length": "4.2米",
+        "completed_order_count": 0
+      },
+      "active_preferences": [
+        {
+          "content": "每天23点前车辆须在自家位置（23.12，113.28）一公里内；当天23点至次日8点不接单、不空跑。",
+          "start_time": "2026-03-01 00:00:00",
+          "end_time": "2026-03-31 23:59:59",
+          "penalty_amount": 900,
+          "penalty_cap": 27000
+        },
+        {
+          "content": "不接货源品类为「快递快运搬家」的订单。",
+          "start_time": "2026-03-01 00:00:00",
+          "end_time": "2026-03-31 23:59:59",
+          "penalty_amount": 350,
+          "penalty_cap": 3500
+        }
+      ],
+      "parsed_preferences": {
+        "forbidden_cargo_names": [
+          {
+            "source_text": "不接货源品类为「快递快运搬家」的订单。",
+            "constraint_value": "不接快递快运搬家",
+            "start_time": "2026-03-01 00:00:00",
+            "end_time": "2026-03-31 23:59:59",
+            "penalty_amount": 350,
+            "penalty_cap": 3500,
+            "preference_action": "take_order 时不要选择 cargo_name 为「快递快运搬家」的货源"
+          }
+        ],
+        "distance_limits": [],
+        "fixed_rest_windows": [
+          {
+            "source_text": "每天 23 点前车辆须在自家位置（23.12，113.28）一公里内；当天 23 点至次日 8 点不接单、不空跑。",
+            "constraint_value": "23:00-08:00 禁接单不空跑",
+            "start_time": "2026-03-01 00:00:00",
+            "end_time": "2026-03-31 23:59:59",
+            "penalty_amount": 900,
+            "penalty_cap": 27000,
+            "preference_action": "23:00 至次日 08:00 应 wait，不要 take_order 或 reposition"
+          }
+        ],
+        "daily_rest_duration_constraints": [],
+        "rest_windows": [],
+        "region_limits": [],
+        "deadline_location_constraints": [
+          {
+            "source_text": "每天 23 点前车辆须在自家位置（23.12，113.28）一公里内；当天 23 点至次日 8 点不接单、不空跑。",
+            "constraint_value": "23 点前在坐标（23.12，113.28）1 公里内",
+            "start_time": "2026-03-01 00:00:00",
+            "end_time": "2026-03-31 23:59:59",
+            "penalty_amount": 900,
+            "penalty_cap": 27000,
+            "preference_action": "每日 23:00 前需要 reposition 到指定坐标附近"
+          }
+        ],
+        "history_constraints": [],
+        "urgent_tasks": [],
+        "unknown_preferences": [],
+        "unclassified_preferences": []
+      },
+      "history_summary": {
+        "total_steps": 13,
+        "returned_count": 13,
+        "today": {
+          "day_index": 0,
+          "successful_take_order_count": 0,
+          "failed_take_order_count": 0,
+          "first_successful_order_start_minutes": null,
+          "first_successful_order_start_time": null,
+          "longest_wait_minutes": 356,
+          "active_minutes": 0,
+          "deadhead_km": 0.0,
+          "failed_take_order_deadhead_km": 0.0
+        },
+        "month": {
+          "successful_take_order_count": 0,
+          "failed_take_order_count": 0,
+          "failure_reasons": {},
+          "completed_day_count": 0,
+          "no_order_days": 0,
+          "fully_idle_days": 0,
+          "longest_wait_minutes": 356,
+          "longest_wait_hours": 5.93,
+          "deadhead_km": 0.0,
+          "failed_take_order_deadhead_km": 0.0
+        },
+        "recent": [
+          {
+            "step": 9,
+            "action": "wait",
+            "action_start_minutes": 592,
+            "action_start_time": "2026-03-01 09:52:00",
+            "action_end_minutes": 622,
+            "action_end_time": "2026-03-01 10:22:00",
+            "accepted": null,
+            "detail": null,
+            "cargo_id": null,
+            "pickup_deadhead_km": null,
+            "haul_distance_km": null,
+            "distance_km": null
+          },
+          {
+            "step": 10,
+            "action": "wait",
+            "action_start_minutes": 632,
+            "action_start_time": "2026-03-01 10:32:00",
+            "action_end_minutes": 662,
+            "action_end_time": "2026-03-01 11:02:00",
+            "accepted": null,
+            "detail": null,
+            "cargo_id": null,
+            "pickup_deadhead_km": null,
+            "haul_distance_km": null,
+            "distance_km": null
+          },
+          {
+            "step": 11,
+            "action": "wait",
+            "action_start_minutes": 672,
+            "action_start_time": "2026-03-01 11:12:00",
+            "action_end_minutes": 702,
+            "action_end_time": "2026-03-01 11:42:00",
+            "accepted": null,
+            "detail": null,
+            "cargo_id": null,
+            "pickup_deadhead_km": null,
+            "haul_distance_km": null,
+            "distance_km": null
+          },
+          {
+            "step": 12,
+            "action": "wait",
+            "action_start_minutes": 712,
+            "action_start_time": "2026-03-01 11:52:00",
+            "action_end_minutes": 742,
+            "action_end_time": "2026-03-01 12:22:00",
+            "accepted": null,
+            "detail": null,
+            "cargo_id": null,
+            "pickup_deadhead_km": null,
+            "haul_distance_km": null,
+            "distance_km": null
+          },
+          {
+            "step": 13,
+            "action": "wait",
+            "action_start_minutes": 752,
+            "action_start_time": "2026-03-01 12:32:00",
+            "action_end_minutes": 782,
+            "action_end_time": "2026-03-01 13:02:00",
+            "accepted": null,
+            "detail": null,
+            "cargo_id": null,
+            "pickup_deadhead_km": null,
+            "haul_distance_km": null,
+            "distance_km": null
+          }
+        ]
+      },
+      "filtered_summary": {
+        "input_count": 30,
+        "expired_after_scan": 5,
+        "load_time_missed": 4,
+        "invalid_estimated_total_minutes": 0,
+        "kept_after_deterministic_filter": 21,
+        "negative_estimated_net_income": 5,
+        "kept_after_scoring": 10
+      },
+      "cargo_candidates": [
+        {
+          "cargo_id": "759",
+          "cargo_name": "配件零件",
+          "price": 513.57,
+          "cost_time_minutes": 504,
+          "remove_time": "2026-03-01 15:32:03",
+          "remove_minutes": 932,
+          "load_time": [
+            "2026-03-01 00:00:00",
+            "2026-03-01 23:59:00"
+          ],
+          "start": {
+            "city": "广东省佛山市南海区",
+            "lat": 23.14,
+            "lng": 113.1
+          },
+          "end": {
+            "city": "广东省肇庆市广宁县",
+            "lat": 23.72,
+            "lng": 112.3
+          },
+          "pickup_deadhead_km": 18.54,
+          "pickup_minutes": 19,
+          "haul_distance_km": 104.03,
+          "arrival_minutes": 811,
+          "arrival_time": "2026-03-01 13:31:00",
+          "waiting_minutes": 0,
+          "finish_minutes": 1315,
+          "finish_time": "2026-03-01 21:55:00",
+          "estimated_total_minutes": 523,
+          "load_time_missed": false,
+          "expired_after_scan": false,
+          "income_eligible": null,
+          "estimated_preference_penalty": 0.0,
+          "penalty_summary": "无明显偏好罚分",
+          "distance_cost_proxy": 183.85,
+          "estimated_net_income": 329.72,
+          "score_per_hour": 37.8258
+        },
+        {
+          "cargo_id": "776",
+          "cargo_name": "办公文教体育",
+          "price": 1140.16,
+          "cost_time_minutes": 756,
+          "remove_time": "2026-03-02 12:18:20",
+          "remove_minutes": 2178,
+          "load_time": [
+            "2026-03-01 19:00:00",
+            "2026-03-01 21:00:00"
+          ],
+          "start": {
+            "city": "广东省佛山市南海区",
+            "lat": 23.25,
+            "lng": 113.23
+          },
+          "end": {
+            "city": "广东省茂名市茂南区",
+            "lat": 21.72,
+            "lng": 110.83
+          },
+          "pickup_deadhead_km": 15.33,
+          "pickup_minutes": 16,
+          "haul_distance_km": 299.56,
+          "arrival_minutes": 808,
+          "arrival_time": "2026-03-01 13:28:00",
+          "waiting_minutes": 332,
+          "finish_minutes": 1896,
+          "finish_time": "2026-03-02 07:36:00",
+          "estimated_total_minutes": 1104,
+          "load_time_missed": false,
+          "expired_after_scan": false,
+          "income_eligible": null,
+          "estimated_preference_penalty": 0.0,
+          "penalty_summary": "无明显偏好罚分",
+          "distance_cost_proxy": 472.33,
+          "estimated_net_income": 667.83,
+          "score_per_hour": 36.2948
+        },
+        {
+          "cargo_id": "781",
+          "cargo_name": "建材",
+          "price": 373.7,
+          "cost_time_minutes": 522,
+          "remove_time": "2026-03-01 13:47:35",
+          "remove_minutes": 827,
+          "load_time": [
+            "2026-03-01 14:00:00",
+            "2026-03-01 15:00:00"
+          ],
+          "start": {
+            "city": "广东省广州市天河区",
+            "lat": 23.1,
+            "lng": 113.46
+          },
+          "end": {
+            "city": "广东省江门市鹤山市",
+            "lat": 22.54,
+            "lng": 112.72
+          },
+          "pickup_deadhead_km": 18.54,
+          "pickup_minutes": 19,
+          "haul_distance_km": 98.13,
+          "arrival_minutes": 811,
+          "arrival_time": "2026-03-01 13:31:00",
+          "waiting_minutes": 29,
+          "finish_minutes": 1362,
+          "finish_time": "2026-03-01 22:42:00",
+          "estimated_total_minutes": 570,
+          "load_time_missed": false,
+          "expired_after_scan": false,
+          "income_eligible": null,
+          "estimated_preference_penalty": 0.0,
+          "penalty_summary": "无明显偏好罚分",
+          "distance_cost_proxy": 175.0,
+          "estimated_net_income": 198.69,
+          "score_per_hour": 20.9153
+        },
+        {
+          "cargo_id": "768",
+          "cargo_name": "服饰纺织皮革",
+          "price": 182.08,
+          "cost_time_minutes": 401,
+          "remove_time": "2026-03-01 13:39:29",
+          "remove_minutes": 819,
+          "load_time": [
+            "2026-03-01 00:00:00",
+            "2026-03-02 00:00:00"
+          ],
+          "start": {
+            "city": "广东省佛山市南海区",
+            "lat": 23.17,
+            "lng": 113.21
+          },
+          "end": {
+            "city": "广东省佛山市禅城区",
+            "lat": 22.98,
+            "lng": 113.05
+          },
+          "pickup_deadhead_km": 9.06,
+          "pickup_minutes": 10,
+          "haul_distance_km": 26.73,
+          "arrival_minutes": 802,
+          "arrival_time": "2026-03-01 13:22:00",
+          "waiting_minutes": 0,
+          "finish_minutes": 1203,
+          "finish_time": "2026-03-01 20:03:00",
+          "estimated_total_minutes": 411,
+          "load_time_missed": false,
+          "expired_after_scan": false,
+          "income_eligible": null,
+          "estimated_preference_penalty": 0.0,
+          "penalty_summary": "无明显偏好罚分",
+          "distance_cost_proxy": 53.69,
+          "estimated_net_income": 128.4,
+          "score_per_hour": 18.7438
+        },
+        {
+          "cargo_id": "676",
+          "cargo_name": "建材",
+          "price": 484.83,
+          "cost_time_minutes": 774,
+          "remove_time": "2026-03-01 15:59:21",
+          "remove_minutes": 959,
+          "load_time": [
+            "2026-03-01 00:00:00",
+            "2026-03-02 00:00:00"
+          ],
+          "start": {
+            "city": "广东省广州市番禺区",
+            "lat": 23.08,
+            "lng": 113.27
+          },
+          "end": {
+            "city": "广东省惠州市惠东县",
+            "lat": 22.52,
+            "lng": 114.72
+          },
+          "pickup_deadhead_km": 4.56,
+          "pickup_minutes": 5,
+          "haul_distance_km": 161.15,
+          "arrival_minutes": 797,
+          "arrival_time": "2026-03-01 13:17:00",
+          "waiting_minutes": 0,
+          "finish_minutes": 1571,
+          "finish_time": "2026-03-02 02:11:00",
+          "estimated_total_minutes": 779,
+          "load_time_missed": false,
+          "expired_after_scan": false,
+          "income_eligible": null,
+          "estimated_preference_penalty": 0.0,
+          "penalty_summary": "无明显偏好罚分",
+          "distance_cost_proxy": 248.56,
+          "estimated_net_income": 236.26,
+          "score_per_hour": 18.1976
+        },
+        {
+          "cargo_id": "723",
+          "cargo_name": "家具家居",
+          "price": 204.05,
+          "cost_time_minutes": 415,
+          "remove_time": "2026-03-01 13:13:31",
+          "remove_minutes": 793,
+          "load_time": [
+            "2026-03-01 12:00:00",
+            "2026-03-01 18:00:00"
+          ],
+          "start": {
+            "city": "广东省广州市白云区",
+            "lat": 23.21,
+            "lng": 113.1
+          },
+          "end": {
+            "city": "广东省佛山市三水区",
+            "lat": 23.13,
+            "lng": 112.85
+          },
+          "pickup_deadhead_km": 20.95,
+          "pickup_minutes": 21,
+          "haul_distance_km": 27.06,
+          "arrival_minutes": 813,
+          "arrival_time": "2026-03-01 13:33:00",
+          "waiting_minutes": 0,
+          "finish_minutes": 1228,
+          "finish_time": "2026-03-01 20:28:00",
+          "estimated_total_minutes": 436,
+          "load_time_missed": false,
+          "expired_after_scan": false,
+          "income_eligible": null,
+          "estimated_preference_penalty": 0.0,
+          "penalty_summary": "无明显偏好罚分",
+          "distance_cost_proxy": 72.02,
+          "estimated_net_income": 132.04,
+          "score_per_hour": 18.17
+        },
+        {
+          "cargo_id": "610",
+          "cargo_name": "化工塑料",
+          "price": 163.0,
+          "cost_time_minutes": 297,
+          "remove_time": "2026-03-01 18:04:02",
+          "remove_minutes": 1084,
+          "load_time": [
+            "2026-03-01 12:00:00",
+            "2026-03-01 18:00:00"
+          ],
+          "start": {
+            "city": "广东省广州市白云区",
+            "lat": 23.19,
+            "lng": 113.1
+          },
+          "end": {
+            "city": "广东省广州市天河区",
+            "lat": 23.12,
+            "lng": 113.42
+          },
+          "pickup_deadhead_km": 19.98,
+          "pickup_minutes": 20,
+          "haul_distance_km": 33.63,
+          "arrival_minutes": 812,
+          "arrival_time": "2026-03-01 13:32:00",
+          "waiting_minutes": 0,
+          "finish_minutes": 1109,
+          "finish_time": "2026-03-01 18:29:00",
+          "estimated_total_minutes": 317,
+          "load_time_missed": false,
+          "expired_after_scan": false,
+          "income_eligible": null,
+          "estimated_preference_penalty": 0.0,
+          "penalty_summary": "无明显偏好罚分",
+          "distance_cost_proxy": 80.41,
+          "estimated_net_income": 82.59,
+          "score_per_hour": 15.6312
+        },
+        {
+          "cargo_id": "683",
+          "cargo_name": "配件零件",
+          "price": 524.31,
+          "cost_time_minutes": 765,
+          "remove_time": "2026-03-02 12:00:34",
+          "remove_minutes": 2160,
+          "load_time": [
+            "2026-03-01 12:00:00",
+            "2026-03-01 17:00:00"
+          ],
+          "start": {
+            "city": "广东省广州市白云区",
+            "lat": 23.25,
+            "lng": 113.18
+          },
+          "end": {
+            "city": "广东省阳江市江城区",
+            "lat": 21.75,
+            "lng": 111.85
+          },
+          "pickup_deadhead_km": 17.7,
+          "pickup_minutes": 18,
+          "haul_distance_km": 215.61,
+          "arrival_minutes": 810,
+          "arrival_time": "2026-03-01 13:30:00",
+          "waiting_minutes": 0,
+          "finish_minutes": 1575,
+          "finish_time": "2026-03-02 02:15:00",
+          "estimated_total_minutes": 783,
+          "load_time_missed": false,
+          "expired_after_scan": false,
+          "income_eligible": null,
+          "estimated_preference_penalty": 0.0,
+          "penalty_summary": "无明显偏好罚分",
+          "distance_cost_proxy": 349.97,
+          "estimated_net_income": 174.34,
+          "score_per_hour": 13.3598
+        },
+        {
+          "cargo_id": "435",
+          "cargo_name": "金属钢材",
+          "price": 432.87,
+          "cost_time_minutes": 643,
+          "remove_time": "2026-03-01 19:26:36",
+          "remove_minutes": 1166,
+          "load_time": [
+            "2026-03-01 00:00:00",
+            "2026-03-02 00:00:00"
+          ],
+          "start": {
+            "city": "广东省广州市白云区",
+            "lat": 23.3,
+            "lng": 113.34
+          },
+          "end": {
+            "city": "广东省惠州市惠东县",
+            "lat": 22.93,
+            "lng": 115.07
+          },
+          "pickup_deadhead_km": 20.93,
+          "pickup_minutes": 21,
+          "haul_distance_km": 181.64,
+          "arrival_minutes": 813,
+          "arrival_time": "2026-03-01 13:33:00",
+          "waiting_minutes": 0,
+          "finish_minutes": 1456,
+          "finish_time": "2026-03-02 00:16:00",
+          "estimated_total_minutes": 664,
+          "load_time_missed": false,
+          "expired_after_scan": false,
+          "income_eligible": null,
+          "estimated_preference_penalty": 0.0,
+          "penalty_summary": "无明显偏好罚分",
+          "distance_cost_proxy": 303.86,
+          "estimated_net_income": 129.01,
+          "score_per_hour": 11.658
+        },
+        {
+          "cargo_id": "766",
+          "cargo_name": "化工塑料",
+          "price": 269.38,
+          "cost_time_minutes": 571,
+          "remove_time": "2026-03-01 14:35:23",
+          "remove_minutes": 875,
+          "load_time": [
+            "2026-03-01 00:00:00",
+            "2026-03-02 00:00:00"
+          ],
+          "start": {
+            "city": "广东省佛山市南海区",
+            "lat": 23.18,
+            "lng": 113.1
+          },
+          "end": {
+            "city": "广东省惠州市博罗县",
+            "lat": 23.12,
+            "lng": 114.0
+          },
+          "pickup_deadhead_km": 19.58,
+          "pickup_minutes": 20,
+          "haul_distance_km": 92.26,
+          "arrival_minutes": 812,
+          "arrival_time": "2026-03-01 13:32:00",
+          "waiting_minutes": 0,
+          "finish_minutes": 1383,
+          "finish_time": "2026-03-01 23:03:00",
+          "estimated_total_minutes": 591,
+          "load_time_missed": false,
+          "expired_after_scan": false,
+          "income_eligible": null,
+          "estimated_preference_penalty": 0.0,
+          "penalty_summary": "无明显偏好罚分",
+          "distance_cost_proxy": 167.76,
+          "estimated_net_income": 101.62,
+          "score_per_hour": 10.3168
+        }
+      ]
+    },
+    "action": {
+      "action": "take_order",
+      "params": {
+        "cargo_id": "723"
+      }
+    },
+    "usage": {
+      "prompt_tokens": 5964,
+      "completion_tokens": 3953,
+      "total_tokens": 9917
+    }
+  },
+  {
+    "driver_id": "D009",
+    "driver_name": "郑一",
+    "step": 15,
+    "simulation_progress_minutes": 1238,
+    "simulation_wall_time": "2026-03-01 20:38:00",
+    "prompt": {
+      "driver_id": "D009",
+      "simulation_progress_minutes": 1238,
+      "simulation_wall_time": "2026-03-01 20:38:00",
+      "driver_status": {
+        "current_lat": 23.13,
+        "current_lng": 112.85,
+        "truck_length": "4.2米",
+        "completed_order_count": 1
+      },
+      "active_preferences": [
+        {
+          "content": "【临时约定·熟货】指定熟货源编号240646（品类「服饰纺织皮革」）：装货地：韶关市浈江区（24.81，113.58）；上架时间：2026-03-03 14:43:36；不接则丧失该老客户信任，经济损失10000元。",
+          "start_time": "2026-03-01 14:43:36",
+          "end_time": "2026-03-03 16:08:24",
+          "penalty_amount": 10000,
+          "penalty_cap": 10000
+        },
+        {
+          "content": "每天23点前车辆须在自家位置（23.12，113.28）一公里内；当天23点至次日8点不接单、不空跑。",
+          "start_time": "2026-03-01 00:00:00",
+          "end_time": "2026-03-31 23:59:59",
+          "penalty_amount": 900,
+          "penalty_cap": 27000
+        },
+        {
+          "content": "不接货源品类为「快递快运搬家」的订单。",
+          "start_time": "2026-03-01 00:00:00",
+          "end_time": "2026-03-31 23:59:59",
+          "penalty_amount": 350,
+          "penalty_cap": 3500
+        }
+      ],
+      "parsed_preferences": {
+        "forbidden_cargo_names": [
+          {
+            "source_text": "不接货源品类为「快递快运搬家」的订单。",
+            "constraint_value": "不接品类为「快递快运搬家」的订单",
+            "start_time": "2026-03-01 00:00:00",
+            "end_time": "2026-03-31 23:59:59",
+            "penalty_amount": 350,
+            "penalty_cap": 3500,
+            "preference_action": "take_order时不要选择cargo_name为「快递快运搬家」的货源"
+          }
+        ],
+        "distance_limits": [],
+        "fixed_rest_windows": [
+          {
+            "source_text": "每天23点前车辆须在自家位置（23.12，113.28）一公里内；当天23点至次日8点不接单、不空跑。",
+            "constraint_value": "每天23点至次日8点禁接单和空跑",
+            "start_time": "2026-03-01 00:00:00",
+            "end_time": "2026-03-31 23:59:59",
+            "penalty_amount": 900,
+            "penalty_cap": 27000,
+            "preference_action": "每天23:00至次日08:00应wait，不要take_order或reposition"
+          }
+        ],
+        "daily_rest_duration_constraints": [],
+        "rest_windows": [],
+        "region_limits": [],
+        "deadline_location_constraints": [
+          {
+            "source_text": "每天23点前车辆须在自家位置（23.12，113.28）一公里内；当天23点至次日8点不接单、不空跑。",
+            "constraint_value": "每天23点前车辆须位于（23.12，113.28）1公里范围内",
+            "start_time": "2026-03-01 00:00:00",
+            "end_time": "2026-03-31 23:59:59",
+            "penalty_amount": 900,
+            "penalty_cap": 27000,
+            "preference_action": "23点前需要reposition到坐标（23.12，113.28）附近"
+          }
+        ],
+        "history_constraints": [],
+        "urgent_tasks": [
+          {
+            "source_text": "【临时约定·熟货】指定熟货源编号240646（品类「服饰纺织皮革」）：装货地：韶关市浈江区（24.81，113.58）；上架时间：2026-03-03 14:43:36；不接则丧失该老客户信任，经济损失10000元。",
+            "constraint_value": "指定熟货编号240646，装货地韶关市浈江区",
+            "start_time": "2026-03-01 14:43:36",
+            "end_time": "2026-03-03 16:08:24",
+            "penalty_amount": 10000,
+            "penalty_cap": 10000,
+            "preference_action": "优先take_order cargo_id为240646的订单"
+          }
+        ],
+        "unknown_preferences": [],
+        "unclassified_preferences": []
+      },
+      "history_summary": {
+        "total_steps": 14,
+        "returned_count": 14,
+        "today": {
+          "day_index": 0,
+          "successful_take_order_count": 1,
+          "failed_take_order_count": 0,
+          "first_successful_order_start_minutes": 792,
+          "first_successful_order_start_time": "2026-03-01 13:12:00",
+          "longest_wait_minutes": 356,
+          "active_minutes": 436,
+          "deadhead_km": 20.95,
+          "failed_take_order_deadhead_km": 0.0
+        },
+        "month": {
+          "successful_take_order_count": 1,
+          "failed_take_order_count": 0,
+          "failure_reasons": {},
+          "completed_day_count": 0,
+          "no_order_days": 0,
+          "fully_idle_days": 0,
+          "longest_wait_minutes": 356,
+          "longest_wait_hours": 5.93,
+          "deadhead_km": 20.95,
+          "failed_take_order_deadhead_km": 0.0
+        },
+        "recent": [
+          {
+            "step": 10,
+            "action": "wait",
+            "action_start_minutes": 632,
+            "action_start_time": "2026-03-01 10:32:00",
+            "action_end_minutes": 662,
+            "action_end_time": "2026-03-01 11:02:00",
+            "accepted": null,
+            "detail": null,
+            "cargo_id": null,
+            "pickup_deadhead_km": null,
+            "haul_distance_km": null,
+            "distance_km": null
+          },
+          {
+            "step": 11,
+            "action": "wait",
+            "action_start_minutes": 672,
+            "action_start_time": "2026-03-01 11:12:00",
+            "action_end_minutes": 702,
+            "action_end_time": "2026-03-01 11:42:00",
+            "accepted": null,
+            "detail": null,
+            "cargo_id": null,
+            "pickup_deadhead_km": null,
+            "haul_distance_km": null,
+            "distance_km": null
+          },
+          {
+            "step": 12,
+            "action": "wait",
+            "action_start_minutes": 712,
+            "action_start_time": "2026-03-01 11:52:00",
+            "action_end_minutes": 742,
+            "action_end_time": "2026-03-01 12:22:00",
+            "accepted": null,
+            "detail": null,
+            "cargo_id": null,
+            "pickup_deadhead_km": null,
+            "haul_distance_km": null,
+            "distance_km": null
+          },
+          {
+            "step": 13,
+            "action": "wait",
+            "action_start_minutes": 752,
+            "action_start_time": "2026-03-01 12:32:00",
+            "action_end_minutes": 782,
+            "action_end_time": "2026-03-01 13:02:00",
+            "accepted": null,
+            "detail": null,
+            "cargo_id": null,
+            "pickup_deadhead_km": null,
+            "haul_distance_km": null,
+            "distance_km": null
+          },
+          {
+            "step": 14,
+            "action": "take_order",
+            "action_start_minutes": 792,
+            "action_start_time": "2026-03-01 13:12:00",
+            "action_end_minutes": 1228,
+            "action_end_time": "2026-03-01 20:28:00",
+            "accepted": true,
+            "detail": "trace_env_take_order_completed",
+            "cargo_id": "723",
+            "pickup_deadhead_km": 20.95,
+            "haul_distance_km": 27.06,
+            "distance_km": null
+          }
+        ]
+      },
+      "filtered_summary": {
+        "input_count": 30,
+        "expired_after_scan": 1,
+        "load_time_missed": 6,
+        "invalid_estimated_total_minutes": 0,
+        "kept_after_deterministic_filter": 23,
+        "negative_estimated_net_income": 16,
+        "kept_after_scoring": 7
+      },
+      "cargo_candidates": [
+        {
+          "cargo_id": "1522",
+          "cargo_name": "化工塑料",
+          "price": 652.0,
+          "cost_time_minutes": 673,
+          "remove_time": "2026-03-02 18:38:24",
+          "remove_minutes": 2558,
+          "load_time": [
+            "2026-03-01 18:00:00",
+            "2026-03-02 00:00:00"
+          ],
+          "start": {
+            "city": "广东省佛山市顺德区",
+            "lat": 22.92,
+            "lng": 113.09
+          },
+          "end": {
+            "city": "广东省惠州市惠阳区",
+            "lat": 22.82,
+            "lng": 114.34
+          },
+          "pickup_deadhead_km": 33.89,
+          "pickup_minutes": 34,
+          "haul_distance_km": 128.55,
+          "arrival_minutes": 1272,
+          "arrival_time": "2026-03-01 21:12:00",
+          "waiting_minutes": 0,
+          "finish_minutes": 1945,
+          "finish_time": "2026-03-02 08:25:00",
+          "estimated_total_minutes": 707,
+          "load_time_missed": false,
+          "expired_after_scan": false,
+          "income_eligible": null,
+          "estimated_preference_penalty": 0.0,
+          "penalty_summary": "无明显偏好罚分",
+          "distance_cost_proxy": 243.66,
+          "estimated_net_income": 408.34,
+          "score_per_hour": 34.654
+        },
+        {
+          "cargo_id": "960",
+          "cargo_name": "建材",
+          "price": 511.56,
+          "cost_time_minutes": 473,
+          "remove_time": "2026-03-02 09:02:38",
+          "remove_minutes": 1982,
+          "load_time": [
+            "2026-03-02 00:00:00",
+            "2026-03-03 00:00:00"
+          ],
+          "start": {
+            "city": "广东省佛山市禅城区",
+            "lat": 22.96,
+            "lng": 112.97
+          },
+          "end": {
+            "city": "广东省广州市番禺区",
+            "lat": 22.92,
+            "lng": 113.57
+          },
+          "pickup_deadhead_km": 22.54,
+          "pickup_minutes": 23,
+          "haul_distance_km": 61.6,
+          "arrival_minutes": 1261,
+          "arrival_time": "2026-03-01 21:01:00",
+          "waiting_minutes": 179,
+          "finish_minutes": 1913,
+          "finish_time": "2026-03-02 07:53:00",
+          "estimated_total_minutes": 675,
+          "load_time_missed": false,
+          "expired_after_scan": false,
+          "income_eligible": null,
+          "estimated_preference_penalty": 0.0,
+          "penalty_summary": "无明显偏好罚分",
+          "distance_cost_proxy": 126.21,
+          "estimated_net_income": 385.35,
+          "score_per_hour": 34.2533
+        },
+        {
+          "cargo_id": "1752",
+          "cargo_name": "食品饮料",
+          "price": 469.14,
+          "cost_time_minutes": 522,
+          "remove_time": "2026-03-01 21:07:32",
+          "remove_minutes": 1267,
+          "load_time": [
+            "2026-03-01 18:00:00",
+            "2026-03-02 00:00:00"
+          ],
+          "start": {
+            "city": "广东省佛山市三水区",
+            "lat": 23.12,
+            "lng": 112.81
+          },
+          "end": {
+            "city": "广东省东莞市茶山镇",
+            "lat": 23.17,
+            "lng": 113.95
+          },
+          "pickup_deadhead_km": 4.24,
+          "pickup_minutes": 5,
+          "haul_distance_km": 116.69,
+          "arrival_minutes": 1243,
+          "arrival_time": "2026-03-01 20:43:00",
+          "waiting_minutes": 0,
+          "finish_minutes": 1765,
+          "finish_time": "2026-03-02 05:25:00",
+          "estimated_total_minutes": 527,
+          "load_time_missed": false,
+          "expired_after_scan": false,
+          "income_eligible": null,
+          "estimated_preference_penalty": 0.0,
+          "penalty_summary": "无明显偏好罚分",
+          "distance_cost_proxy": 181.39,
+          "estimated_net_income": 287.75,
+          "score_per_hour": 32.7603
+        },
+        {
+          "cargo_id": "1415",
+          "cargo_name": "化工塑料",
+          "price": 333.82,
+          "cost_time_minutes": 304,
+          "remove_time": "2026-03-01 23:55:09",
+          "remove_minutes": 1435,
+          "load_time": [
+            "2026-03-02 06:00:00",
+            "2026-03-02 12:00:00"
+          ],
+          "start": {
+            "city": "广东省佛山市南海区",
+            "lat": 23.15,
+            "lng": 113.17
+          },
+          "end": {
+            "city": "广东省清远市清新区",
+            "lat": 23.69,
+            "lng": 113.07
+          },
+          "pickup_deadhead_km": 32.8,
+          "pickup_minutes": 33,
+          "haul_distance_km": 60.91,
+          "arrival_minutes": 1271,
+          "arrival_time": "2026-03-01 21:11:00",
+          "waiting_minutes": 529,
+          "finish_minutes": 2104,
+          "finish_time": "2026-03-02 11:04:00",
+          "estimated_total_minutes": 866,
+          "load_time_missed": false,
+          "expired_after_scan": false,
+          "income_eligible": null,
+          "estimated_preference_penalty": 0.0,
+          "penalty_summary": "无明显偏好罚分",
+          "distance_cost_proxy": 140.56,
+          "estimated_net_income": 193.25,
+          "score_per_hour": 13.3895
+        },
+        {
+          "cargo_id": "1725",
+          "cargo_name": "食品饮料",
+          "price": 131.66,
+          "cost_time_minutes": 316,
+          "remove_time": "2026-03-01 20:56:18",
+          "remove_minutes": 1256,
+          "load_time": [
+            "2026-03-01 18:00:00",
+            "2026-03-01 23:00:00"
+          ],
+          "start": {
+            "city": "广东省佛山市南海区",
+            "lat": 23.09,
+            "lng": 113.13
+          },
+          "end": {
+            "city": "广东省佛山市南海区",
+            "lat": 22.94,
+            "lng": 113.13
+          },
+          "pickup_deadhead_km": 28.98,
+          "pickup_minutes": 29,
+          "haul_distance_km": 16.68,
+          "arrival_minutes": 1267,
+          "arrival_time": "2026-03-01 21:07:00",
+          "waiting_minutes": 0,
+          "finish_minutes": 1583,
+          "finish_time": "2026-03-02 02:23:00",
+          "estimated_total_minutes": 345,
+          "load_time_missed": false,
+          "expired_after_scan": false,
+          "income_eligible": null,
+          "estimated_preference_penalty": 0.0,
+          "penalty_summary": "无明显偏好罚分",
+          "distance_cost_proxy": 68.49,
+          "estimated_net_income": 63.17,
+          "score_per_hour": 10.9861
+        },
+        {
+          "cargo_id": "1295",
+          "cargo_name": "配件零件",
+          "price": 286.86,
+          "cost_time_minutes": 466,
+          "remove_time": "2026-03-02 16:23:05",
+          "remove_minutes": 2423,
+          "load_time": [
+            "2026-03-01 18:00:00",
+            "2026-03-02 00:00:00"
+          ],
+          "start": {
+            "city": "广东省广州市白云区",
+            "lat": 23.2,
+            "lng": 113.15
+          },
+          "end": {
+            "city": "广东省珠海市斗门区",
+            "lat": 22.29,
+            "lng": 113.31
+          },
+          "pickup_deadhead_km": 31.64,
+          "pickup_minutes": 32,
+          "haul_distance_km": 102.51,
+          "arrival_minutes": 1270,
+          "arrival_time": "2026-03-01 21:10:00",
+          "waiting_minutes": 0,
+          "finish_minutes": 1736,
+          "finish_time": "2026-03-02 04:56:00",
+          "estimated_total_minutes": 498,
+          "load_time_missed": false,
+          "expired_after_scan": false,
+          "income_eligible": null,
+          "estimated_preference_penalty": 0.0,
+          "penalty_summary": "无明显偏好罚分",
+          "distance_cost_proxy": 201.23,
+          "estimated_net_income": 85.63,
+          "score_per_hour": 10.3175
+        },
+        {
+          "cargo_id": "385",
+          "cargo_name": "设施用具",
+          "price": 1600.49,
+          "cost_time_minutes": 1070,
+          "remove_time": "2026-03-02 10:25:00",
+          "remove_minutes": 2065,
+          "load_time": [
+            "2026-03-04 00:00:00",
+            "2026-03-05 00:00:00"
+          ],
+          "start": {
+            "city": "广东省肇庆市四会市",
+            "lat": 23.26,
+            "lng": 112.9
+          },
+          "end": {
+            "city": "广东省汕头市潮阳区",
+            "lat": 23.16,
+            "lng": 116.64
+          },
+          "pickup_deadhead_km": 15.33,
+          "pickup_minutes": 16,
+          "haul_distance_km": 382.36,
+          "arrival_minutes": 1254,
+          "arrival_time": "2026-03-01 20:54:00",
+          "waiting_minutes": 3066,
+          "finish_minutes": 5390,
+          "finish_time": "2026-03-04 17:50:00",
+          "estimated_total_minutes": 4152,
+          "load_time_missed": false,
+          "expired_after_scan": false,
+          "income_eligible": null,
+          "estimated_preference_penalty": 900.0,
+          "penalty_summary": "预计与休息窗口重叠，预计罚900",
+          "distance_cost_proxy": 596.53,
+          "estimated_net_income": 103.96,
+          "score_per_hour": 1.5022
+        }
+      ]
+    },
+    "action": {
+      "action": "reposition",
+      "params": {
+        "latitude": 23.12,
+        "longitude": 113.28
+      }
+    },
+    "usage": {
+      "prompt_tokens": 5268,
+      "completion_tokens": 5771,
+      "total_tokens": 11039
+    }
+  },
+  {
+    "driver_id": "D009",
+    "driver_name": "郑一",
+    "step": 16,
+    "simulation_progress_minutes": 1292,
+    "simulation_wall_time": "2026-03-01 21:32:00",
+    "prompt": {
+      "driver_id": "D009",
+      "simulation_progress_minutes": 1292,
+      "simulation_wall_time": "2026-03-01 21:32:00",
+      "driver_status": {
+        "current_lat": 23.12,
+        "current_lng": 113.28,
+        "truck_length": "4.2米",
+        "completed_order_count": 1
+      },
+      "active_preferences": [
+        {
+          "content": "【临时约定·熟货】指定熟货源编号240646（品类「服饰纺织皮革」）：装货地：韶关市浈江区（24.81，113.58）；上架时间：2026-03-03 14:43:36；不接则丧失该老客户信任，经济损失10000元。",
+          "start_time": "2026-03-01 14:43:36",
+          "end_time": "2026-03-03 16:08:24",
+          "penalty_amount": 10000,
+          "penalty_cap": 10000
+        },
+        {
+          "content": "每天23点前车辆须在自家位置（23.12，113.28）一公里内；当天23点至次日8点不接单、不空跑。",
+          "start_time": "2026-03-01 00:00:00",
+          "end_time": "2026-03-31 23:59:59",
+          "penalty_amount": 900,
+          "penalty_cap": 27000
+        },
+        {
+          "content": "不接货源品类为「快递快运搬家」的订单。",
+          "start_time": "2026-03-01 00:00:00",
+          "end_time": "2026-03-31 23:59:59",
+          "penalty_amount": 350,
+          "penalty_cap": 3500
+        }
+      ],
+      "parsed_preferences": {
+        "forbidden_cargo_names": [
+          {
+            "source_text": "不接货源品类为「快递快运搬家」的订单。",
+            "constraint_value": "不接品类为「快递快运搬家」的订单",
+            "start_time": "2026-03-01 00:00:00",
+            "end_time": "2026-03-31 23:59:59",
+            "penalty_amount": 350,
+            "penalty_cap": 3500,
+            "preference_action": "take_order时不要选择cargo_name为「快递快运搬家」的货源"
+          }
+        ],
+        "distance_limits": [],
+        "fixed_rest_windows": [
+          {
+            "source_text": "每天23点前车辆须在自家位置（23.12，113.28）一公里内；当天23点至次日8点不接单、不空跑。",
+            "constraint_value": "每天23点至次日8点禁接单和空跑",
+            "start_time": "2026-03-01 00:00:00",
+            "end_time": "2026-03-31 23:59:59",
+            "penalty_amount": 900,
+            "penalty_cap": 27000,
+            "preference_action": "每天23:00至次日08:00应wait，不要take_order或reposition"
+          }
+        ],
+        "daily_rest_duration_constraints": [],
+        "rest_windows": [],
+        "region_limits": [],
+        "deadline_location_constraints": [
+          {
+            "source_text": "每天23点前车辆须在自家位置（23.12，113.28）一公里内；当天23点至次日8点不接单、不空跑。",
+            "constraint_value": "每天23点前车辆须位于（23.12，113.28）1公里范围内",
+            "start_time": "2026-03-01 00:00:00",
+            "end_time": "2026-03-31 23:59:59",
+            "penalty_amount": 900,
+            "penalty_cap": 27000,
+            "preference_action": "23点前需要reposition到坐标（23.12，113.28）附近"
+          }
+        ],
+        "history_constraints": [],
+        "urgent_tasks": [
+          {
+            "source_text": "【临时约定·熟货】指定熟货源编号240646（品类「服饰纺织皮革」）：装货地：韶关市浈江区（24.81，113.58）；上架时间：2026-03-03 14:43:36；不接则丧失该老客户信任，经济损失10000元。",
+            "constraint_value": "指定熟货编号240646，装货地韶关市浈江区",
+            "start_time": "2026-03-01 14:43:36",
+            "end_time": "2026-03-03 16:08:24",
+            "penalty_amount": 10000,
+            "penalty_cap": 10000,
+            "preference_action": "优先take_order cargo_id为240646的订单"
+          }
+        ],
+        "unknown_preferences": [],
+        "unclassified_preferences": []
+      },
+      "history_summary": {
+        "total_steps": 15,
+        "returned_count": 15,
+        "today": {
+          "day_index": 0,
+          "successful_take_order_count": 1,
+          "failed_take_order_count": 0,
+          "first_successful_order_start_minutes": 792,
+          "first_successful_order_start_time": "2026-03-01 13:12:00",
+          "longest_wait_minutes": 356,
+          "active_minutes": 480,
+          "deadhead_km": 64.94,
+          "failed_take_order_deadhead_km": 0.0
+        },
+        "month": {
+          "successful_take_order_count": 1,
+          "failed_take_order_count": 0,
+          "failure_reasons": {},
+          "completed_day_count": 0,
+          "no_order_days": 0,
+          "fully_idle_days": 0,
+          "longest_wait_minutes": 356,
+          "longest_wait_hours": 5.93,
+          "deadhead_km": 64.94,
+          "failed_take_order_deadhead_km": 0.0
+        },
+        "recent": [
+          {
+            "step": 11,
+            "action": "wait",
+            "action_start_minutes": 672,
+            "action_start_time": "2026-03-01 11:12:00",
+            "action_end_minutes": 702,
+            "action_end_time": "2026-03-01 11:42:00",
+            "accepted": null,
+            "detail": null,
+            "cargo_id": null,
+            "pickup_deadhead_km": null,
+            "haul_distance_km": null,
+            "distance_km": null
+          },
+          {
+            "step": 12,
+            "action": "wait",
+            "action_start_minutes": 712,
+            "action_start_time": "2026-03-01 11:52:00",
+            "action_end_minutes": 742,
+            "action_end_time": "2026-03-01 12:22:00",
+            "accepted": null,
+            "detail": null,
+            "cargo_id": null,
+            "pickup_deadhead_km": null,
+            "haul_distance_km": null,
+            "distance_km": null
+          },
+          {
+            "step": 13,
+            "action": "wait",
+            "action_start_minutes": 752,
+            "action_start_time": "2026-03-01 12:32:00",
+            "action_end_minutes": 782,
+            "action_end_time": "2026-03-01 13:02:00",
+            "accepted": null,
+            "detail": null,
+            "cargo_id": null,
+            "pickup_deadhead_km": null,
+            "haul_distance_km": null,
+            "distance_km": null
+          },
+          {
+            "step": 14,
+            "action": "take_order",
+            "action_start_minutes": 792,
+            "action_start_time": "2026-03-01 13:12:00",
+            "action_end_minutes": 1228,
+            "action_end_time": "2026-03-01 20:28:00",
+            "accepted": true,
+            "detail": "trace_env_take_order_completed",
+            "cargo_id": "723",
+            "pickup_deadhead_km": 20.95,
+            "haul_distance_km": 27.06,
+            "distance_km": null
+          },
+          {
+            "step": 15,
+            "action": "reposition",
+            "action_start_minutes": 1238,
+            "action_start_time": "2026-03-01 20:38:00",
+            "action_end_minutes": 1282,
+            "action_end_time": "2026-03-01 21:22:00",
+            "accepted": null,
+            "detail": null,
+            "cargo_id": null,
+            "pickup_deadhead_km": null,
+            "haul_distance_km": null,
+            "distance_km": 43.99
+          }
+        ]
+      },
+      "filtered_summary": {
+        "input_count": 30,
+        "expired_after_scan": 1,
+        "load_time_missed": 9,
+        "invalid_estimated_total_minutes": 0,
+        "kept_after_deterministic_filter": 20,
+        "negative_estimated_net_income": 14,
+        "kept_after_scoring": 6
+      },
+      "cargo_candidates": [
+        {
+          "cargo_id": "1628",
+          "cargo_name": "食品饮料",
+          "price": 513.88,
+          "cost_time_minutes": 699,
+          "remove_time": "2026-03-01 21:42:39",
+          "remove_minutes": 1302,
+          "load_time": [
+            "2026-03-02 00:00:00",
+            "2026-03-03 00:00:00"
+          ],
+          "start": {
+            "city": "广东省广州市白云区",
+            "lat": 23.2,
+            "lng": 113.18
+          },
+          "end": {
+            "city": "广东省深圳市龙岗区",
+            "lat": 22.8,
+            "lng": 114.27
+          },
+          "pickup_deadhead_km": 13.55,
+          "pickup_minutes": 14,
+          "haul_distance_km": 120.11,
+          "arrival_minutes": 1306,
+          "arrival_time": "2026-03-01 21:46:00",
+          "waiting_minutes": 134,
+          "finish_minutes": 2139,
+          "finish_time": "2026-03-02 11:39:00",
+          "estimated_total_minutes": 847,
+          "load_time_missed": false,
+          "expired_after_scan": false,
+          "income_eligible": null,
+          "estimated_preference_penalty": 0.0,
+          "penalty_summary": "无明显偏好罚分",
+          "distance_cost_proxy": 200.49,
+          "estimated_net_income": 313.39,
+          "score_per_hour": 22.2
+        },
+        {
+          "cargo_id": "1415",
+          "cargo_name": "化工塑料",
+          "price": 333.82,
+          "cost_time_minutes": 304,
+          "remove_time": "2026-03-01 23:55:09",
+          "remove_minutes": 1435,
+          "load_time": [
+            "2026-03-02 06:00:00",
+            "2026-03-02 12:00:00"
+          ],
+          "start": {
+            "city": "广东省佛山市南海区",
+            "lat": 23.15,
+            "lng": 113.17
+          },
+          "end": {
+            "city": "广东省清远市清新区",
+            "lat": 23.69,
+            "lng": 113.07
+          },
+          "pickup_deadhead_km": 11.73,
+          "pickup_minutes": 12,
+          "haul_distance_km": 60.91,
+          "arrival_minutes": 1304,
+          "arrival_time": "2026-03-01 21:44:00",
+          "waiting_minutes": 496,
+          "finish_minutes": 2104,
+          "finish_time": "2026-03-02 11:04:00",
+          "estimated_total_minutes": 812,
+          "load_time_missed": false,
+          "expired_after_scan": false,
+          "income_eligible": null,
+          "estimated_preference_penalty": 0.0,
+          "penalty_summary": "无明显偏好罚分",
+          "distance_cost_proxy": 108.96,
+          "estimated_net_income": 224.86,
+          "score_per_hour": 16.6153
+        },
+        {
+          "cargo_id": "1295",
+          "cargo_name": "配件零件",
+          "price": 286.86,
+          "cost_time_minutes": 466,
+          "remove_time": "2026-03-02 16:23:05",
+          "remove_minutes": 2423,
+          "load_time": [
+            "2026-03-01 18:00:00",
+            "2026-03-02 00:00:00"
+          ],
+          "start": {
+            "city": "广东省广州市白云区",
+            "lat": 23.2,
+            "lng": 113.15
+          },
+          "end": {
+            "city": "广东省珠海市斗门区",
+            "lat": 22.29,
+            "lng": 113.31
+          },
+          "pickup_deadhead_km": 15.99,
+          "pickup_minutes": 16,
+          "haul_distance_km": 102.51,
+          "arrival_minutes": 1308,
+          "arrival_time": "2026-03-01 21:48:00",
+          "waiting_minutes": 0,
+          "finish_minutes": 1774,
+          "finish_time": "2026-03-02 05:34:00",
+          "estimated_total_minutes": 482,
+          "load_time_missed": false,
+          "expired_after_scan": false,
+          "income_eligible": null,
+          "estimated_preference_penalty": 0.0,
+          "penalty_summary": "无明显偏好罚分",
+          "distance_cost_proxy": 177.75,
+          "estimated_net_income": 109.11,
+          "score_per_hour": 13.5822
+        },
+        {
+          "cargo_id": "955",
+          "cargo_name": "车辆",
+          "price": 367.25,
+          "cost_time_minutes": 699,
+          "remove_time": "2026-03-02 14:59:03",
+          "remove_minutes": 2339,
+          "load_time": [
+            "2026-03-01 00:00:00",
+            "2026-03-02 00:00:00"
+          ],
+          "start": {
+            "city": "广东省佛山市禅城区",
+            "lat": 22.99,
+            "lng": 113.15
+          },
+          "end": {
+            "city": "广东省肇庆市怀集县",
+            "lat": 23.81,
+            "lng": 112.03
+          },
+          "pickup_deadhead_km": 19.64,
+          "pickup_minutes": 20,
+          "haul_distance_km": 146.21,
+          "arrival_minutes": 1312,
+          "arrival_time": "2026-03-01 21:52:00",
+          "waiting_minutes": 0,
+          "finish_minutes": 2011,
+          "finish_time": "2026-03-02 09:31:00",
+          "estimated_total_minutes": 719,
+          "load_time_missed": false,
+          "expired_after_scan": false,
+          "income_eligible": null,
+          "estimated_preference_penalty": 0.0,
+          "penalty_summary": "无明显偏好罚分",
+          "distance_cost_proxy": 248.78,
+          "estimated_net_income": 118.47,
+          "score_per_hour": 9.8866
+        },
+        {
+          "cargo_id": "618",
+          "cargo_name": "服饰纺织皮革",
+          "price": 125.92,
+          "cost_time_minutes": 157,
+          "remove_time": "2026-03-02 10:46:45",
+          "remove_minutes": 2086,
+          "load_time": [
+            "2026-03-02 08:00:00",
+            "2026-03-02 20:00:00"
+          ],
+          "start": {
+            "city": "广东省广州市白云区",
+            "lat": 23.25,
+            "lng": 113.16
+          },
+          "end": {
+            "city": "广东省广州市白云区",
+            "lat": 23.24,
+            "lng": 113.23
+          },
+          "pickup_deadhead_km": 18.96,
+          "pickup_minutes": 19,
+          "haul_distance_km": 7.24,
+          "arrival_minutes": 1311,
+          "arrival_time": "2026-03-01 21:51:00",
+          "waiting_minutes": 609,
+          "finish_minutes": 2077,
+          "finish_time": "2026-03-02 10:37:00",
+          "estimated_total_minutes": 785,
+          "load_time_missed": false,
+          "expired_after_scan": false,
+          "income_eligible": null,
+          "estimated_preference_penalty": 0.0,
+          "penalty_summary": "无明显偏好罚分",
+          "distance_cost_proxy": 39.3,
+          "estimated_net_income": 86.62,
+          "score_per_hour": 6.6206
+        },
+        {
+          "cargo_id": "1655",
+          "cargo_name": "配件零件",
+          "price": 124.55,
+          "cost_time_minutes": 301,
+          "remove_time": "2026-03-02 01:03:24",
+          "remove_minutes": 1503,
+          "load_time": [
+            "2026-03-01 18:00:00",
+            "2026-03-01 23:59:00"
+          ],
+          "start": {
+            "city": "广东省广州市白云区",
+            "lat": 23.3,
+            "lng": 113.36
+          },
+          "end": {
+            "city": "广东省广州市番禺区",
+            "lat": 22.89,
+            "lng": 113.31
+          },
+          "pickup_deadhead_km": 21.62,
+          "pickup_minutes": 22,
+          "haul_distance_km": 45.88,
+          "arrival_minutes": 1314,
+          "arrival_time": "2026-03-01 21:54:00",
+          "waiting_minutes": 0,
+          "finish_minutes": 1615,
+          "finish_time": "2026-03-02 02:55:00",
+          "estimated_total_minutes": 323,
+          "load_time_missed": false,
+          "expired_after_scan": false,
+          "income_eligible": null,
+          "estimated_preference_penalty": 0.0,
+          "penalty_summary": "无明显偏好罚分",
+          "distance_cost_proxy": 101.25,
+          "estimated_net_income": 23.3,
+          "score_per_hour": 4.3282
+        }
+      ]
+    },
+    "action": {
+      "action": "take_order",
+      "params": {
+        "cargo_id": "1628"
+      }
+    },
+    "usage": {
+      "prompt_tokens": 4868,
+      "completion_tokens": 3382,
+      "total_tokens": 8250
+    }
+  }
+]
