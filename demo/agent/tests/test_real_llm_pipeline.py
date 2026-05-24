@@ -130,8 +130,9 @@ class RealLlmPipelineTests(unittest.TestCase):
         self.assertNotIn("rules", extracted)
         self.assertNotIn("categories", extracted)
         self.assertNotIn("constraint_type", json.dumps(extracted, ensure_ascii=False))
-        self.assertTrue(all(isinstance(item.get("tools"), dict) for item in extracted["preference_brief"]))
-        self.assertEqual(self.api.calls, 2)
+        self.assertTrue(all(isinstance(item.get("tools"), list) for item in extracted["preference_brief"]))
+        self.assertTrue(all(isinstance(value, str) for item in extracted["preference_brief"] for value in item["tools"]))
+        self.assertEqual(self.api.calls, 1)
 
     def test_preference_tool_planner_uses_real_llm_for_geo_tools(self) -> None:
         planner = PreferenceToolPlanner(self.api.model_chat_completion)
@@ -151,14 +152,14 @@ class RealLlmPipelineTests(unittest.TestCase):
                     "penalty_amount": 1000,
                     "penalty_cap": 1000,
                     "needs_history": False,
-                    "tools": {},
+                    "tools": ["geo_checks"],
                 }
             ],
         }
 
-        planned = planner.plan_for_context(driver_id="T001", status=_status(progress=10), preference_context=context)
+        tool_plan = planner.plan_for_context(driver_id="T001", status=_status(progress=10), preference_context=context)
 
-        tools = planned["preference_brief"][0]["tools"]
+        tools = tool_plan["pref_0"]
         self.assertIn("geo_checks", tools)
         self.assertEqual(tools["geo_checks"]["relation"], "forbidden_inside")
         self.assertEqual(tools["geo_checks"]["center"], [23.3, 113.52])
@@ -174,7 +175,6 @@ class RealLlmPipelineTests(unittest.TestCase):
         judged = judge.judge_candidates(
             driver_id="T001",
             status=_status(progress=10),
-            active_preferences=_status(progress=10)["preferences"],
             preference_context=preference_context,
             history_summary={"today": {}, "month": {}},
             history_slice=None,
@@ -182,7 +182,7 @@ class RealLlmPipelineTests(unittest.TestCase):
         )
 
         self.assertEqual(len(judged), 6)
-        self.assertEqual(self.api.calls, 4)
+        self.assertEqual(self.api.calls, 3)
         self.assertTrue(all("preference_evaluation" in item for item in judged))
         self.assertTrue(all("violated_preferences" in item["preference_evaluation"] for item in judged))
         self.assertTrue(all("preference_penalty" in item["preference_evaluation"] for item in judged))
@@ -210,7 +210,7 @@ class RealLlmPipelineTests(unittest.TestCase):
         else:
             self.assertIn("latitude", action["params"])
             self.assertIn("longitude", action["params"])
-        self.assertGreaterEqual(self.api.calls, 4)
+        self.assertGreaterEqual(self.api.calls, 3)
 
 
 class RealLlmDecisionPort:

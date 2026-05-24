@@ -9,7 +9,8 @@ from collections.abc import Callable
 from typing import Any
 
 from agent.history.json_utils import extract_model_json_object
-from agent.preferences.tool_planner import PreferenceToolPlanner, normalize_tools
+from agent.preferences.tool_prompts import brief_tool_intro
+from agent.preferences.tool_schema import TOOL_NAMES, normalize_tool_flags
 
 
 def preference_signature(preferences: list[Any]) -> str:
@@ -39,7 +40,6 @@ class PreferenceBriefExtractor:
 
     def __init__(self, model_chat_completion: Callable[[dict[str, Any]], dict[str, Any]]) -> None:
         self._model_chat_completion = model_chat_completion
-        self._tool_planner = PreferenceToolPlanner(model_chat_completion)
         self._cache: dict[tuple[str, str], dict[str, Any]] = {}
         self._logger = logging.getLogger("agent.preferences.brief_extractor")
 
@@ -60,11 +60,6 @@ class PreferenceBriefExtractor:
 
         raw = self._request_extract(driver_id, status, preferences)
         extracted = self._normalize(driver_id, status, preferences, signature, raw)
-        extracted = self._tool_planner.plan_for_context(
-            driver_id=driver_id,
-            status=status,
-            preference_context=extracted,
-        )
         self._cache[cache_key] = extracted
         self._logger.info(
             "preference_brief_extract ok driver_id=%s signature=%s briefs=%s",
@@ -121,7 +116,8 @@ class PreferenceBriefExtractor:
             '{"driver_id":"...","preference_brief":[{"pref_id":"pref_0","source_text":"原始偏好文本",'
             '"core_requirement":{"time":null,"action":"围绕 take_order / reposition / wait / 候选订单属性描述",'
             '"location":null,"value":null,"requirement":"一句话说明核心约束"},'
-            '"penalty_amount":0,"penalty_cap":null,"needs_history":false}]}。'
+            '"penalty_amount":0,"penalty_cap":null,"needs_history":false,'
+            '"tools":["geo_checks","wait_generation"]}]}。'
             "core_requirement.time 只填写原文明确出现的时间、日期、时段、周期或持续时长约束；没有则为 null。"
             "core_requirement.action 只填写原文明确约束的动作或候选属性，例如 take_order、wait、reposition、货类、订单号、收入、距离等；没有则为 null。"
             "core_requirement.location 只填写原文明确出现的位置约束；若是城市/区域，保留名称；若是圆形范围，写明圆心经纬度或地名及半径；"
@@ -143,6 +139,10 @@ class PreferenceBriefExtractor:
             "若需要今天历史，start_simulation_wall_time 写当天 00:00:00，end_simulation_wall_time 写当前 simulation_wall_time；"
             "若需要本月历史，start_simulation_wall_time 写本月首日 00:00:00，end_simulation_wall_time 写当前 simulation_wall_time。"
             "penalty_amount 和 penalty_cap 必须从输入 preference 原文对象复制；如果输入没有，则使用 0 和 null。"
+            + brief_tool_intro(TOOL_NAMES)
+            + "tools 只填写字符串数组，不要填写工具配置；没有需要工具时填写 []。"
+            "只有当该偏好明显需要对应工具提供事实证据或动作候选时，才把对应工具名放入 tools。"
+            "candidate_geo_contribution 和 history_geo_summary 应成对用于累计到访偏好。"
             "可以拆分复合偏好，但不要编造输入中没有的坐标、时间、货类、罚分。"
         )
 
@@ -167,7 +167,9 @@ class PreferenceBriefExtractor:
                 continue
             source_text = str(raw_item.get("source_text") or raw_item.get("content") or "").strip()
             meta = self._match_metadata(source_text, metadata)
-            if not source_text and meta is not None:
+            if meta is None and idx < len(metadata):
+                meta = metadata[idx]
+            if meta is not None:
                 source_text = str(meta.get("source_text") or "")
             if not source_text:
                 continue
@@ -189,7 +191,7 @@ class PreferenceBriefExtractor:
                         else self._meta_value(meta, "penalty_cap")
                     ),
                     "needs_history": self._normalize_needs_history(raw_item.get("needs_history")),
-                    "tools": normalize_tools(raw_item.get("tools")),
+                    "tools": normalize_tool_flags(raw_item.get("tools")),
                 }
             )
 
@@ -246,11 +248,24 @@ class PreferenceBriefExtractor:
             return None
         if not source_text:
             return metadata[0]
+        canonical_source = PreferenceBriefExtractor._canonical_text(source_text)
         for item in metadata:
             text = str(item.get("source_text") or "")
-            if source_text == text or source_text in text or text in source_text:
+            canonical_text = PreferenceBriefExtractor._canonical_text(text)
+            if (
+                source_text == text
+                or source_text in text
+                or text in source_text
+                or canonical_source == canonical_text
+                or canonical_source in canonical_text
+                or canonical_text in canonical_source
+            ):
                 return item
         return None
+
+    @staticmethod
+    def _canonical_text(value: str) -> str:
+        return "".join(str(value).split())
 
     @staticmethod
     def _meta_value(meta: dict[str, Any] | None, key: str) -> Any:

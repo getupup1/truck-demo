@@ -32,7 +32,6 @@ class LLMPreferenceJudge:
         *,
         driver_id: str,
         status: dict[str, Any],
-        active_preferences: list[Any],
         preference_context: dict[str, Any],
         history_summary: dict[str, Any],
         history_slice: dict[str, Any] | None,
@@ -43,7 +42,6 @@ class LLMPreferenceJudge:
             batch_evaluations = self._request_batch_judgement(
                 driver_id=driver_id,
                 status=status,
-                active_preferences=active_preferences,
                 preference_brief=self._preference_brief(preference_context),
                 history_summary=history_summary,
                 history_slice=history_slice,
@@ -71,7 +69,6 @@ class LLMPreferenceJudge:
         *,
         driver_id: str,
         status: dict[str, Any],
-        active_preferences: list[Any],
         preference_brief: list[dict[str, Any]],
         history_summary: dict[str, Any],
         history_slice: dict[str, Any] | None,
@@ -81,7 +78,6 @@ class LLMPreferenceJudge:
             "driver_id": driver_id,
             "simulation_progress_minutes": status.get("simulation_progress_minutes"),
             "simulation_wall_time": status.get("simulation_wall_time"),
-            "active_preferences": active_preferences,
             "preference_brief": preference_brief,
             "history_summary": history_summary,
             "history_slice": history_slice,
@@ -89,13 +85,13 @@ class LLMPreferenceJudge:
                 {
                     "cargo_id": candidate.get("cargo_id"),
                     "cargo_name": candidate.get("cargo_name"),
-                    "simulated_event": candidate.get("simulated_event"),
+                    "simulated_event": self._simulated_event_for_payload(candidate.get("simulated_event")),
                     "tool_evidence": candidate.get("tool_evidence", {}),
                 }
                 for candidate in batch
             ],
             "judge_instruction": (
-                "请逐个判断 simulated_events 中的 take_order 是否违反 active_preferences。"
+                "请逐个判断 simulated_events 中的 take_order 是否违反 preference_brief。"
                 "优先使用 history_summary 判断常见历史指标；summary 不足时再查看 history_slice.events。"
                 "若候选包含 tool_evidence，请把其中的地理、累计、固定时间窗口和期限地点事实作为辅助证据。"
                 "只判断偏好违反，不选择动作，不排序，不计算收益。"
@@ -128,12 +124,32 @@ class LLMPreferenceJudge:
     def _system_prompt() -> str:
         return (
             "你是货运司机偏好合规判断器。只允许输出一个 JSON 对象，禁止 markdown、解释和额外文本。"
-            "你会收到 active_preferences、preference_brief、history_summary、可能为空的 history_slice，"
+            "你会收到 preference_brief、history_summary、可能为空的 history_slice，"
             "以及一批 simulated_events。"
-            "不要把偏好重新分类；只根据原始偏好和 preference_brief 判断每个模拟接单是否违反偏好。"
+            "不要把偏好重新分类；只根据 preference_brief 中的 source_text、core_requirement、penalty 信息，"
+            "以及 simulated_events / tool_evidence 判断每个模拟接单是否违反偏好。"
+
+            "history_summary 字段说明："
+            "today.longest_wait_minutes 表示今日最长连续 wait 时长；"
+            "today.current_wait_streak_minutes 表示当前仍在持续 wait 的连续分钟数；"
+            "today.active_minutes 表示今日 take_order/reposition 等非 wait 活动时长；"
+            "month.longest_wait_hours 表示本月内最长连续 wait 小时数；"
+            "month.fully_idle_days 表示本月完全未接单且未 reposition 的完整休息天数；"
+            "month.no_order_days 表示本月未成功接单的天数。"
+            "history_slice 字段说明："
+            "history_slice 是可选的详细历史片段，仅在 history_summary 不足以理解当前偏好状态时参考；"
+            "如果 history_slice 为 null，则忽略该字段。"
+
+            "simulated_event.metrics 字段说明："
+            "pickup_deadhead_km 表示当前位置到装货点的空驶距离；"
+            "pickup_minutes 表示预计到装货点耗时；"
+            "waiting_minutes 表示到达装货点后等待装货窗口开始的时间；"
+            "haul_distance_km 表示装货点到卸货点距离；"
+            "estimated_total_minutes 表示从当前时刻接该单到完成订单的总预计耗时。"
+
             "能用 history_summary 判断的常见历史指标优先使用 summary；summary 不足以判断时，再查看 history_slice.events。"
             "若 simulated_events 中包含 tool_evidence，里面是程序计算好的地理、累计、固定时间窗口或期限地点事实，"
-            "可用于判断偏好是否被违反。"
+            "应优先信任这些工具事实，不要重新估算距离、时间窗或到访次数。"
             "输出格式必须为："
             '{"evaluations":[{"cargo_id":"...","violates_preferences":false,"violation_count":0,'
             '"violated_preferences":[{"pref_id":"pref_0","source_text":"...","reason":"...",'
@@ -148,6 +164,14 @@ class LLMPreferenceJudge:
     def _preference_brief(preference_context: dict[str, Any]) -> list[dict[str, Any]]:
         brief = preference_context.get("preference_brief")
         return brief if isinstance(brief, list) else []
+
+    @staticmethod
+    def _simulated_event_for_payload(value: Any) -> dict[str, Any]:
+        if not isinstance(value, dict):
+            return {}
+        event = dict(value)
+        event.pop("failure_flags", None)
+        return event
 
     @staticmethod
     def _normalize_evaluation(raw: dict[str, Any] | None, candidate: dict[str, Any]) -> dict[str, Any]:

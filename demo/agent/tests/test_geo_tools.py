@@ -145,7 +145,19 @@ class GeoToolTests(unittest.TestCase):
         self.assertTrue(summary["visited_today"])
         self.assertEqual(summary["current_visit_count"], 3)
         self.assertEqual(summary["remaining_visit_count"], 2)
-        self.assertEqual(summary["matched_history_events"], [1, 2, 3, 4])
+        self.assertNotIn("target", summary)
+        self.assertNotIn("matched_history_events", summary)
+
+    def test_candidate_geo_contribution_counts_pickup_or_finish_point(self) -> None:
+        pickup_match = _candidate(end_lat=23.50, end_lng=114.50)
+        pickup_match["start"] = {"lat": 23.13, "lng": 113.26}
+
+        enhanced = attach_candidate_geo_evidence([pickup_match], _preference_context())
+
+        contribution = enhanced[0]["tool_evidence"]["candidate_geo_contribution_result"][0]
+        self.assertTrue(contribution["can_contribute"])
+        self.assertEqual(contribution["matched_points"], ["接货位置"])
+        self.assertEqual(len(contribution["checked_points"]), 2)
 
     def test_reposition_option_only_when_needed_and_no_candidate_contributes(self) -> None:
         history_summary = [
@@ -164,6 +176,7 @@ class GeoToolTests(unittest.TestCase):
             scored_candidates=[],
             status=status,
             speed_km_per_hour=60.0,
+            preference_context=_preference_context(),
         )
 
         self.assertEqual(len(options), 1)
@@ -184,6 +197,7 @@ class GeoToolTests(unittest.TestCase):
             scored_candidates=[contributing_candidate],
             status=status,
             speed_km_per_hour=60.0,
+            preference_context=_preference_context(),
         )
         self.assertEqual(no_options, [])
 

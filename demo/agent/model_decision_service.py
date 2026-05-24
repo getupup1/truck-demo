@@ -11,20 +11,12 @@ from agent.actions.validator import ActionValidator
 from agent.candidates.enhancer import enhance_cargo_candidates
 from agent.candidates.filtering import filter_basic_candidates
 from agent.candidates.scorer import score_candidates
+from agent.evidence.action_tool_builder import ActionToolBuilder
+from agent.evidence.collector import collect_candidate_evidence
 from agent.preferences.brief_extractor import PreferenceBriefExtractor
 from agent.preferences.judge import LLMPreferenceJudge
+from agent.preferences.tool_planner import PreferenceToolPlanner
 from agent.history.history import HistorySliceBuilder, build_event_log
-from agent.tools.geo_evidence import (
-    attach_candidate_geo_evidence,
-    build_geo_reposition_options,
-    build_history_geo_summary,
-)
-from agent.tools.temporal_evidence import (
-    attach_candidate_temporal_evidence,
-    attach_reposition_time_window_evidence,
-    build_deadline_reposition_options,
-    build_preference_wait_options,
-)
 from simkit.ports import SimulationApiPort
 
 
@@ -43,9 +35,11 @@ class ModelDecisionService:
         self._reposition_speed_km_per_hour = float(reposition_speed_km_per_hour)
         self._simulation_horizon_minutes = simulation_horizon_minutes
         self._preference_extractor = PreferenceBriefExtractor(api.model_chat_completion)
+        self._tool_planner = PreferenceToolPlanner(api.model_chat_completion)
         self._preference_judge = LLMPreferenceJudge(api.model_chat_completion, batch_size=5)
         self._history_slice_builder = HistorySliceBuilder()
         self._action_option_builder = ActionOptionBuilder(top_k=10)
+        self._action_tool_builder = ActionToolBuilder(speed_km_per_hour=self._reposition_speed_km_per_hour)
         self._action_decider = LLMActionDecider(api.model_chat_completion)
         self._action_validator = ActionValidator()
 
@@ -54,19 +48,18 @@ class ModelDecisionService:
         lat = float(status["current_lat"])
         lng = float(status["current_lng"])
 
-        # Lazy per-driver extraction before the first cargo scan. Cache keeps unchanged preferences cheap.
-        self._preference_extractor.extract_for_status(driver_id, status)
-
         cargo_resp = self._api.query_cargo(driver_id=driver_id, latitude=lat, longitude=lng)
         items = cargo_resp.get("items", [])
         if not isinstance(items, list):
             items = []
 
         status_after_scan = self._api.get_driver_status(driver_id)
-        active_preferences = status_after_scan.get("preferences") or []
-        if not isinstance(active_preferences, list):
-            active_preferences = []
         preference_context = self._preference_extractor.extract_for_status(driver_id, status_after_scan)
+        tool_plan = self._tool_planner.plan_for_context(
+            driver_id=driver_id,
+            status=status_after_scan,
+            preference_context=preference_context,
+        )
 
         history_resp = self._api.query_decision_history(driver_id, -1)
         event_log = build_event_log(history_resp)
@@ -83,64 +76,39 @@ class ModelDecisionService:
             limit=30,
         )
         filtered_candidates, filter_summary = filter_basic_candidates(enhanced_candidates)
-        evidence_candidates = attach_candidate_geo_evidence(filtered_candidates, preference_context)
-        evidence_candidates = attach_candidate_temporal_evidence(
-            evidence_candidates,
-            preference_context,
+        evidence_candidates = collect_candidate_evidence(
+            filtered_candidates,
+            preference_context=preference_context,
+            tool_plan=tool_plan,
             speed_km_per_hour=self._reposition_speed_km_per_hour,
         )
         judged_candidates = self._preference_judge.judge_candidates(
             driver_id=driver_id,
             status=status_after_scan,
-            active_preferences=active_preferences,
             preference_context=preference_context,
             history_summary=history_context["history_summary"],
             history_slice=history_context["history_slice"],
             candidates=evidence_candidates,
         )
         scored_candidates = score_candidates(judged_candidates)
-        preference_wait_options = build_preference_wait_options(
+        action_tool_result = self._action_tool_builder.build(
             preference_context=preference_context,
+            tool_plan=tool_plan,
+            event_log=event_log,
             history_summary=history_context["history_summary"],
             status=status_after_scan,
-            event_log=event_log,
-        )
-        if _has_history_geo_summary_tool(preference_context):
-            history_geo_summary = build_history_geo_summary(
-                preference_context=preference_context,
-                event_log=event_log,
-                current_minutes=int(status_after_scan.get("simulation_progress_minutes", 0) or 0),
-            )
-            reposition_options = build_geo_reposition_options(
-                history_geo_summary=history_geo_summary,
-                scored_candidates=scored_candidates,
-                status=status_after_scan,
-                speed_km_per_hour=self._reposition_speed_km_per_hour,
-            )
-        else:
-            history_geo_summary = []
-            reposition_options = []
-        deadline_reposition_options = build_deadline_reposition_options(
-            preference_context=preference_context,
             scored_candidates=scored_candidates,
-            status=status_after_scan,
-            speed_km_per_hour=self._reposition_speed_km_per_hour,
-        )
-        reposition_options = attach_reposition_time_window_evidence(
-            [*reposition_options, *deadline_reposition_options],
-            preference_context,
         )
         action_options = self._action_option_builder.build(
             scored_candidates,
             status=status_after_scan,
-            history_geo_summary=history_geo_summary,
-            extra_wait_options=preference_wait_options,
-            reposition_options=reposition_options,
+            tool_context=action_tool_result["tool_context"],
+            extra_wait_options=action_tool_result["extra_wait_options"],
+            reposition_options=action_tool_result["reposition_options"],
         )
         selected_action = self._action_decider.decide(
             driver_id=driver_id,
             status=status_after_scan,
-            active_preferences=active_preferences,
             preference_context=preference_context,
             history_summary=history_context["history_summary"],
             history_slice=history_context["history_slice"],
@@ -160,16 +128,3 @@ class ModelDecisionService:
             action,
         )
         return action
-
-
-def _has_history_geo_summary_tool(preference_context: dict[str, Any]) -> bool:
-    brief = preference_context.get("preference_brief")
-    if not isinstance(brief, list):
-        return False
-    for item in brief:
-        if not isinstance(item, dict):
-            continue
-        tools = item.get("tools")
-        if isinstance(tools, dict) and isinstance(tools.get("history_geo_summary"), dict):
-            return True
-    return False

@@ -20,7 +20,6 @@ class LLMActionDecider:
         *,
         driver_id: str,
         status: dict[str, Any],
-        active_preferences: list[Any],
         preference_context: dict[str, Any],
         history_summary: dict[str, Any],
         history_slice: dict[str, Any] | None,
@@ -36,7 +35,6 @@ class LLMActionDecider:
                 "truck_length": status.get("truck_length"),
                 "completed_order_count": status.get("completed_order_count"),
             },
-            "active_preferences": active_preferences,
             "preference_brief": preference_context.get("preference_brief", []),
             "history_summary": history_summary,
             "history_slice": history_slice,
@@ -75,5 +73,14 @@ class LLMActionDecider:
             "reposition 的 latitude/longitude 必须来自 action_options.reposition_options，不能自由生成坐标。"
             "wait/reposition 候选的 action_start_time、action_end_time、position_before、position_after、reason 或 tool_evidence，"
             "必须作为动作起止时间、位置和偏好事实参考。"
-            "你需要结合 active_preferences、preference_brief、history_summary、history_slice、tool_context 和订单评分选择当前动作。"
+            "history_summary 字段说明："
+            "today.longest_wait_minutes 表示今日最长连续 wait 时长；"
+            "today.current_wait_streak_minutes 表示当前仍在持续 wait 的连续分钟数；"
+            "today.active_minutes 表示今日 take_order/reposition 等非 wait 活动时长；"
+            "month.longest_wait_hours 表示本月内最长连续 wait 小时数；"
+            "month.fully_idle_days 表示本月完全未接单且未 reposition 的完整休息天数；"
+            "month.no_order_days 表示本月未成功接单的天数。"
+
+            "你需要结合 preference_brief、history_summary、history_slice、tool_context 和订单评分选择当前动作。"
+            "action_options.orders 中的 score 和 net_income 已经综合了距离成本和偏好罚分，"
         )
