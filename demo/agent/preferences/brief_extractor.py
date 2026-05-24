@@ -43,8 +43,14 @@ class PreferenceBriefExtractor:
         self._cache: dict[tuple[str, str], dict[str, Any]] = {}
         self._logger = logging.getLogger("agent.preferences.brief_extractor")
 
-    def extract_for_status(self, driver_id: str, status: dict[str, Any]) -> dict[str, Any]:
-        preferences = status.get("preferences") or []
+    def extract_for_status(
+        self,
+        driver_id: str,
+        status: dict[str, Any],
+        *,
+        preferences_override: list[Any] | None = None,
+    ) -> dict[str, Any]:
+        preferences = preferences_override if preferences_override is not None else status.get("preferences") or []
         if not isinstance(preferences, list):
             preferences = []
         signature = preference_signature(preferences)
