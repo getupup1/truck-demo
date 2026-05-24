@@ -72,15 +72,17 @@ class UrgentTaskParser:
     @staticmethod
     def _system_prompt() -> str:
         return (
-            "You parse urgent truck-driver preferences into executable staged tasks. Output only JSON. "
-            "urgent_mode must be force_action when the driver should immediately perform staged actions "
-            "instead of considering normal cargo. urgent_mode must be planning_guard when ordinary cargo may "
-            "still be accepted only if it does not prevent the urgent obligation. "
-            "candidate_guards is [] for force_action. For planning_guard, use deadline_location_check when "
-            "candidate orders must still leave enough time to reach a target point before an absolute deadline. "
-            "Stages are ordered fallback or required actions, each action being take_order, wait, or reposition. "
-            "For deadline_location_check config, output center=[lat,lng], radius_km, deadline_wall_time as "
-            "YYYY-MM-DD HH:MM:SS. Output shape: "
+            "你是货运司机紧急偏好解析器。只允许输出一个 JSON 对象，禁止 markdown、解释和额外文本。"
+            "你的任务是把紧急偏好解析为可执行的阶段任务 urgent_tasks。"
+            "当司机应该立即执行阶段动作、暂时不考虑普通货源时，urgent_mode 必须为 force_action。"
+            "当司机仍可接普通订单，但订单不能影响紧急任务完成时，urgent_mode 必须为 planning_guard。"
+            "force_action 的 candidate_guards 必须为 []。"
+            "planning_guard 中，如果候选订单完成后仍必须在绝对截止时间前赶到某个目标点，"
+            "则使用 candidate_guards 中的 deadline_location_check。"
+            "stages 表示按顺序执行的兜底动作或必需动作，每个 action 只能是 take_order、wait 或 reposition。"
+            "deadline_location_check.config 必须输出 center=[lat,lng]、radius_km、"
+            "deadline_wall_time，且 deadline_wall_time 格式为 YYYY-MM-DD HH:MM:SS。"
+            "输出格式必须严格为："
             '{"driver_id":"...","urgent_tasks":[{"task_id":"urgent_0","source_text":"...",'
             '"visible_start_time":"YYYY-MM-DD HH:MM:SS","active_start_time":"YYYY-MM-DD HH:MM:SS",'
             '"urgent_mode":"planning_guard","penalty_amount":0,"penalty_cap":null,'

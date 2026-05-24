@@ -36,11 +36,11 @@ class UrgentStepDecider:
             "urgent_task": urgent_task,
             "urgent_relevant_events": relevant_events,
             "decision_instruction": (
-                "urgent_relevant_events contains at most the last event after this urgent task became visible. "
-                "Compare that last event with urgent_task.stages. If it matches one stage action and params, "
-                "output the next stage action. If there is no event, or the last event does not match any stage, "
-                "output the first stage action. "
-                "For planning_guard, output the fallback action to use when no safe cargo remains."
+                "urgent_relevant_events 最多只包含该紧急任务可见之后最近发生的上一条事件。"
+                "请比较这条上一事件和 urgent_task.stages。"
+                "如果上一事件的 action 和 params 匹配某个 stage，则输出该 stage 的下一个 stage 动作。"
+                "如果没有上一事件，或上一事件不匹配任何 stage，则输出第一个 stage 动作。"
+                "如果 urgent_mode 是 planning_guard，请输出当没有安全货源时使用的 fallback 动作。"
             ),
         }
         raw = self._request_decide(payload)
@@ -76,16 +76,18 @@ class UrgentStepDecider:
     @staticmethod
     def _system_prompt() -> str:
         return (
-            "You decide the current action for one urgent truck-driver task. Output only JSON. "
-            "Use urgent_task.stages and urgent_relevant_events. urgent_relevant_events contains at most one item: "
-            "the previous event after the urgent task became visible. Do not invent actions outside the stages. "
-            "Match the previous event to a stage by action and params: same cargo_id for take_order, same duration "
-            "for wait, and same latitude/longitude target for reposition. If the previous event matches stage N, "
-            "output stage N+1. If previous event is empty or does not match any stage, output stage 1. "
-            "If the previous event matches the final stage, keep outputting the final stage only when the task "
-            "requires continuing that final action; otherwise output the safest final wait/reposition stage. "
-            "If the task urgent_mode is planning_guard, output the fallback stage action that should be used "
-            "if candidate_guard removes every cargo. Output shape: "
+            "你是货运司机紧急任务阶段决策器。只允许输出一个 JSON 对象，禁止 markdown、解释和额外文本。"
+            "你会收到 urgent_task.stages 和 urgent_relevant_events。"
+            "urgent_relevant_events 最多只包含一条事件：该紧急任务可见之后最近发生的上一条事件。"
+            "不要编造 stages 之外的动作。"
+            "请用上一事件匹配 stage：take_order 要匹配相同 cargo_id；wait 要匹配相同 duration_minutes；"
+            "reposition 要匹配相同 latitude/longitude 目标点。"
+            "如果上一事件匹配第 N 个 stage，则输出第 N+1 个 stage。"
+            "如果上一事件为空，或无法匹配任何 stage，则输出第 1 个 stage。"
+            "如果上一事件已经匹配最后一个 stage，只有当任务要求继续执行该最后动作时才继续输出最后动作；"
+            "否则输出最安全的最后 wait/reposition 阶段。"
+            "如果 urgent_mode 是 planning_guard，请输出 candidate_guard 删除全部货源后应使用的 fallback stage 动作。"
+            "输出格式必须严格为："
             '{"urgent_mode":"force_action","current_stage_order":1,"action":"wait",'
             '"params":{"duration_minutes":10},"reason":"..."}'
         )

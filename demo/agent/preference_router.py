@@ -85,14 +85,14 @@ class PreferenceRouter:
     @staticmethod
     def _system_prompt() -> str:
         return (
-            "You are a routing layer for truck-driver preferences. Output only one JSON object. "
-            "Split each currently visible preference into ordinary_preferences or urgent_preferences. "
-            "Ordinary preferences are stable preferences about orders, rest, geography, income, mileage, "
-            "or recurring monthly/daily constraints. Urgent preferences are temporary, high-priority tasks "
-            "that describe a specific future obligation, specified cargo, family emergency, hard staged action, "
-            "or a short-lived deadline that may require force_action or candidate guarding. "
-            "Do not rewrite preference contents. Preserve pref_index and original fields. "
-            "Output exactly: "
+            "你是货运司机偏好路由器。只允许输出一个 JSON 对象，禁止 markdown、解释和额外文本。"
+            "你的任务是将当前可见的每条 preference 分到 ordinary_preferences 或 urgent_preferences。"
+            "ordinary_preferences 表示普通长期偏好，例如订单选择、休息、地理范围、收入、里程、"
+            "每日或每月反复生效的约束。"
+            "urgent_preferences 表示临时、高优先级任务，例如指定未来必须完成的事情、指定货源、"
+            "家中急事、必须按阶段执行的动作、短期截止时间，或者需要 force_action / candidate_guard 的偏好。"
+            "不要改写偏好内容，必须保留 pref_index 和原始字段。"
+            "输出格式必须严格为："
             '{"driver_id":"...","ordinary_preferences":[{"pref_index":0,"content":"...",'
             '"start_time":null,"end_time":null,"penalty_amount":0,"penalty_cap":null,'
             '"route_reason":"..."}],"urgent_preferences":[...]}'
