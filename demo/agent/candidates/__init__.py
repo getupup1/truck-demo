@@ -1,2 +1,0 @@
-"""Candidate cargo preparation helpers."""
-
