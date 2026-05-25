@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import json
 import logging
+from concurrent.futures import ThreadPoolExecutor, as_completed
 from collections.abc import Callable
 from typing import Any
 
@@ -12,6 +13,7 @@ from agent.history.time_utils import coerce_float
 
 
 DEFAULT_BATCH_SIZE = 5
+DEFAULT_MAX_WORKERS = 6
 
 
 class LLMPreferenceJudge:
@@ -22,9 +24,11 @@ class LLMPreferenceJudge:
         model_chat_completion: Callable[[dict[str, Any]], dict[str, Any]],
         *,
         batch_size: int = DEFAULT_BATCH_SIZE,
+        max_workers: int = DEFAULT_MAX_WORKERS,
     ) -> None:
         self._model_chat_completion = model_chat_completion
         self._batch_size = max(1, int(batch_size))
+        self._max_workers = max(1, int(max_workers))
         self._logger = logging.getLogger("agent.preferences.judge")
 
     def judge_candidates(
@@ -37,16 +41,22 @@ class LLMPreferenceJudge:
         history_slice: dict[str, Any] | None,
         candidates: list[dict[str, Any]],
     ) -> list[dict[str, Any]]:
+        batches = self._batches(candidates)
+        if not batches:
+            return []
+        preference_brief = self._preference_brief(preference_context)
+        batch_results = self._judge_batches(
+            driver_id=driver_id,
+            status=status,
+            preference_brief=preference_brief,
+            history_summary=history_summary,
+            history_slice=history_slice,
+            batches=batches,
+        )
+
         judged: list[dict[str, Any]] = []
-        for batch_index, batch in enumerate(self._batches(candidates), start=1):
-            batch_evaluations = self._request_batch_judgement(
-                driver_id=driver_id,
-                status=status,
-                preference_brief=self._preference_brief(preference_context),
-                history_summary=history_summary,
-                history_slice=history_slice,
-                batch=batch,
-            )
+        for batch_index, batch in enumerate(batches, start=1):
+            batch_evaluations = batch_results[batch_index - 1]
             by_id = {str(item.get("cargo_id")): item for item in batch_evaluations}
             for candidate in batch:
                 item = dict(candidate)
@@ -63,6 +73,48 @@ class LLMPreferenceJudge:
                 json_dumps_compact([item.get("preference_evaluation") for item in judged[-len(batch) :]]),
             )
         return judged
+
+    def _judge_batches(
+        self,
+        *,
+        driver_id: str,
+        status: dict[str, Any],
+        preference_brief: list[dict[str, Any]],
+        history_summary: dict[str, Any],
+        history_slice: dict[str, Any] | None,
+        batches: list[list[dict[str, Any]]],
+    ) -> list[list[dict[str, Any]]]:
+        if len(batches) == 1 or self._max_workers == 1:
+            return [
+                self._request_batch_judgement(
+                    driver_id=driver_id,
+                    status=status,
+                    preference_brief=preference_brief,
+                    history_summary=history_summary,
+                    history_slice=history_slice,
+                    batch=batch,
+                )
+                for batch in batches
+            ]
+
+        results: dict[int, list[dict[str, Any]]] = {}
+        max_workers = min(self._max_workers, len(batches))
+        with ThreadPoolExecutor(max_workers=max_workers) as executor:
+            futures = {
+                executor.submit(
+                    self._request_batch_judgement,
+                    driver_id=driver_id,
+                    status=status,
+                    preference_brief=preference_brief,
+                    history_summary=history_summary,
+                    history_slice=history_slice,
+                    batch=batch,
+                ): idx
+                for idx, batch in enumerate(batches)
+            }
+            for future in as_completed(futures):
+                results[futures[future]] = future.result()
+        return [results[idx] for idx in range(len(batches))]
 
     def _request_batch_judgement(
         self,
@@ -114,7 +166,9 @@ class LLMPreferenceJudge:
                 evaluations = raw.get("evaluations")
                 if not isinstance(evaluations, list):
                     raise ValueError("模型偏好评估结果缺少 evaluations 数组")
-                return [item for item in evaluations if isinstance(item, dict)]
+                normalized = [item for item in evaluations if isinstance(item, dict)]
+                self._ensure_batch_complete(normalized, batch)
+                return normalized
             except Exception as exc:  # noqa: BLE001 - retry once for transient model issues.
                 last_error = exc
                 self._logger.warning("preference_judge request failed attempt=%s error=%s", attempt + 1, exc)
@@ -172,6 +226,17 @@ class LLMPreferenceJudge:
         event = dict(value)
         event.pop("failure_flags", None)
         return event
+
+    @staticmethod
+    def _ensure_batch_complete(evaluations: list[dict[str, Any]], batch: list[dict[str, Any]]) -> None:
+        returned_ids = {str(item.get("cargo_id")) for item in evaluations}
+        missing_ids = [
+            str(candidate.get("cargo_id"))
+            for candidate in batch
+            if str(candidate.get("cargo_id")) not in returned_ids
+        ]
+        if missing_ids:
+            raise ValueError(f"模型未返回候选评估结果: {', '.join(missing_ids)}")
 
     @staticmethod
     def _normalize_evaluation(raw: dict[str, Any] | None, candidate: dict[str, Any]) -> dict[str, Any]:

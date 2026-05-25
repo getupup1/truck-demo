@@ -1,8 +1,11 @@
 from __future__ import annotations
 
+import json
 import sys
+import threading
 import unittest
 from pathlib import Path
+from typing import Any
 
 
 DEMO_ROOT = Path(__file__).resolve().parents[2]
@@ -14,6 +17,48 @@ from agent.candidates.filtering import filter_basic_candidates
 from agent.candidates.scorer import score_candidates
 from agent.actions.options import ActionOptionBuilder
 from agent.actions.validator import ActionValidator
+from agent.preferences.judge import LLMPreferenceJudge
+
+
+class EchoJudgeModel:
+    def __init__(self, *, omit_last: bool = False, omit_first_call_only: bool = False) -> None:
+        self.omit_last = omit_last
+        self.omit_first_call_only = omit_first_call_only
+        self.calls: list[list[str]] = []
+        self._lock = threading.Lock()
+
+    def __call__(self, payload: dict[str, Any]) -> dict[str, Any]:
+        user_payload = json.loads(payload["messages"][1]["content"])
+        cargo_ids = [str(item["cargo_id"]) for item in user_payload["simulated_events"]]
+        with self._lock:
+            self.calls.append(cargo_ids)
+            call_count = len(self.calls)
+        if self.omit_last or (self.omit_first_call_only and call_count == 1):
+            cargo_ids = cargo_ids[:-1]
+        return {
+            "choices": [
+                {
+                    "message": {
+                        "content": json.dumps(
+                            {
+                                "evaluations": [
+                                    {
+                                        "cargo_id": cargo_id,
+                                        "violates_preferences": False,
+                                        "violation_count": 0,
+                                        "violated_preferences": [],
+                                        "preference_penalty": 0,
+                                        "reason": "ok",
+                                    }
+                                    for cargo_id in cargo_ids
+                                ]
+                            },
+                            ensure_ascii=False,
+                        )
+                    }
+                }
+            ]
+        }
 
 
 class CandidatePipelineTests(unittest.TestCase):
@@ -133,6 +178,56 @@ class CandidatePipelineTests(unittest.TestCase):
             validator.validate({"action": "take_order", "params": {"cargo_id": "C999"}}, action_options)
         with self.assertRaises(ValueError):
             validator.validate({"action": "wait", "params": {"duration_minutes": 15}}, action_options)
+
+    def test_preference_judge_parallel_batches_preserve_candidate_order(self) -> None:
+        model = EchoJudgeModel()
+        candidates = [
+            {"cargo_id": f"C{i:03d}", "cargo_name": f"cargo {i}", "simulated_event": {"action": "take_order"}}
+            for i in range(13)
+        ]
+        judge = LLMPreferenceJudge(model, batch_size=5, max_workers=6)
+
+        judged = judge.judge_candidates(
+            driver_id="D001",
+            status={"simulation_progress_minutes": 0, "simulation_wall_time": "2026-03-01 00:00:00"},
+            preference_context={"preference_brief": []},
+            history_summary={},
+            history_slice=None,
+            candidates=candidates,
+        )
+
+        self.assertEqual([item["cargo_id"] for item in judged], [f"C{i:03d}" for i in range(13)])
+        self.assertEqual(sorted(len(call) for call in model.calls), [3, 5, 5])
+
+    def test_preference_judge_still_fails_when_batch_omits_candidate(self) -> None:
+        model = EchoJudgeModel(omit_last=True)
+        judge = LLMPreferenceJudge(model, batch_size=5, max_workers=6)
+
+        with self.assertRaises(RuntimeError):
+            judge.judge_candidates(
+                driver_id="D001",
+                status={"simulation_progress_minutes": 0, "simulation_wall_time": "2026-03-01 00:00:00"},
+                preference_context={"preference_brief": []},
+                history_summary={},
+                history_slice=None,
+                candidates=[{"cargo_id": "C001", "simulated_event": {"action": "take_order"}}],
+            )
+
+    def test_preference_judge_retries_batch_when_candidate_is_missing_once(self) -> None:
+        model = EchoJudgeModel(omit_first_call_only=True)
+        judge = LLMPreferenceJudge(model, batch_size=5, max_workers=1)
+
+        judged = judge.judge_candidates(
+            driver_id="D001",
+            status={"simulation_progress_minutes": 0, "simulation_wall_time": "2026-03-01 00:00:00"},
+            preference_context={"preference_brief": []},
+            history_summary={},
+            history_slice=None,
+            candidates=[{"cargo_id": "C001", "simulated_event": {"action": "take_order"}}],
+        )
+
+        self.assertEqual([item["cargo_id"] for item in judged], ["C001"])
+        self.assertEqual(len(model.calls), 2)
 
 
 if __name__ == "__main__":

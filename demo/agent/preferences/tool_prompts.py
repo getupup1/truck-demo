@@ -4,11 +4,11 @@ from __future__ import annotations
 
 
 TOOL_BRIEFS: dict[str, str] = {
-    "geo_checks": "用于明确坐标/半径或经纬度范围的地理限制，例如禁入某圆形区域、车辆必须留在某矩形范围内。",
+    "geo_checks": "用于持续性的地理范围限制，例如禁入某圆形区域、车辆必须始终留在某矩形范围内；不要用于“某时间前到达/回到某地”。",
     "candidate_geo_contribution": "用于候选订单是否能贡献一次到访累计，例如自然月内到达某坐标半径内若干天。",
     "history_geo_summary": "用于统计历史中到达某目标区域的自然日次数、今天是否已到访、剩余次数。",
     "time_window_check": "用于固定时间窗口内不接单、不空车赶路、必须停车休息等偏好。",
-    "deadline_location_check": "用于必须在某个时间前到达指定坐标半径内的偏好，也可生成受控 deadline reposition。",
+    "deadline_location_check": "用于必须在某个时间前到达或回到指定坐标半径内的偏好，例如每天23点前回家，也可生成受控 deadline reposition。",
     "wait_generation": "用于连续休息、固定休息窗口、月内完全休息天数等偏好触发 wait 候选。",
 }
 
@@ -16,7 +16,9 @@ TOOL_BRIEFS: dict[str, str] = {
 TOOL_DETAILS: dict[str, str] = {
     "geo_checks": (
         "geo_checks 用于判断候选动作是否违反地理范围类偏好，"
-        "例如车辆不得进入某个圆形区域、车辆必须始终留在某个经纬度范围内。"
+        "例如车辆不得进入某个圆形区域、车辆必须始终/全程留在某个经纬度范围内。"
+        "不要把“每天23点前回家”“某时间前到达指定地点”“截止时间前车辆须在某地”配置为 geo_checks；"
+        "这类偏好必须使用 deadline_location_check。"
         "配置格式："
         '{"relation":"forbidden_inside|must_inside",'
         '"center":[lat,lng]或null,'
@@ -27,7 +29,9 @@ TOOL_DETAILS: dict[str, str] = {
         "字段含义："
         "relation 表示地理约束关系。"
         "forbidden_inside 表示车辆不得进入该区域，例如“不得进入以某点为圆心、半径20公里的区域”。"
-        "must_inside 表示车辆必须保持在该区域内，例如“车辆位置须始终在深圳市经纬度范围内”。"
+        "must_inside 表示车辆必须在整个候选动作的关键位置都保持在该区域内，例如“车辆位置须始终在深圳市经纬度范围内”。"
+        "只有原文含有“始终、全程、一直、不得离开、只能在、不出市”等持续范围语义时才使用 must_inside。"
+        "如果原文只是要求在某个截止时间前到达或回到某地，不要使用 must_inside。"
         "如果偏好描述的是圆形区域，填写 center 和 radius_km，lat_range/lng_range 必须为 null。"
         "如果偏好描述的是经纬度矩形范围，填写 lat_range 和 lng_range，center/radius_km 必须为 null。"
         "center+radius_km 与 lat_range+lng_range 只能二选一。"
@@ -77,13 +81,15 @@ TOOL_DETAILS: dict[str, str] = {
     ),
     "deadline_location_check": (
         "deadline_location_check 用于判断模拟接单完成后，司机是否还能在规定时间前到达指定地点。"
-        "例如“晚上23点前回家”或“某时间前必须到达某坐标附近”。"
+        "例如“晚上23点前回家”“每天23点前车辆须在自家位置一公里内”或“某时间前必须到达某坐标附近”。"
         "它会考虑候选订单完成时间、完成位置，以及从完成位置空驶到目标地点所需时间。"
         "配置格式："
         '{"center":[lat,lng],"radius_km":数字,"deadline_time":"HH:MM","reason":"期限地点说明"}。'
         "center 表示 deadline 目标地点坐标。"
         "radius_km 表示到达目标地点的容忍半径；如果原文给了坐标但没有给半径，默认填 1。"
         "deadline_time 表示必须到达目标地点的每日时间，例如 23:00。"
+        "如果偏好同时还有“23点至次日8点不接单、不空跑”这类固定窗口，应另配 time_window_check；"
+        "不要额外配 geo_checks 来要求装货点/卸货点全天都在目标半径内。"
     ),
     "wait_generation": (
         "wait_generation 用于根据休息类偏好生成 wait 候选动作。"

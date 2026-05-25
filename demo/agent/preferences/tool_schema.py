@@ -104,6 +104,7 @@ def module_path(tool_name: str) -> str:
 def normalize_tool_plan(raw: Any, preference_context: dict[str, Any]) -> dict[str, dict[str, Any]]:
     patches = _extract_plan_items(raw)
     allowed_by_pref_id = _allowed_tools_by_pref_id(preference_context)
+    brief_by_pref_id = _brief_by_pref_id(preference_context)
     plan: dict[str, dict[str, Any]] = {}
     for patch in patches:
         pref_id = str(patch.get("pref_id") or "").strip()
@@ -121,6 +122,8 @@ def normalize_tool_plan(raw: Any, preference_context: dict[str, Any]) -> dict[st
             normalized = normalize_tool_config(name, config)
             if normalized:
                 normalized_tools[name] = normalized
+        if _should_drop_geo_for_deadline(brief_by_pref_id.get(pref_id), normalized_tools):
+            normalized_tools.pop("geo_checks", None)
         if normalized_tools:
             plan[pref_id] = normalized_tools
     return plan
@@ -250,6 +253,45 @@ def _allowed_tools_by_pref_id(preference_context: dict[str, Any]) -> dict[str, s
         if pref_id:
             out[pref_id] = set(enabled_tools_for_brief(item))
     return out
+
+
+def _brief_by_pref_id(preference_context: dict[str, Any]) -> dict[str, dict[str, Any]]:
+    out: dict[str, dict[str, Any]] = {}
+    brief = preference_context.get("preference_brief")
+    if not isinstance(brief, list):
+        return out
+    for item in brief:
+        if not isinstance(item, dict):
+            continue
+        pref_id = str(item.get("pref_id") or "").strip()
+        if pref_id:
+            out[pref_id] = item
+    return out
+
+
+def _should_drop_geo_for_deadline(brief: dict[str, Any] | None, tools: dict[str, Any]) -> bool:
+    if not brief or "geo_checks" not in tools or "deadline_location_check" not in tools:
+        return False
+    text = _brief_text(brief)
+    if _has_persistent_geo_language(text):
+        return False
+    return _has_deadline_location_language(text)
+
+
+def _brief_text(brief: dict[str, Any]) -> str:
+    parts = [str(brief.get("source_text") or "")]
+    core = brief.get("core_requirement") if isinstance(brief.get("core_requirement"), dict) else {}
+    for key in ("time", "action", "location", "value", "requirement"):
+        parts.append(str(core.get(key) or ""))
+    return "".join(parts)
+
+
+def _has_deadline_location_language(text: str) -> bool:
+    return any(token in text for token in ("点前", "前到", "前回", "前返回", "前抵达", "截止", "deadline"))
+
+
+def _has_persistent_geo_language(text: str) -> bool:
+    return any(token in text for token in ("始终", "全程", "一直", "不得离开", "只能在", "不出市", "不得进入"))
 
 
 def _normalize_geo_target(raw: dict[str, Any]) -> dict[str, Any]:

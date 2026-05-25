@@ -43,8 +43,14 @@ class PreferenceBriefExtractor:
         self._cache: dict[tuple[str, str], dict[str, Any]] = {}
         self._logger = logging.getLogger("agent.preferences.brief_extractor")
 
-    def extract_for_status(self, driver_id: str, status: dict[str, Any]) -> dict[str, Any]:
-        preferences = status.get("preferences") or []
+    def extract_for_status(
+        self,
+        driver_id: str,
+        status: dict[str, Any],
+        *,
+        preferences_override: list[Any] | None = None,
+    ) -> dict[str, Any]:
+        preferences = preferences_override if preferences_override is not None else status.get("preferences") or []
         if not isinstance(preferences, list):
             preferences = []
         signature = preference_signature(preferences)
@@ -174,11 +180,14 @@ class PreferenceBriefExtractor:
             if not source_text:
                 continue
             pref_id = str(raw_item.get("pref_id") or f"pref_{idx}").strip() or f"pref_{idx}"
+            core_requirement = self._normalize_core_requirement(raw_item.get("core_requirement"))
+            tools = normalize_tool_flags(raw_item.get("tools"))
+            tools = _adjust_tools_for_deadline_location(source_text, core_requirement, tools)
             preference_brief.append(
                 {
                     "pref_id": pref_id,
                     "source_text": source_text,
-                    "core_requirement": self._normalize_core_requirement(raw_item.get("core_requirement")),
+                    "core_requirement": core_requirement,
                     "penalty_amount": self._number_or_default(
                         raw_item.get("penalty_amount")
                         if raw_item.get("penalty_amount") is not None
@@ -191,7 +200,7 @@ class PreferenceBriefExtractor:
                         else self._meta_value(meta, "penalty_cap")
                     ),
                     "needs_history": self._normalize_needs_history(raw_item.get("needs_history")),
-                    "tools": normalize_tool_flags(raw_item.get("tools")),
+                    "tools": tools,
                 }
             )
 
@@ -304,3 +313,27 @@ class PreferenceBriefExtractor:
             "preference_texts": extract_preference_texts(preferences),
             "preference_brief": [],
         }
+
+
+def _adjust_tools_for_deadline_location(
+    source_text: str,
+    core_requirement: dict[str, Any],
+    tools: list[str],
+) -> list[str]:
+    text = source_text + "".join(str(core_requirement.get(key) or "") for key in ("time", "action", "location", "value", "requirement"))
+    if "geo_checks" not in tools:
+        return tools
+    if not _has_deadline_location_language(text) or _has_persistent_geo_language(text):
+        return tools
+    adjusted = [name for name in tools if name != "geo_checks"]
+    if "deadline_location_check" not in adjusted:
+        adjusted.append("deadline_location_check")
+    return adjusted
+
+
+def _has_deadline_location_language(text: str) -> bool:
+    return any(token in text for token in ("点前", "前到", "前回", "前返回", "前抵达", "截止", "deadline"))
+
+
+def _has_persistent_geo_language(text: str) -> bool:
+    return any(token in text for token in ("始终", "全程", "一直", "不得离开", "只能在", "不出市", "不得进入"))

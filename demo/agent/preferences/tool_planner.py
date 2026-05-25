@@ -98,6 +98,8 @@ class PreferenceToolPlanner:
             "不要重新提炼偏好，不要修改 core_requirement、penalty_amount、needs_history。"
             "只为 tools 数组中出现的工具提取配置；未启用的工具不要输出。"
             "本版只支持明确坐标/半径或明确经纬度范围；只有地名且没有边界或坐标时，不要输出地理工具配置。"
+            "重要区分：如果偏好是“某时间前到达/回到某地点”，例如每天23点前回家，必须使用 deadline_location_check，"
+            "不要把它配置成 geo_checks.must_inside；geo_checks.must_inside 只用于原文明确要求车辆始终/全程/一直保持在某范围内。"
             + detailed_tool_prompt(enabled_tools)
             + "输出格式必须为："
             '{"tool_plan":{"pref_0":{"geo_checks":{...}},"pref_1":{"wait_generation":{...}}}}。'
