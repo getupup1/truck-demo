@@ -1,0 +1,153 @@
+{
+  "description": "休息类 DSL 与 progress 调试输出；运行 test_rest_progress.py 时自动刷新。",
+  "cases": [
+    {
+      "name": "continuous_rest_forced_at_19_00",
+      "description": "当天仅有早间零散休息，19:00 已到连续休息 5 小时的最晚启动时刻。",
+      "dsl": {
+        "rule_id": "P006.R1",
+        "type": "daily_continuous_rest",
+        "progress_kind": "daily",
+        "active_period": null,
+        "params": {
+          "min_minutes": 300
+        }
+      },
+      "now_minutes": 11220,
+      "progress": {
+        "rule_id": "P006.R1",
+        "type": "daily_continuous_rest",
+        "progress_kind": "daily",
+        "as_of_minutes": 11220,
+        "as_of_time": "2026-03-08 19:00:00",
+        "day_index": 7,
+        "required_continuous_minutes": 300,
+        "longest_completed_wait_minutes": 60,
+        "current_continuous_wait_minutes": 0,
+        "remaining_day_minutes": 300,
+        "slack_minutes": 0,
+        "latest_rest_start_minutes": 11220,
+        "latest_rest_start_time": "2026-03-08 19:00:00",
+        "satisfied": false,
+        "forced_now": true
+      }
+    },
+    {
+      "name": "rest_window_upcoming_at_23_00",
+      "description": "23:00 尚未进入固定休息窗口，后续订单必须在次日 00:00 前完成。",
+      "dsl": {
+        "rule_id": "P002.R1",
+        "type": "daily_rest_window",
+        "progress_kind": "daily",
+        "active_period": null,
+        "params": {
+          "window": {
+            "start": "00:00",
+            "end": "06:00"
+          }
+        }
+      },
+      "now_minutes": 11460,
+      "progress": {
+        "rule_id": "P002.R1",
+        "type": "daily_rest_window",
+        "progress_kind": "daily",
+        "as_of_minutes": 11460,
+        "as_of_time": "2026-03-08 23:00:00",
+        "window_instance": {
+          "start_minutes": 11520,
+          "start_time": "2026-03-09 00:00:00",
+          "end_minutes": 11880,
+          "end_time": "2026-03-09 06:00:00"
+        },
+        "minutes_until_window_start": 60,
+        "required_minutes": 360,
+        "rested_minutes": 0,
+        "missing_elapsed_minutes": 0,
+        "remaining_window_minutes": 360,
+        "latest_safe_busy_end_minutes": 11520,
+        "latest_safe_busy_end_time": "2026-03-09 00:00:00",
+        "recommended_wait_minutes": 0,
+        "forced_now": false
+      }
+    },
+    {
+      "name": "rest_window_active_at_01_00",
+      "description": "固定窗口内已从 00:00 连续等待到 01:00，应继续等待到 06:00。",
+      "dsl": {
+        "rule_id": "P002.R1",
+        "type": "daily_rest_window",
+        "progress_kind": "daily",
+        "active_period": null,
+        "params": {
+          "window": {
+            "start": "00:00",
+            "end": "06:00"
+          }
+        }
+      },
+      "now_minutes": 11580,
+      "progress": {
+        "rule_id": "P002.R1",
+        "type": "daily_rest_window",
+        "progress_kind": "daily",
+        "as_of_minutes": 11580,
+        "as_of_time": "2026-03-09 01:00:00",
+        "window_instance": {
+          "start_minutes": 11520,
+          "start_time": "2026-03-09 00:00:00",
+          "end_minutes": 11880,
+          "end_time": "2026-03-09 06:00:00"
+        },
+        "minutes_until_window_start": 0,
+        "required_minutes": 360,
+        "rested_minutes": 60,
+        "missing_elapsed_minutes": 0,
+        "remaining_window_minutes": 300,
+        "latest_safe_busy_end_minutes": 11520,
+        "latest_safe_busy_end_time": "2026-03-09 00:00:00",
+        "recommended_wait_minutes": 300,
+        "forced_now": true
+      }
+    },
+    {
+      "name": "rest_window_already_missed_at_01_00",
+      "description": "固定窗口内 00:00-01:00 未休息，本日已无法完整满足窗口，不再强制等待。",
+      "dsl": {
+        "rule_id": "P002.R1",
+        "type": "daily_rest_window",
+        "progress_kind": "daily",
+        "active_period": null,
+        "params": {
+          "window": {
+            "start": "00:00",
+            "end": "06:00"
+          }
+        }
+      },
+      "now_minutes": 11580,
+      "progress": {
+        "rule_id": "P002.R1",
+        "type": "daily_rest_window",
+        "progress_kind": "daily",
+        "as_of_minutes": 11580,
+        "as_of_time": "2026-03-09 01:00:00",
+        "window_instance": {
+          "start_minutes": 11520,
+          "start_time": "2026-03-09 00:00:00",
+          "end_minutes": 11880,
+          "end_time": "2026-03-09 06:00:00"
+        },
+        "minutes_until_window_start": 0,
+        "required_minutes": 360,
+        "rested_minutes": 0,
+        "missing_elapsed_minutes": 60,
+        "remaining_window_minutes": 300,
+        "latest_safe_busy_end_minutes": 11520,
+        "latest_safe_busy_end_time": "2026-03-09 00:00:00",
+        "recommended_wait_minutes": 0,
+        "forced_now": false
+      }
+    }
+  ]
+}

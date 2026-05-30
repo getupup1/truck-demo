@@ -1,0 +1,81 @@
+{
+  "description": "区域限制偏好 DSL 调试输出；运行 test_region_policy.py 时自动刷新。",
+  "cases": [
+    {
+      "name": "forbidden_named_cargo_region",
+      "description": "装货地或卸货地在惠州的订单均不接。",
+      "dsl": {
+        "rule_id": "P001.R3",
+        "type": "region_policy",
+        "progress_kind": "none",
+        "active_period": null,
+        "params": {
+          "policy": "stay_outside",
+          "region": {
+            "kind": "named",
+            "name": "惠州"
+          }
+        }
+      }
+    },
+    {
+      "name": "stay_inside_shenzhen_bbox",
+      "description": "车辆只能在深圳经纬度矩形范围内活动，不出市。",
+      "dsl": {
+        "rule_id": "P003.R2",
+        "type": "region_policy",
+        "progress_kind": "none",
+        "active_period": null,
+        "params": {
+          "policy": "stay_inside",
+          "region": {
+            "kind": "bbox",
+            "lat_min": 22.42,
+            "lat_max": 22.89,
+            "lng_min": 113.74,
+            "lng_max": 114.66
+          }
+        }
+      }
+    },
+    {
+      "name": "forbidden_circle_vehicle_region",
+      "description": "车辆不得进入指定圆形区域。",
+      "dsl": {
+        "rule_id": "P004.R2",
+        "type": "region_policy",
+        "progress_kind": "none",
+        "active_period": null,
+        "params": {
+          "policy": "stay_outside",
+          "region": {
+            "kind": "circle",
+            "lat": 23.3,
+            "lng": 113.52,
+            "radius_km": 20
+          }
+        }
+      }
+    },
+    {
+      "name": "temporary_forbidden_shenzhen",
+      "description": "三月四号五号车辆与订单端点均不得进入深圳。",
+      "dsl": {
+        "rule_id": "P001.R5",
+        "type": "region_policy",
+        "progress_kind": "none",
+        "active_period": {
+          "start": "2026-03-04 00:00:00",
+          "end": "2026-03-05 23:59:59"
+        },
+        "params": {
+          "policy": "stay_outside",
+          "region": {
+            "kind": "named",
+            "name": "深圳"
+          }
+        }
+      }
+    }
+  ]
+}

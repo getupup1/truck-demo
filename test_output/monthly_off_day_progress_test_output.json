@@ -1,0 +1,133 @@
+{
+  "description": "月度整天休息额度 DSL 与 progress 调试输出；运行 test_monthly_off_day_progress.py 时自动刷新。",
+  "cases": [
+    {
+      "name": "off_day_quota_flexible_early_month",
+      "description": "3 月 3 日中午，前两天已有一天未出车，距离月底仍有充足余量。",
+      "dsl": {
+        "rule_id": "P001.R4",
+        "type": "monthly_off_day_quota",
+        "progress_kind": "monthly_quota",
+        "active_period": null,
+        "params": {
+          "min_days": 3,
+          "blocked_actions": [
+            "take_order",
+            "reposition"
+          ]
+        }
+      },
+      "now_minutes": 3600,
+      "progress": {
+        "rule_id": "P001.R4",
+        "type": "monthly_off_day_quota",
+        "progress_kind": "monthly_quota",
+        "as_of_minutes": 3600,
+        "as_of_time": "2026-03-03 12:00:00",
+        "required_days": 3,
+        "completed_off_days": 1,
+        "remaining_required_days": 2,
+        "remaining_eligible_days": 29,
+        "slack_days": 27,
+        "current_day_eligible": true,
+        "forced_now": false
+      }
+    },
+    {
+      "name": "off_day_quota_forced_on_march_29",
+      "description": "3 月 29 日早上仍欠 3 个整天休息，今天和剩余两天必须全部保留。",
+      "dsl": {
+        "rule_id": "P001.R4",
+        "type": "monthly_off_day_quota",
+        "progress_kind": "monthly_quota",
+        "active_period": null,
+        "params": {
+          "min_days": 3,
+          "blocked_actions": [
+            "take_order",
+            "reposition"
+          ]
+        }
+      },
+      "now_minutes": 40800,
+      "progress": {
+        "rule_id": "P001.R4",
+        "type": "monthly_off_day_quota",
+        "progress_kind": "monthly_quota",
+        "as_of_minutes": 40800,
+        "as_of_time": "2026-03-29 08:00:00",
+        "required_days": 3,
+        "completed_off_days": 0,
+        "remaining_required_days": 3,
+        "remaining_eligible_days": 3,
+        "slack_days": 0,
+        "current_day_eligible": true,
+        "forced_now": true
+      }
+    },
+    {
+      "name": "off_day_quota_already_infeasible",
+      "description": "3 月 29 日今天已经接单，剩余两天不足以补足 3 个整天休息。",
+      "dsl": {
+        "rule_id": "P001.R4",
+        "type": "monthly_off_day_quota",
+        "progress_kind": "monthly_quota",
+        "active_period": null,
+        "params": {
+          "min_days": 3,
+          "blocked_actions": [
+            "take_order",
+            "reposition"
+          ]
+        }
+      },
+      "now_minutes": 40920,
+      "progress": {
+        "rule_id": "P001.R4",
+        "type": "monthly_off_day_quota",
+        "progress_kind": "monthly_quota",
+        "as_of_minutes": 40920,
+        "as_of_time": "2026-03-29 10:00:00",
+        "required_days": 3,
+        "completed_off_days": 0,
+        "remaining_required_days": 3,
+        "remaining_eligible_days": 2,
+        "slack_days": -1,
+        "current_day_eligible": false,
+        "forced_now": false
+      }
+    },
+    {
+      "name": "off_day_quota_satisfied",
+      "description": "3 月 6 日中午已经累计 3 个整天休息，不需要保护今天。",
+      "dsl": {
+        "rule_id": "P001.R4",
+        "type": "monthly_off_day_quota",
+        "progress_kind": "monthly_quota",
+        "active_period": null,
+        "params": {
+          "min_days": 3,
+          "blocked_actions": [
+            "take_order",
+            "reposition"
+          ]
+        }
+      },
+      "now_minutes": 7920,
+      "progress": {
+        "rule_id": "P001.R4",
+        "type": "monthly_off_day_quota",
+        "progress_kind": "monthly_quota",
+        "as_of_minutes": 7920,
+        "as_of_time": "2026-03-06 12:00:00",
+        "required_days": 3,
+        "completed_off_days": 3,
+        "remaining_required_days": 0,
+        "remaining_eligible_days": 26,
+        "slack_days": 26,
+        "current_day_eligible": true,
+        "forced_now": false
+      }
+    }
+  ]
+}

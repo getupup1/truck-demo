@@ -1,0 +1,36 @@
+{
+  "description": "货物品类偏好 DSL 调试输出；运行 test_cargo_category_policy.py 时自动刷新。",
+  "cases": [
+    {
+      "name": "forbidden_mechanical_equipment",
+      "description": "禁止接机械设备订单。",
+      "dsl": {
+        "rule_id": "P001.R2",
+        "type": "cargo_category_policy",
+        "progress_kind": "none",
+        "active_period": null,
+        "params": {
+          "categories": [
+            "机械设备"
+          ]
+        }
+      }
+    },
+    {
+      "name": "forbidden_multiple_categories",
+      "description": "禁止接机械设备和蔬菜订单。",
+      "dsl": {
+        "rule_id": "PTEST.R1",
+        "type": "cargo_category_policy",
+        "progress_kind": "none",
+        "active_period": null,
+        "params": {
+          "categories": [
+            "机械设备",
+            "蔬菜"
+          ]
+        }
+      }
+    }
+  ]
+}

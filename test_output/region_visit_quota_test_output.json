@@ -1,0 +1,71 @@
+{
+  "description": "区域访问额度 DSL 与 progress 调试输出；运行 test_region_visit_quota.py 时自动刷新。",
+  "cases": [
+    {
+      "name": "cargo_touch_distinct_day_quota",
+      "description": "增城装货或卸货订单按不同自然日累计，同一天多单只算一天。",
+      "dsl": {
+        "rule_id": "P002.R3",
+        "type": "region_visit_quota",
+        "progress_kind": "monthly_quota",
+        "active_period": null,
+        "params": {
+          "region": {
+            "kind": "named",
+            "name": "增城区"
+          },
+          "event": "cargo_touch",
+          "count_by": "distinct_day",
+          "min_count": 4
+        }
+      },
+      "progress": {
+        "rule_id": "P002.R3",
+        "type": "region_visit_quota",
+        "progress_kind": "monthly_quota",
+        "as_of_minutes": 7200,
+        "as_of_time": "2026-03-06 00:00:00",
+        "required_count": 4,
+        "completed_count": 2,
+        "remaining_count": 2,
+        "remaining_days": 26,
+        "slack_days": 24,
+        "satisfied": false
+      }
+    },
+    {
+      "name": "position_arrival_distinct_day_quota",
+      "description": "车辆到达目标圆形区域时，按不同自然日累计访问额度。",
+      "dsl": {
+        "rule_id": "P010.R2",
+        "type": "region_visit_quota",
+        "progress_kind": "monthly_quota",
+        "active_period": null,
+        "params": {
+          "region": {
+            "kind": "circle",
+            "lat": 23.13,
+            "lng": 113.26,
+            "radius_km": 1
+          },
+          "event": "position_arrival",
+          "count_by": "distinct_day",
+          "min_count": 5
+        }
+      },
+      "progress": {
+        "rule_id": "P010.R2",
+        "type": "region_visit_quota",
+        "progress_kind": "monthly_quota",
+        "as_of_minutes": 7200,
+        "as_of_time": "2026-03-06 00:00:00",
+        "required_count": 5,
+        "completed_count": 2,
+        "remaining_count": 3,
+        "remaining_days": 26,
+        "slack_days": 23,
+        "satisfied": false
+      }
+    }
+  ]
+}

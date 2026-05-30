@@ -1,0 +1,59 @@
+{
+  "description": "距离限制 DSL 与累计进度调试输出；运行 test_distance_limit.py 时自动刷新。",
+  "cases": [
+    {
+      "name": "single_order_pickup_deadhead_limit",
+      "description": "单笔订单接货空驶超过 55 公里时，后续统一评估器应禁用候选或计算罚分。",
+      "dsl": {
+        "rule_id": "P001.R1",
+        "type": "distance_limit",
+        "progress_kind": "none",
+        "active_period": null,
+        "params": {
+          "metric": "pickup_deadhead_km",
+          "max_km": 55
+        }
+      }
+    },
+    {
+      "name": "single_order_haul_distance_limit",
+      "description": "单笔订单承运里程超过 100 公里时，后续统一评估器应禁用候选或计算罚分。",
+      "dsl": {
+        "rule_id": "P002.R1",
+        "type": "distance_limit",
+        "progress_kind": "none",
+        "active_period": null,
+        "params": {
+          "metric": "haul_distance_km",
+          "max_km": 100
+        }
+      }
+    },
+    {
+      "name": "monthly_deadhead_limit_exceeded",
+      "description": "月度累计空驶包含接货空驶与主动调度里程，不包含承运里程。",
+      "dsl": {
+        "rule_id": "P003.R1",
+        "type": "distance_limit",
+        "progress_kind": "cumulative",
+        "active_period": null,
+        "params": {
+          "metric": "monthly_deadhead_km",
+          "max_km": 100
+        }
+      },
+      "progress": {
+        "rule_id": "P003.R1",
+        "type": "distance_limit",
+        "progress_kind": "cumulative",
+        "as_of_minutes": 17280,
+        "as_of_time": "2026-03-13 00:00:00",
+        "metric": "monthly_deadhead_km",
+        "max_km": 100.0,
+        "current_km": 107.5,
+        "remaining_free_km": 0.0,
+        "exceeded_km": 7.5
+      }
+    }
+  ]
+}
